@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useCallback } from "react";
+import KeywordSearch from "./components/KeywordSearch";
+import AddRecipe from "./components/AddRecipe";
 
 function App() {
+  const [isShownHome, setIsShownHome] = useState(true);
+
+  function addRecipe() {
+    setIsShownHome(false);
+  }
+
+  const handleResetToHome = useCallback((reset) => {
+    setIsShownHome(reset);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      {isShownHome && <h1>Meine Rezepte</h1>}
+      {isShownHome && <KeywordSearch />}
+      {isShownHome && (
+        <button onClick={addRecipe}>Neues Rezept hinzufügen</button>
+      )}
+      {!isShownHome && <AddRecipe onReturnHome={handleResetToHome} />}
     </div>
   );
 }
