@@ -1,46 +1,53 @@
 import React, { useState } from "react";
 
-function KeywordCategories(props) {
-  const keywordCategory = props.keywordCategory;
-  const listItems = props.listItems;
+function KeywordCategories({
+  onKeywordSelected,
+  onKeywordDeselected,
+  keywordCategory,
+  listOfKeywords,
+}) {
   const [keywordIsSelected, setKeywordIsSelected] = useState(
-    Array(listItems.length).fill(false)
+    Array(listOfKeywords.length).fill(false)
+  );
+
+  const keywords = (
+    <div>
+      {listOfKeywords.map((keyword, index) => (
+        <button
+          key={keyword}
+          className={
+            keywordIsSelected[index]
+              ? "is-chosen-keywords"
+              : "not-chosen-keywords"
+          }
+          onClick={() => handleKeywordClick(index)}
+        >
+          {keyword}
+        </button>
+      ))}
+    </div>
   );
 
   function handleKeywordClick(index) {
-    // Erstellt eine Kopie des Arrays ingredientIsSelected.
+    // Erstellt eine Kopie des Arrays keywordIsSelected.
     const newKeywordIsSelected = [...keywordIsSelected];
-    // Wenn eine Zutat angeklickt wird, wird sie entweder ausgewählt,
-    // wenn sie noch nicht ausgewählt war, oder sie wird abgewählt,
-    // wenn sie schon ausgewählt war.
+    // Wenn ein Schlagwort angeklickt wird, wird es entweder ausgewählt,
+    // wenn es noch nicht ausgewählt war, oder es wird abgewählt,
+    // wenn es schon ausgewählt war.
     keywordIsSelected[index]
       ? (newKeywordIsSelected[index] = false)
       : (newKeywordIsSelected[index] = true);
-    // Die Liste der Zutaten wird im Elternteil aktualisiert
+    // Die Liste der Schlagwörter wird im Elternteil aktualisiert
     newKeywordIsSelected[index]
-      ? props.onKeywordSelected(listItems[index])
-      : props.onKeywordDeselected(listItems[index]);
+      ? onKeywordSelected(listOfKeywords[index])
+      : onKeywordDeselected(listOfKeywords[index]);
     setKeywordIsSelected(newKeywordIsSelected);
   }
 
   return (
     <div className="container">
       <p className="bold">{keywordCategory}</p>
-      <div>
-        {listItems.map((item, index) => (
-          <button
-            key={item}
-            className={
-              keywordIsSelected[index]
-                ? "is-chosen-keywords"
-                : "not-chosen-keywords"
-            }
-            onClick={() => handleKeywordClick(index)}
-          >
-            {item}
-          </button>
-        ))}
-      </div>
+      {keywords}
     </div>
   );
 }

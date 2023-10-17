@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function IngredientGroup(props) {
+function ListOfItems( {onItemSelected, onItemDeselected}) {
   // Überbegriff der Kategorie von Zutaten
   const ingredientsCategory = props.ingredientsCategory;
   // Zutaten aus der Kategorie
@@ -15,18 +15,6 @@ function IngredientGroup(props) {
   // Speichert welche Zutaten angezeigt werden.
   const [visibleIngredients, setVisibleIngredients] = useState(
     Array(choiceOfIngredients.length).fill(false)
-  );
-  const ingredients = choiceOfIngredients.map(
-    (ingredient, index) =>
-      visibleIngredients[index] && (
-        <button
-          key={ingredient}
-          onClick={() => handleIngredientClick(index)}
-          className={ingredientIsSelected[index] ? "is-chosen" : "not-chosen"}
-        >
-          {ingredient}
-        </button>
-      )
   );
 
   // Wenn die Kategorie angeklickt wird,
@@ -55,19 +43,32 @@ function IngredientGroup(props) {
       : (newIngredientIsSelected[index] = true);
     // Die Liste der Zutaten wird im Elternteil aktualisiert
     ingredientIsSelected[index]
-      ? props.onIngredientDeselected(choiceOfIngredients[index])
-      : props.onIngredientSelected(choiceOfIngredients[index]);
+      ? onIngredientDeselected(choiceOfIngredients[index])
+      : onIngredientSelected(choiceOfIngredients[index]);
     setIngredientIsSelected(newIngredientIsSelected);
   }
 
   return (
-    <div className="ingredient-sub-group container">
+    <div className="ingredient-sub-group">
       <button className="category" onClick={handleCategoryClick}>
         {ingredientsCategory}
       </button>
-      {ingredients}
+      {choiceOfIngredients.map(
+        (ingredient, index) =>
+          visibleIngredients[index] && (
+            <button
+              key={ingredient}
+              onClick={() => handleIngredientClick(index)}
+              className={
+                ingredientIsSelected[index] ? "is-chosen" : "not-chosen"
+              }
+            >
+              {ingredient}
+            </button>
+          )
+      )}
     </div>
   );
 }
 
-export default IngredientGroup;
+export default ListOfItems;

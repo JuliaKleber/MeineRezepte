@@ -1,0 +1,22 @@
+.is-chosen-keywords {
+  width: 150px;
+  background-color: rgb(184, 32, 146);
+  color: white;
+  padding: 5px;
+  margin: 5px;
+  font-size: 20px;
+}
+
+.not-chosen-keywords {
+  width: 150px;
+  background-color: white;
+  color: black;
+  padding: 5px;
+  margin: 5px;
+  font-size: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.bold {
+  font-weight: bold;
+}

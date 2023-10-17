@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
+import deleteSymbol from "../../pictures/delete.jpeg";
 
 function AddAmounts({
   ingredients,
@@ -8,111 +9,151 @@ function AddAmounts({
   onDescription,
 }) {
   const [recipeName, setRecipeName] = useState("");
-  const recipeNameInputRef = useRef(null);
   const [amounts, setAmounts] = useState(Array(ingredients.length).fill(""));
+  const [updatedIngredients, setUpdatedIngredients] = useState(ingredients);
   const [description, setDescription] = useState("");
+  const [selectedIngredientsNumber, setSelectedIngredientsNumber] = useState(
+    ingredients.length
+  );
 
-  // Speichert den Rezeptnamen
-  const handleRecipeNameChange = (event) => {
-    setRecipeName(event.target.value);
-  };
+  const recipeNameField = (
+    <div className="container">
+      Name des Rezepts
+      <br />
+      <input
+        type="text"
+        value={recipeName}
+        onChange={(e) => setRecipeName(e.target.value)}
+      />
+    </div>
+  );
 
-  // Wenn die Anzahl der Zutaten sich ändert,
-  // wird ein 'leeres' Array für die Mengen der Zutaten erstellt.
-  useEffect(() => {
-    setAmounts(Array(ingredients.length).fill(""));
-  }, [ingredients]);
-
-  // Speichert die Menge der Zutaten
   const handleAmountChange = (value, index) => {
     let newAmounts = [...amounts];
     newAmounts[index] = value;
     setAmounts(newAmounts);
   };
 
-  // Speichert die Anleitung
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
+  const handleIngredientChange = (value, index) => {
+    let newIngredients = [...updatedIngredients];
+    newIngredients[index] = value;
+    setUpdatedIngredients(newIngredients);
   };
+
+  const handleDeleteIngredient = (index) => {
+    let newIngredients = [...updatedIngredients];
+    newIngredients.splice(index, 1);
+    setUpdatedIngredients(newIngredients);
+    let newAmounts = [...amounts];
+    newAmounts.splice(index, 1);
+    setAmounts(newAmounts);
+    index < selectedIngredientsNumber &&
+      setSelectedIngredientsNumber(selectedIngredientsNumber - 1);
+  };
+
+  const amountsAndIngredientsFields = (
+    <div>
+      <p>Zutaten pro Person</p>
+      <table>
+        <tbody>
+          {updatedIngredients.map((ingredient, index) => (
+            <tr key={`${ingredient}_${index}`}>
+              <td>
+                <input
+                  type="text"
+                  value={amounts[index]}
+                  onChange={(e) => handleAmountChange(e.target.value, index)}
+                  className="enter-amount-fields"
+                />
+              </td>
+              <td className="left">
+                {index < selectedIngredientsNumber ? (
+                  ingredient
+                ) : (
+                  <input
+                    type="text"
+                    value={updatedIngredients[index]}
+                    onChange={(e) =>
+                      handleIngredientChange(e.target.value, index)
+                    }
+                    className="enter-amount-fields"
+                  />
+                )}
+              </td>
+              <td>
+                <button
+                  onClick={(e) => handleDeleteIngredient(index)}
+                  className="delete-button"
+                >
+                  <img
+                    src={deleteSymbol}
+                    alt="Zutat löschen"
+                    className="delete-symbol"
+                  />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
+  const handleAddIngredient = () => {
+    let newAmounts = [...amounts];
+    let newIngredients = [...updatedIngredients];
+    newAmounts.push("");
+    newIngredients.push("");
+    setAmounts(newAmounts);
+    setUpdatedIngredients(newIngredients);
+  };
+
+  const addIngredientButton = (
+    <button
+      className="add-recipe"
+      id="add-ingredient-button"
+      onClick={handleAddIngredient}
+    >
+      Zutat hinzufügen
+    </button>
+  );
+
+  const descriptionField = (
+    <div className="container">
+      <p className="center">Zubereitung</p>
+      <textarea
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        id="description-entry-field"
+      ></textarea>
+    </div>
+  );
+
+  const navigation = (
+    <span>
+      <button onClick={() => onChangeStep("ingredients")}>zurück</button>
+      <button
+        onClick={() => {
+          onChangeStep("keywords");
+          onSaveRecipeName(recipeName);
+          onSaveAmounts(amounts);
+          onDescription(description);
+        }}
+      >
+        weiter
+      </button>
+    </span>
+  );
 
   return (
     <div className="container">
-      <div className="container">
-        Name des Rezepts
-        <br />
-        <input
-          type="text"
-          ref={recipeNameInputRef}
-          value={recipeName}
-          onChange={handleRecipeNameChange}
-        />
-      </div>
-      <div id="ingredientAmountEntry">
-        {ingredients.map((ingredient, index) => (
-          <div key={index}>
-            <input
-              type="text"
-              id={ingredient}
-              className="amounts"
-              value={amounts[index]}
-              onChange={(event) =>
-                handleAmountChange(event.target.value, index)
-              }
-            />
-            {ingredient}
-          </div>
-        ))}
-      </div>
-      <div className="container">
-        <p className="center">Zubereitung</p>
-        <textarea
-          id="description"
-          onChange={handleDescriptionChange}
-          value={description}
-        ></textarea>
-      </div>
-      <span>
-        <button onClick={() => onChangeStep("ingredients")}>zurück</button>
-        <button
-          onClick={() => {
-            onChangeStep("keywords");
-            onSaveRecipeName(recipeName);
-            onSaveAmounts(amounts);
-            onDescription(description);
-          }}
-        >
-          weiter
-        </button>
-      </span>
+      {recipeNameField}
+      {amountsAndIngredientsFields}
+      {addIngredientButton}
+      {descriptionField}
+      {navigation}
     </div>
   );
 }
 
 export default AddAmounts;
-
-/*  const [touchStartX, setTouchStartX] = useState(null);
-  const [touchEndX, setTouchEndX] = useState(null);
-
-  onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd(ingredientChosen)}*/
-
-/* const handleTouchStart = (event) => {
-    // event.touches ist ein Array von Touch-Objekten.
-    // Da nur ein Finger auf dem Bildschirm ist, gibt es nur das eine (erste) Objekt.
-    // clientX: x-Koordinate des Berührungspunktes in Bezug auf das Client-Fenster
-    setTouchStartX(event.touches[0].clientX);
-  };
-
-  const handleTouchMove = (event) => {
-    setTouchEndX(event.touches[0].clientX);
-  };
-
-  const handleTouchEnd = (ingredientChosen) => {
-    if (touchStartX && touchEndX && touchStartX - touchEndX > 50) {
-      // Das Element wurde nach links gewischt
-      removeIngredient(ingredientChosen);
-    }
-    setTouchStartX(null);
-    setTouchEndX(null);
-  };*/

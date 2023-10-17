@@ -1,4 +1,12 @@
-@import "./stylesheets/changeRecipe.css";
+@import "./stylesheets/KeywordSearch.css";
+/*@import "./stylesheets/ShowRecipe.css";*/
+/*@import "./stylesheets/ChangeRecipe.css";*/
+/*@import "./stylesheets/DeleteRecipe.css";*/
+@import "./stylesheets/IngredientGroup.css";
+@import "./stylesheets/AddAmounts.css";
+@import "./stylesheets/AddKeywords.css";
+/*@import "./stylesheets/AddRecipe.css";*/
+
 
 body {
   font-family: "Comic Sans MS";
@@ -38,182 +46,9 @@ input:focus {
   border: 3spx solid rgb(184, 32, 146);
 }
 
-/* in ShowRecipe */
-h2 {
-  text-align: center;
-}
-
-/* in ShowRecipe */
-td {
-  padding: 0px 5px;
-}
-
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 10px;
 }
-
-/* in KeywordSearch */
-#search-field {
-  width: 170px;
-  margin-top: 30px;
-  margin-bottom: 50px;
-}
-
-/* in KeywordSearch */
-.white {
-  background-color: white;
-  color: black;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-/* in ShowRecipe */
-#number-of-persons {
-  width: 30px;
-  height: 20px;
-  text-align: center;
-  margin: 5px;
-  margin-bottom: 15px;
-}
-
-/* in ShowRecipe */
-.recipe {
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  padding: 10px;
-  margin: 15px 5px;
-}
-
-/* in ShowRecipe */
-.center {
-  text-align: center;
-}
-
-/* in ShowRecipe */
-.align-right {
-  text-align: right;
-}
-
-/* inDeleteRecipe */
-.y-n {
-  width: 80px;
-  margin: 15px;
-}
-
-/* in DeleteRecipe */
-.black {
-  color: black;
-}
-
-/* in IngredientGroup.js */
-.category {
-  color: black;
-  background-color: white;
-  width: 300px;
-  padding: 5px;
-  margin: 5px;
-  font-size: 20px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-/* in IngredientGroup.js */
-.not-chosen {
-  color: black;
-  background-color: white;
-  width: 230px;
-  padding: 5px;
-  margin: 5px;
-  font-size: 20px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-/* in IngredientGroup.js */
-.is-chosen {
-  width: 230px;
-  background-color: rgb(184, 32, 146);
-  color: white;
-  padding: 5px;
-  margin: 5px;
-  font-size: 20px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-/* in AddRecipe */
-textarea {
-  border: 2px solid rgb(184, 32, 146);
-  border-radius: 20px;
-  width: 330px;
-  height: 180px;
-  font-size: 17px;
-  font-family: "Comic Sans MS";
-}
-
-/* in AddRecipe */
-.amounts {
-  width: 100px;
-  margin: 10px;
-}
-
-/* in AddRecipe */
-#ingredientAmountEntry {
-  text-align: left;
-}
-
-/* in Amounts */
-.ingredient-item {
-  transition: transform 0.3s ease;
-}
-
-/* in Amounts */
-.swipe-out {
-  transform: translateX(-100%);
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* in AddKeywords.js */
-.is-chosen-keywords {
-  width: 150px;
-  background-color: rgb(184, 32, 146);
-  color: white;
-  padding: 5px;
-  margin: 5px;
-  font-size: 20px;
-}
-
-/* in AddKeywords.js */
-.not-chosen-keywords {
-  width: 150px;
-  background-color: white;
-  color: black;
-  padding: 5px;
-  margin: 5px;
-  font-size: 20px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-/* in AddKeywords */
-.bold {
-  font-weight: bold;
-}
-
-@media only screen and (min-width: 500px) {
-  /*in IngredientGroup.js */
-  .ingredient-sub-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* in ShowRecipe */
-  #recipe-description {
-    max-width: 600px;
-  }
-} /*
-   in AddRecipe
-  #ingredientAmountEntry {
-    margin: 30px;
-    text-align: left;
-  }*/

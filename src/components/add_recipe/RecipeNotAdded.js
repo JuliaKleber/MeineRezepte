@@ -1,9 +1,9 @@
 import React from "./RecipeAdded";
 
-function RecipeNotAdded(props) {
-  // Geht zum Start Menü
+function RecipeNotAdded( {onChangeStep} ) {
+
   const goToStartMenu = () => {
-    props.onChangeStep("none");
+    onChangeStep("none");
   };
 
   return (

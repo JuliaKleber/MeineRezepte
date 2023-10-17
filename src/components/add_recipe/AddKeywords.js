@@ -26,25 +26,25 @@ function AddKeywords(props) {
     <div>
       <KeywordCategories
         keywordCategory="Ernährungsform"
-        listItems={["vegan", "vegetarisch"]}
+        listOfKeywords={["vegan", "vegetarisch"]}
         onKeywordSelected={addKeyword}
         onKeywordDeselected={removeKeyword}
       />
       <KeywordCategories
         keywordCategory="Zeitbedarf"
-        listItems={["schnell", "mittel", "aufwändig"]}
+        listOfKeywords={["schnell", "mittel", "aufwändig"]}
         onKeywordSelected={addKeyword}
         onKeywordDeselected={removeKeyword}
       />
       <KeywordCategories
         keywordCategory="Jahreszeit"
-        listItems={["Frühling", "Sommer", "Herbst", "Winter"]}
+        listOfKeywords={["Frühling", "Sommer", "Herbst", "Winter"]}
         onKeywordSelected={addKeyword}
         onKeywordDeselected={removeKeyword}
       />
       <KeywordCategories
         keywordCategory="Saison der Hauptzutaten"
-        listItems={[
+        listOfKeywords={[
           "Januar",
           "Februar",
           "März",
@@ -63,7 +63,7 @@ function AddKeywords(props) {
       />
       <KeywordCategories
         keywordCategory="Stil"
-        listItems={[
+        listOfKeywords={[
           "asiatisch",
           "deutsch",
           "italienisch",
@@ -75,7 +75,7 @@ function AddKeywords(props) {
       />
       <KeywordCategories
         keywordCategory="Kategorie"
-        listItems={["Curry", "Lasagne", "Nudeln", "Sonstiges"]}
+        listOfKeywords={["Curry", "Lasagne", "Nudeln", "Sonstiges"]}
         onKeywordSelected={addKeyword}
         onKeywordDeselected={removeKeyword}
       />

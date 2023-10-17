@@ -13,6 +13,13 @@ function AddRecipe(props) {
   const [recipeName, setRecipeName] = useState("");
   const [amounts, setAmounts] = useState(Array(ingredients.length).fill(""));
   const [description, setDescription] = useState("");
+  const recipe = {
+    name: { recipeName },
+    amounts: { amounts },
+    ingredients: { ingredients },
+    description: { description },
+    keywords: { keywords },
+  };
 
   //Geht zum nächsten Schritt
   const handleCurrentStep = (nextStep) => {
@@ -66,14 +73,7 @@ function AddRecipe(props) {
           />
           <span>
             <button onClick={() => handleCurrentStep("amounts")}>zurück</button>
-            <SaveRecipe
-              recipeName={recipeName}
-              amounts={amounts}
-              ingredients={ingredients}
-              description={description}
-              keywords={keywords}
-              onChangeStep={handleCurrentStep}
-            />
+            <SaveRecipe recipe={recipe} onChangeStep={handleCurrentStep} />
           </span>
         </div>
       )}

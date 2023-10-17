@@ -46,18 +46,6 @@ function AddIngredients({ onChangeStep, onSaveIngredients, onSaveKeywords }) {
           ]}
         />
         <IngredientGroup
-          ingredientsCategory="Hülsenfrüchte"
-          onIngredientSelected={addIngredient}
-          onIngredientDeselected={removeIngredient}
-          choiceOfIngredients={[
-            "Erbsen",
-            "Kichererbsen",
-            "Kidneybohnen",
-            "Linsen",
-            "schwarze Bohnen",
-          ]}
-        />
-        <IngredientGroup
           ingredientsCategory="Öl"
           onIngredientSelected={addIngredient}
           onIngredientDeselected={removeIngredient}
@@ -127,16 +115,15 @@ function AddIngredients({ onChangeStep, onSaveIngredients, onSaveKeywords }) {
           ]}
         />
         <IngredientGroup
-          ingredientsCategory="Nüsse und Samen"
+          ingredientsCategory="Hülsenfrüchte"
           onIngredientSelected={addIngredient}
           onIngredientDeselected={removeIngredient}
           choiceOfIngredients={[
-            "Cashews",
-            "Erdnüsse",
-            "Pinienkerne",
-            "Pistazien",
-            "Sesam",
-            "Sonnenblumenkerne",
+            "Erbsen",
+            "Kichererbsen",
+            "Kidneybohnen",
+            "Linsen",
+            "schwarze Bohnen",
           ]}
         />
         <IngredientGroup
@@ -152,6 +139,19 @@ function AddIngredients({ onChangeStep, onSaveIngredients, onSaveKeywords }) {
             "Mozarella",
             "Parmesan",
             "Pecorino",
+          ]}
+        />{" "}
+        <IngredientGroup
+          ingredientsCategory="Nüsse und Samen"
+          onIngredientSelected={addIngredient}
+          onIngredientDeselected={removeIngredient}
+          choiceOfIngredients={[
+            "Cashews",
+            "Erdnüsse",
+            "Pinienkerne",
+            "Pistazien",
+            "Sesam",
+            "Sonnenblumenkerne",
           ]}
         />
         <IngredientGroup

@@ -1,17 +1,10 @@
 import React from "react";
 
-function SaveRecipe(props) {
+function SaveRecipe( {recipe, onChangeStep} ) {
   const serverUrl = "http://localhost:3001";
-  const recipe = {
-    recipeName: props.recipeName,
-    amounts: props.amounts,
-    ingredients: props.ingredients,
-    description: props.description,
-    keywords: props.keywords,
-  };
 
   // Speichert das Rezept ab
-  function saveRecipe() {
+  function handleSaveRecipe() {
     // Es wird die Funktion fetch() verwendet, um Daten an einen Server zu senden.
     // serverUrl ist die Adresse des Servers, an den die Daten gesendet werden sollen.
     // addData ist der Endpunkt, der auf dem Server genutzt wird.
@@ -30,16 +23,16 @@ function SaveRecipe(props) {
       .then((message) => {
         // Es wird die Nachricht aus der Server-Antwort in der Konsole ausgegeben.
         console.log("Antwort vom Server:", message);
-        props.onChangeStep("recipeAdded");
+        onChangeStep("recipeAdded");
       })
       .catch((error) => {
         // Fehlerbehandlung
         console.error("Fehler beim Senden der Daten:", error);
-        props.onChangeStep("recipeNotAdded");
+        onChangeStep("recipeNotAdded");
       });
   }
 
-  return <button onClick={saveRecipe}>fertig</button>;
+  return <button onClick={handleSaveRecipe}>fertig</button>;
 }
 
 export default SaveRecipe;

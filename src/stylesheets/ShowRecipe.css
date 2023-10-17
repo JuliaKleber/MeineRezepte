@@ -1,0 +1,36 @@
+h2 {
+  text-align: center;
+}
+
+td {
+  padding: 0px 5px;
+}
+
+#number-of-persons {
+  width: 30px;
+  height: 20px;
+  text-align: center;
+  margin: 5px;
+  margin-bottom: 15px;
+}
+
+.recipe {
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 15px 5px;
+}
+
+.center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+@media only screen and (min-width: 500px) {
+  #recipe-description {
+    max-width: 600px;
+  }
+}

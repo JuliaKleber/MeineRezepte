@@ -127,7 +127,7 @@ export default AddAmounts;
 
 /*  const [touchStartX, setTouchStartX] = useState(null);
   const [touchEndX, setTouchEndX] = useState(null);
-  
+
   onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd(ingredientChosen)}*/
@@ -151,3 +151,5 @@ export default AddAmounts;
     setTouchStartX(null);
     setTouchEndX(null);
   };*/
+
+

@@ -1,21 +1,21 @@
 import React from "./RecipeAdded";
 
-function RecipeAdded(props) {
-  // Geht zum Start Menü
-  const goToStartMenu = () => {
-    props.onChangeStep("none");
+function RecipeAdded({ onChangeStep }) {
+  const handleGoToStartMenu = () => {
+    onChangeStep("none");
   };
 
-  // Geht zur Auswahl der Zutaten
-  function goToIngredients() {
-    props.onChangeStep("ingredients");
-  }
+  const handleGoToIngredients = () => {
+    onChangeStep("ingredients");
+  };
 
   return (
     <div className="container">
       <p>Das Rezept wurde der Datenbank hinzugefügt.</p>
-      <button onClick={goToIngredients}>weiteres Rezept hinzufügen</button>
-      <button onClick={goToStartMenu}>zum Startmenü</button>
+      <button onClick={handleGoToIngredients}>
+        weiteres Rezept hinzufügen
+      </button>
+      <button onClick={handleGoToStartMenu}>zum Startmenü</button>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 
 function ChangeOfRecipe({ recipe, recipes, onReturn }) {
   const serverUrl = "http://localhost:3001";
@@ -7,7 +7,6 @@ function ChangeOfRecipe({ recipe, recipes, onReturn }) {
   const [ingredients, setIngredients] = useState(recipe.ingredients);
   const [description, setDescription] = useState(recipe.description);
   const [output, setOutput] = useState("");
-  const [databankUpdated, setDatabankUpdated] = useState(false);
 
   const updatedRecipe = {
     recipeName: recipeName,
