@@ -2,34 +2,7 @@
   width: 100px;
 }
 
-.center {
-  text-align: center;
-}
-
-.left {
-  text-align: left;
-}
-
-.delete-symbol {
-  width: 100%;
-  margin: 0px;
-}
-
-.delete-button {
-  /*width: 20px;*/
-  background-color: white;
-  box-shadow: none;
-  width: 50px;
-}
-
-.add-recipe#add-ingredient-button {
-  color: rgb(184, 32, 146);
-  background-color: white;
-  font-size: 20px;
-}
-
-.add-recipe#add-ingredient-button:hover {
-  color: rgb(125, 22, 99);
+.delete-button:hover {
   box-shadow: 0 0 15px rgb(125, 22, 99);
 }
 
@@ -39,11 +12,9 @@
   border-width: 2px;
   border-radius: 10px;
   border-color: rgb(184, 32, 146);
-  font-family: "Comic Sans MS";
   font-size: 17px;
-  color: rgb(184, 32, 146);
 }
 
-#description-entry-field:focus {
-  outline: none;
+.hide {
+  display: none;
 }

@@ -29,6 +29,16 @@ button {
   font-family: "Comic Sans MS";
 }
 
+.white-button {
+  color: rgb(184, 32, 146);
+  background-color: white;
+  font-size: 20px;
+}
+
+button:hover {
+  box-shadow: 0 0 15px rgb(184, 32, 146, 0.5);
+}
+
 input {
   border-radius: 20px;
   margin: 10px 5px;
@@ -46,9 +56,34 @@ input:focus {
   border: 3spx solid rgb(184, 32, 146);
 }
 
+input:hover {
+  box-shadow: 0 0 15px rgb(184, 32, 146, 0.5);
+}
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 10px;
+}
+
+textarea {
+  font-family: "Comic Sans MS";
+  color: rgb(184, 32, 146);
+}
+
+textarea:hover {
+  box-shadow: 0 0 15px rgb(184, 32, 146, 0.5);
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.center {
+  text-align: center;
+}
+
+.left {
+  text-align: left;
 }

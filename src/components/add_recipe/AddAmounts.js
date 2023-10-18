@@ -1,105 +1,48 @@
 import React, { useState } from "react";
-import deleteSymbol from "../../pictures/delete.jpeg";
+import RecipeNameField from "./RecipeNameField";
+import AmountsAndIngredientsFields from "./AmountsAndIngredientsFields";
+import AddIngredientButton from "./AddIngredientButton";
+import DescriptionField from "./DescriptionField";
+import Navigation from "./Navigation";
 
 function AddAmounts({
   ingredients,
   onChangeStep,
   onSaveRecipeName,
   onSaveAmounts,
-  onDescription,
+  //onDescription,
 }) {
   const [recipeName, setRecipeName] = useState("");
   const [amounts, setAmounts] = useState(Array(ingredients.length).fill(""));
   const [updatedIngredients, setUpdatedIngredients] = useState(ingredients);
   const [description, setDescription] = useState("");
-  const [selectedIngredientsNumber, setSelectedIngredientsNumber] = useState(
-    ingredients.length
-  );
 
-  const recipeNameField = (
-    <div className="container">
-      Name des Rezepts
-      <br />
-      <input
-        type="text"
-        value={recipeName}
-        onChange={(e) => setRecipeName(e.target.value)}
-      />
-    </div>
-  );
+  const onRecipeNameChange = (updatedRecipeName) => {
+    setRecipeName(updatedRecipeName);
+  };
 
-  const handleAmountChange = (value, index) => {
+  const onHandleAmountChange = (value, index) => {
     let newAmounts = [...amounts];
     newAmounts[index] = value;
     setAmounts(newAmounts);
   };
 
-  const handleIngredientChange = (value, index) => {
+  const onHandleIngredientChange = (value, index) => {
     let newIngredients = [...updatedIngredients];
     newIngredients[index] = value;
     setUpdatedIngredients(newIngredients);
   };
 
-  const handleDeleteIngredient = (index) => {
+  const onHandleDeleteIngredient = (index) => {
     let newIngredients = [...updatedIngredients];
     newIngredients.splice(index, 1);
     setUpdatedIngredients(newIngredients);
     let newAmounts = [...amounts];
     newAmounts.splice(index, 1);
     setAmounts(newAmounts);
-    index < selectedIngredientsNumber &&
-      setSelectedIngredientsNumber(selectedIngredientsNumber - 1);
   };
 
-  const amountsAndIngredientsFields = (
-    <div>
-      <p>Zutaten pro Person</p>
-      <table>
-        <tbody>
-          {updatedIngredients.map((ingredient, index) => (
-            <tr key={`${ingredient}_${index}`}>
-              <td>
-                <input
-                  type="text"
-                  value={amounts[index]}
-                  onChange={(e) => handleAmountChange(e.target.value, index)}
-                  className="enter-amount-fields"
-                />
-              </td>
-              <td className="left">
-                {index < selectedIngredientsNumber ? (
-                  ingredient
-                ) : (
-                  <input
-                    type="text"
-                    value={updatedIngredients[index]}
-                    onChange={(e) =>
-                      handleIngredientChange(e.target.value, index)
-                    }
-                    className="enter-amount-fields"
-                  />
-                )}
-              </td>
-              <td>
-                <button
-                  onClick={(e) => handleDeleteIngredient(index)}
-                  className="delete-button"
-                >
-                  <img
-                    src={deleteSymbol}
-                    alt="Zutat löschen"
-                    className="delete-symbol"
-                  />
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-
-  const handleAddIngredient = () => {
+  const onHandleAddIngredient = () => {
     let newAmounts = [...amounts];
     let newIngredients = [...updatedIngredients];
     newAmounts.push("");
@@ -108,26 +51,9 @@ function AddAmounts({
     setUpdatedIngredients(newIngredients);
   };
 
-  const addIngredientButton = (
-    <button
-      className="add-recipe"
-      id="add-ingredient-button"
-      onClick={handleAddIngredient}
-    >
-      Zutat hinzufügen
-    </button>
-  );
-
-  const descriptionField = (
-    <div className="container">
-      <p className="center">Zubereitung</p>
-      <textarea
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        id="description-entry-field"
-      ></textarea>
-    </div>
-  );
+  const onDescriptionChange = (updatedDescription) => {
+    setDescription(updatedDescription);
+  };
 
   const navigation = (
     <span>
@@ -137,7 +63,7 @@ function AddAmounts({
           onChangeStep("keywords");
           onSaveRecipeName(recipeName);
           onSaveAmounts(amounts);
-          onDescription(description);
+          //onDescription(description);
         }}
       >
         weiter
@@ -147,10 +73,22 @@ function AddAmounts({
 
   return (
     <div className="container">
-      {recipeNameField}
-      {amountsAndIngredientsFields}
-      {addIngredientButton}
-      {descriptionField}
+      <RecipeNameField
+        recipeName={recipeName}
+        onRecipeNameChange={onRecipeNameChange}
+      />
+      <AmountsAndIngredientsFields
+        amounts={amounts}
+        updatedIngredients={updatedIngredients}
+        onHandleAmountChange={onHandleAmountChange}
+        onHandleIngredientChange={onHandleIngredientChange}
+        onHandleDeleteIngredient={onHandleDeleteIngredient}
+      />
+      <AddIngredientButton onHandleAddIngredient={onHandleAddIngredient} />
+      <DescriptionField
+        description={description}
+        onDescriptionChange={onDescriptionChange}
+      />
       {navigation}
     </div>
   );
