@@ -1,25 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import KeywordCategories from "./KeywordCategories";
 
-function AddKeywords(props) {
-  const { oldKeywords } = props;
-  const [keywords, setKeywords] = useState([]);
-
-  useEffect(() => {
-    setKeywords([...oldKeywords]);
-  }, []);
+function AddKeywords( {recipe, onSaveKeywords} ) {
 
   // Schlagwort wird der Liste der Schlagwörter hinzugefügt.
-  const addKeyword = (keyword) => {
-    setKeywords([...keywords, keyword]);
+  const handleAddKeyword = (keyword) => {
+    onSaveKeywords([...recipe.keywords, keyword]);
   };
 
   // Schlagwort wird aus der Liste der Schlagwörter entfernt.
-  const removeKeyword = (keyword) => {
-    let newKeywords = [...keywords];
+  const handleRemoveKeyword = (keyword) => {
+    let newKeywords = [...recipe.keywords];
     const index = newKeywords.indexOf(keyword);
     newKeywords.splice(index, 1);
-    setKeywords(newKeywords);
+    onSaveKeywords(newKeywords);
   };
 
   return (
@@ -27,20 +21,20 @@ function AddKeywords(props) {
       <KeywordCategories
         keywordCategory="Ernährungsform"
         listOfKeywords={["vegan", "vegetarisch"]}
-        onKeywordSelected={addKeyword}
-        onKeywordDeselected={removeKeyword}
+        onKeywordSelected={handleAddKeyword}
+        onKeywordDeselected={handleRemoveKeyword}
       />
       <KeywordCategories
         keywordCategory="Zeitbedarf"
         listOfKeywords={["schnell", "mittel", "aufwändig"]}
-        onKeywordSelected={addKeyword}
-        onKeywordDeselected={removeKeyword}
+        onKeywordSelected={handleAddKeyword}
+        onKeywordDeselected={handleRemoveKeyword}
       />
       <KeywordCategories
         keywordCategory="Jahreszeit"
         listOfKeywords={["Frühling", "Sommer", "Herbst", "Winter"]}
-        onKeywordSelected={addKeyword}
-        onKeywordDeselected={removeKeyword}
+        onKeywordSelected={handleAddKeyword}
+        onKeywordDeselected={handleRemoveKeyword}
       />
       <KeywordCategories
         keywordCategory="Saison der Hauptzutaten"
@@ -58,8 +52,8 @@ function AddKeywords(props) {
           "November",
           "Dezember",
         ]}
-        onKeywordSelected={addKeyword}
-        onKeywordDeselected={removeKeyword}
+        onKeywordSelected={handleAddKeyword}
+        onKeywordDeselected={handleRemoveKeyword}
       />
       <KeywordCategories
         keywordCategory="Stil"
@@ -70,14 +64,14 @@ function AddKeywords(props) {
           "TexMex",
           "Sonstiges",
         ]}
-        onKeywordSelected={addKeyword}
-        onKeywordDeselected={removeKeyword}
+        onKeywordSelected={handleAddKeyword}
+        onKeywordDeselected={handleRemoveKeyword}
       />
       <KeywordCategories
         keywordCategory="Kategorie"
         listOfKeywords={["Curry", "Lasagne", "Nudeln", "Sonstiges"]}
-        onKeywordSelected={addKeyword}
-        onKeywordDeselected={removeKeyword}
+        onKeywordSelected={handleAddKeyword}
+        onKeywordDeselected={handleRemoveKeyword}
       />
     </div>
   );

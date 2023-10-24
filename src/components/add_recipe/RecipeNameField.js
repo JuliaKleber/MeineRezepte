@@ -1,6 +1,6 @@
 import React from "react";
 
-function RecipeNameField({ recipeName, onRecipeNameChange }) {
+function RecipeNameField({ recipeName, onRecipeNameChange, recipeNameFieldRef }) {
   const recipeNameField = (
     <div className="container">
       Name des Rezepts
@@ -8,6 +8,7 @@ function RecipeNameField({ recipeName, onRecipeNameChange }) {
       <input
         type="text"
         value={recipeName}
+        ref={recipeNameFieldRef}
         onChange={(e) => onRecipeNameChange(e.target.value)}
       />
     </div>

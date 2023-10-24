@@ -112,7 +112,7 @@ function ChangeOfRecipe({ recipe, recipes, onReturn }) {
           <tbody>
             {ingredients.map((ingredient, index) => (
               <tr key={index}>
-                <td className="right">
+                <td className="align-right">
                   <input
                     className="recipe-change amounts-fields"
                     value={amounts[index]}

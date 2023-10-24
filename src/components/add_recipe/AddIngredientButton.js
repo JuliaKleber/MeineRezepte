@@ -1,11 +1,11 @@
 import React from "react";
 
-function AddIngredientButton({ onHandleAddIngredient }) {
+function AddIngredientButton({ buttonClass, buttonText, onAddIngredient }) {
 
 
   const addIngredientButton = (
-    <button className="white-button" onClick={onHandleAddIngredient}>
-      Zutat hinzufügen
+    <button className={buttonClass} onClick={onAddIngredient}>
+      {buttonText}
     </button>
   );
 

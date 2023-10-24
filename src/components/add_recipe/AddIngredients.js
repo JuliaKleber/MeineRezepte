@@ -1,28 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import IngredientGroup from "./IngredientGroup";
 
-function AddIngredients({ onChangeStep, onSaveIngredients, onSaveKeywords }) {
-  const [chosenIngredients, setChosenIngredients] = useState([]);
-  const [keywords, setKeywords] = useState([]);
+function AddIngredients({ recipe, onSaveIngredients, onSaveKeywords }) {
 
   // Zutat wird der Liste der Zutaten hinzugefügt.
   // Die Zutat wird ebenso zu der Liste der Schlagwörter hinzugefügt,
   // damit das Rezept aufgrund der Zutaten gefunden werden kann
   const addIngredient = (ingredient) => {
-    setChosenIngredients([...chosenIngredients, ingredient]);
-    setKeywords([...keywords, ingredient]);
+    onSaveIngredients([...recipe.ingredients, ingredient]);
+    onSaveKeywords([...recipe.keywords, ingredient]);
   };
 
   // Zutat wird aus der Liste der Zutaten entfernt
   const removeIngredient = (ingredient) => {
-    let newChosenIngredients = [...chosenIngredients];
+    let newChosenIngredients = [...recipe.ingredients];
     let index = newChosenIngredients.indexOf(ingredient);
     newChosenIngredients.splice(index, 1);
-    setChosenIngredients(newChosenIngredients);
-    let newKeywords = [...keywords];
+    onSaveIngredients(newChosenIngredients);
+    let newKeywords = [...recipe.keywords];
     index = newKeywords.indexOf(ingredient);
     newKeywords.splice(index, 1);
-    setKeywords(newKeywords);
+    onSaveKeywords(newKeywords);
   };
 
   return (
@@ -184,18 +182,6 @@ function AddIngredients({ onChangeStep, onSaveIngredients, onSaveKeywords }) {
           ]}
         />
       </div>
-      <span>
-        <button onClick={() => onChangeStep("none")}>zurück</button>
-        <button
-          onClick={() => {
-            onChangeStep("amounts");
-            onSaveIngredients(chosenIngredients);
-            onSaveKeywords(keywords);
-          }}
-        >
-          weiter
-        </button>
-      </span>
     </div>
   );
 }

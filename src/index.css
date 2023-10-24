@@ -1,9 +1,10 @@
 @import "./stylesheets/KeywordSearch.css";
-/*@import "./stylesheets/ShowRecipe.css";*/
-/*@import "./stylesheets/ChangeRecipe.css";*/
+@import "./stylesheets/ShowRecipe.css";
+@import "./stylesheets/ChangeRecipe.css";
 /*@import "./stylesheets/DeleteRecipe.css";*/
 @import "./stylesheets/IngredientGroup.css";
-@import "./stylesheets/AddAmounts.css";
+@import "./stylesheets/AmountsAndIngredientsFields.css";
+@import "./stylesheets/DescriptionField.css";
 @import "./stylesheets/AddKeywords.css";
 /*@import "./stylesheets/AddRecipe.css";*/
 
@@ -43,7 +44,7 @@ input {
   border-radius: 20px;
   margin: 10px 5px;
   padding: 5px 10px;
-  border: 2px solid rgb(184, 32, 146);
+  border: 2px solid rgb(241, 119, 211);
   font-size: 17px;
   font-family: "Comic Sans MS";
   text-align: center;
@@ -53,7 +54,7 @@ input {
 
 input:focus {
   outline: none;
-  border: 3spx solid rgb(184, 32, 146);
+  border: 2px solid rgb(184, 32, 146);
 }
 
 input:hover {
@@ -67,9 +68,15 @@ input:hover {
   margin: 10px;
 }
 
+.container-vertical-alignment {
+  display: flex;
+  justify-content: center;
+}
+
 textarea {
   font-family: "Comic Sans MS";
   color: rgb(184, 32, 146);
+  border: 1px solid rgb(241, 119, 211);
 }
 
 textarea:hover {
@@ -80,10 +87,14 @@ textarea:focus {
   outline: none;
 }
 
-.center {
+.align-center {
   text-align: center;
 }
 
-.left {
+.align-left {
   text-align: left;
+}
+
+.align-right {
+  text-align: right;
 }

@@ -37,9 +37,9 @@ function ShowRecipe({ recipe, onBackToSearchResults, recipes }) {
     <div className="container">
       {currentStep === "recipeIsShown" && (
         <div className="container">
-          <h2 className="recipe center">{recipe.recipeName}</h2>
+          <h2 className="recipe-box center">{recipe.recipeName}</h2>
           <ShowIngredients recipe={recipe} />
-          <p className="recipe center" id="recipe-description">
+          <p className="recipe-box center" id="recipe-description">
             {recipe.description}
           </p>
         </div>
@@ -59,7 +59,7 @@ function ShowRecipe({ recipe, onBackToSearchResults, recipes }) {
         </div>
       )}
 
-      {currentStep === "recipeIsShown" && <p className="center">{output}</p>}
+      {currentStep === "recipeIsShown" && <p className="align-center">{output}</p>}
 
       {currentStep === "recipeIsChanged" && (
         <ChangeOfRecipe recipe={recipe} recipes={recipes} onReturn={handleRecipeChangeOff} />
@@ -74,11 +74,11 @@ function ShowRecipe({ recipe, onBackToSearchResults, recipes }) {
       )}
 
       {currentStep === "deletionNotPerformed" && (
-        <p className="center">{output}</p>
+        <p className="align-center">{output}</p>
       )}
 
       {currentStep === "recipeWasRemoved" && (
-        <div className="center">
+        <div className="align-center">
           <p>{output}</p>
           <button onClick={() => onBackToSearchResults()}>zurück</button>
         </div>

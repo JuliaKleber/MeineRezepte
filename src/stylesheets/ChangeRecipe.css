@@ -17,28 +17,43 @@
 .recipe-change#recipe-name {
   font-size: 30px;
   font-weight : bold;
-}
-
-.right {
-  text-align: right;
+  &:hover{
+    border: none;
+  }
 }
 
 .amounts-fields {
   border-width: 0px;
   box-shadow: 0 0 0;
-  margin: 0px;
+  margin: 0px 5px 0px 0px;
   padding: 0px;
   width: auto;
   text-align: right;
 }
 
+.amounts-fields:hover {
+  box-shadow: none;
+}
+
+.amounts-fields:focus {
+  border: none;
+}
+
 .ingredients-fields {
   border-width: 0px;
   box-shadow: 0 0 0;
-  margin: 0px;
+  margin: 0px 0px 0px 5px;
   padding: 0px;
   width: auto;
   text-align: left;
+}
+
+.ingredients-fields:hover {
+  box-shadow: none;
+}
+
+.ingredients-fields:focus {
+  border: none;
 }
 
 .recipe-change#add-ingredient-button {
@@ -47,11 +62,12 @@
   margin: 20px;
   &:hover {
     color: rgb(131, 22, 104);
-    box-shadow: 0 0 24px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 24px rgba(131, 22, 104, 0.2);
   }
 }
 
 .recipe-change#description {
   text-align: center;
-  width: 700px;
+  width: 330px;
+  height: 250px;
 }

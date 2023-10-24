@@ -385,87 +385,65 @@
     ]
   },
   {
-    "recipeName": "recipeName",
-    "amounts": [
-      "amount1",
-      "amount2",
-      "amount3",
-      "2",
-      "3",
-      "4",
-      "5",
-      "",
-      "",
-      "",
-      ""
-    ],
+    "recipeName": "bbbbbbbbbbbb",
+    "amounts": [],
     "ingredients": [
-      "Basilikum",
-      "Chilischoten",
-      "Ingwer",
-      "neue Zutat",
-      "neue Zutat",
-      "neue Zutat",
-      "neue Zutat"
+      "Brot",
+      "Kartoffeln",
+      "Süßkartoffeln"
     ],
-    "description": "description",
+    "description": "",
     "keywords": [
-      "Basilikum",
-      "Chilischoten",
-      "Ingwer"
+      "Brot",
+      "Kartoffeln",
+      "Süßkartoffeln"
     ]
   },
   {
-    "name": {
-      "recipeName": "new"
-    },
-    "amounts": {
-      "amounts": [
-        "new",
-        "new"
-      ]
-    },
-    "ingredients": {
-      "ingredients": [
-        "Brot",
-        "Kartoffeln"
-      ]
-    },
-    "description": {
-      "description": "new"
-    },
-    "keywords": {
-      "keywords": [
-        "Brot",
-        "Kartoffeln"
-      ]
-    }
+    "recipeName": "ccccccccc",
+    "amounts": [],
+    "ingredients": [
+      "Zwiebeln",
+      "Knoblauchzehen",
+      "Aubergine"
+    ],
+    "description": "",
+    "keywords": [
+      "Zwiebeln",
+      "Knoblauchzehen",
+      "Aubergine"
+    ]
   },
   {
-    "name": {
-      "recipeName": "avdsvdsa"
-    },
-    "amounts": {
-      "amounts": [
-        "adsvsa",
-        "vdsavds",
-        "savddsa"
-      ]
-    },
-    "ingredients": {
-      "ingredients": [
-        "Basilikum",
-        "Chilischoten"
-      ]
-    },
-    "description": {
-      "description": "savavds"
-    },
-    "keywords": {
-      "keywords": [
-        "Basilikum",
-        "Chilischoten"
-      ]
-    }
+    "recipeName": "dddddddddd",
+    "amounts": [],
+    "ingredients": [
+      "Brot",
+      "Kartoffeln",
+      "Süßkartoffeln"
+    ],
+    "description": "",
+    "keywords": [
+      "Brot",
+      "Kartoffeln",
+      "Süßkartoffeln"
+    ]
+  },
+  {
+    "recipeName": "ggggggggggg",
+    "amounts": [],
+    "ingredients": [
+      "Brot",
+      "Kartoffeln",
+      "Süßkartoffeln"
+    ],
+    "description": "",
+    "keywords": [
+      "Brot",
+      "Kartoffeln",
+      "Süßkartoffeln",
+      "vegan",
+      "vegetarisch"
+    ]
   }
 ]

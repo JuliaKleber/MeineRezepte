@@ -42,7 +42,7 @@ function DeleteRecipe({ recipes, recipe, onReturn }) {
 
   return (
     <div className="container">
-      <span className="center black">
+      <span className="align-center black">
         Möchtest du das Rezept wirklich unwiderbringlich löschen?
       </span>
       <span>

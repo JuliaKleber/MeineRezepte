@@ -22,6 +22,7 @@ function SaveRecipe( {recipe, onChangeStep} ) {
       .then((response) => response.text())
       .then((message) => {
         // Es wird die Nachricht aus der Server-Antwort in der Konsole ausgegeben.
+        console.log(recipe.recipeName);
         console.log("Antwort vom Server:", message);
         onChangeStep("recipeAdded");
       })

@@ -2,23 +2,17 @@ import React from "react";
 
 function Navigation({
   onChangeStep,
-  onSaveRecipeName,
-  onSaveAmounts,
-  onDescription,
-  recipeName,
-  amounts,
-  description
+  steps,
+  indexOfPreviousStep,
+  indexOfNextStep
 }) {
 
   const navigation = (
-    <span>
-      <button onClick={() => onChangeStep("ingredients")}>zurück</button>
+    <span className="container-vertical-alignment">
+      <button onClick={() => onChangeStep(steps[indexOfPreviousStep])}>zurück</button>
       <button
         onClick={() => {
-          onChangeStep("keywords");
-          onSaveRecipeName(recipeName);
-          onSaveAmounts(amounts);
-          onDescription(description);
+          onChangeStep(steps[indexOfNextStep])
         }}
       >
         weiter
@@ -26,7 +20,7 @@ function Navigation({
     </span>
   );
 
-  return {navigation}
+  return navigation
 }
 
 export default Navigation;

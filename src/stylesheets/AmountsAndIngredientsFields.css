@@ -1,0 +1,11 @@
+.enter-amounts-fields {
+  width: 100px;
+}
+
+.enter-ingredients-fields {
+  width: 150px;
+}
+
+.delete-button:hover {
+  box-shadow: 0 0 15px rgb(125, 22, 99);
+}

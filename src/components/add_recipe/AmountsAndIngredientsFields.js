@@ -3,10 +3,10 @@ import { AiFillDelete } from "react-icons/ai";
 
 function AmountsAndIngredientsFields({
   amounts,
-  updatedIngredients,
-  onHandleAmountChange,
-  onHandleIngredientChange,
-  onHandleDeleteIngredient
+  ingredients,
+  onAmountChange,
+  onIngredientChange,
+  onDeleteIngredient
 }) {
 
   const amountsAndIngredientsFields = (
@@ -14,30 +14,30 @@ function AmountsAndIngredientsFields({
       <p>Zutaten pro Person</p>
       <table>
         <tbody>
-          {updatedIngredients.map((ingredient, index) => (
-            <tr key={`${ingredient}_${index}`}>
+          {ingredients.map((ingredient, index) => (
+            <tr key={index}>
               <td>
                 <input
                   type="text"
                   value={amounts[index]}
-                  onChange={(e) => onHandleAmountChange(e.target.value, index)}
-                  className="enter-amount-fields"
+                  onChange={(e) => onAmountChange(e.target.value, index)}
+                  className="enter-amounts-fields"
                 />
               </td>
               <td className="left">
                 <input
                   type="text"
-                  value={updatedIngredients[index]}
+                  value={ingredients[index]}
                   onChange={(e) =>
-                    onHandleIngredientChange(e.target.value, index)
+                    onIngredientChange(e.target.value, index)
                   }
-                  className="enter-amount-fields"
+                  className="enter-ingredients-fields"
                 />
               </td>
               <td>
                 <AiFillDelete
                   className="delete-button"
-                  onClick={(e) => onHandleDeleteIngredient(index)}
+                  onClick={(e) => onDeleteIngredient(index)}
                 />
               </td>
             </tr>

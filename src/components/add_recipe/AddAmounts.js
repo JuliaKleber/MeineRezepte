@@ -1,97 +1,75 @@
-import React, { useState } from "react";
+import React from "react";
 import RecipeNameField from "./RecipeNameField";
 import AmountsAndIngredientsFields from "./AmountsAndIngredientsFields";
 import AddIngredientButton from "./AddIngredientButton";
 import DescriptionField from "./DescriptionField";
-import Navigation from "./Navigation";
 
-function AddAmounts({
-  ingredients,
-  onChangeStep,
+function AddRecipeNameAndAmountAndDescriptions({
+  recipe,
+  recipeNameFieldRef,
   onSaveRecipeName,
   onSaveAmounts,
-  //onDescription,
+  onSaveIngredients,
+  onSaveDescription,
 }) {
-  const [recipeName, setRecipeName] = useState("");
-  const [amounts, setAmounts] = useState(Array(ingredients.length).fill(""));
-  const [updatedIngredients, setUpdatedIngredients] = useState(ingredients);
-  const [description, setDescription] = useState("");
 
-  const onRecipeNameChange = (updatedRecipeName) => {
-    setRecipeName(updatedRecipeName);
+  const handleRecipeNameChange = (updatedRecipeName) => {
+    onSaveRecipeName(updatedRecipeName);
   };
 
-  const onHandleAmountChange = (value, index) => {
-    let newAmounts = [...amounts];
+  const handleAmountChange = (value, index) => {
+    let newAmounts = [...recipe.amounts];
     newAmounts[index] = value;
-    setAmounts(newAmounts);
+    onSaveAmounts(newAmounts);
   };
 
-  const onHandleIngredientChange = (value, index) => {
-    let newIngredients = [...updatedIngredients];
+  const handleIngredientChange = (value, index) => {
+    let newIngredients = [...recipe.ingredients];
     newIngredients[index] = value;
-    setUpdatedIngredients(newIngredients);
+    onSaveIngredients(newIngredients);
   };
 
-  const onHandleDeleteIngredient = (index) => {
-    let newIngredients = [...updatedIngredients];
-    newIngredients.splice(index, 1);
-    setUpdatedIngredients(newIngredients);
-    let newAmounts = [...amounts];
-    newAmounts.splice(index, 1);
-    setAmounts(newAmounts);
+  const handleDeleteIngredient = (index) => {
+    const newIngredients = recipe.ingredients.filter((_, i) => i !== index);
+    const newAmounts = recipe.amounts.filter((_, i) => i !== index);
+    onSaveIngredients(newIngredients);
+    onSaveAmounts(newAmounts);
   };
 
-  const onHandleAddIngredient = () => {
-    let newAmounts = [...amounts];
-    let newIngredients = [...updatedIngredients];
+  const handleAddIngredient = () => {
+    let newAmounts = [...recipe.amounts];
+    let newIngredients = [...recipe.ingredients];
     newAmounts.push("");
     newIngredients.push("");
-    setAmounts(newAmounts);
-    setUpdatedIngredients(newIngredients);
+    onSaveAmounts(newAmounts);
+    onSaveIngredients(newIngredients);
   };
 
-  const onDescriptionChange = (updatedDescription) => {
-    setDescription(updatedDescription);
+  const handleDescriptionChange = (updatedDescription) => {
+    onSaveDescription(updatedDescription);
   };
-
-  const navigation = (
-    <span>
-      <button onClick={() => onChangeStep("ingredients")}>zurück</button>
-      <button
-        onClick={() => {
-          onChangeStep("keywords");
-          onSaveRecipeName(recipeName);
-          onSaveAmounts(amounts);
-          //onDescription(description);
-        }}
-      >
-        weiter
-      </button>
-    </span>
-  );
 
   return (
     <div className="container">
       <RecipeNameField
-        recipeName={recipeName}
-        onRecipeNameChange={onRecipeNameChange}
+        recipeName={recipe.recipeName}
+        onRecipeNameChange={handleRecipeNameChange}
+        recipeNameFieldRef={recipeNameFieldRef}
       />
       <AmountsAndIngredientsFields
-        amounts={amounts}
-        updatedIngredients={updatedIngredients}
-        onHandleAmountChange={onHandleAmountChange}
-        onHandleIngredientChange={onHandleIngredientChange}
-        onHandleDeleteIngredient={onHandleDeleteIngredient}
+        amounts={recipe.amounts}
+        ingredients={recipe.ingredients}
+        onAmountChange={handleAmountChange}
+        onIngredientChange={handleIngredientChange}
+        onDeleteIngredient={handleDeleteIngredient}
       />
-      <AddIngredientButton onHandleAddIngredient={onHandleAddIngredient} />
+      <AddIngredientButton buttonClass="white" buttonText="Zutat hinzufügen" onAddIngredient={handleAddIngredient} />
       <DescriptionField
-        description={description}
-        onDescriptionChange={onDescriptionChange}
+        description={recipe.description}
+        onDescriptionChange={handleDescriptionChange}
       />
-      {navigation}
     </div>
   );
 }
 
-export default AddAmounts;
+export default AddRecipeNameAndAmountAndDescriptions;
