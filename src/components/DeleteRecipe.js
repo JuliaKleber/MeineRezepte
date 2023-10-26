@@ -6,7 +6,7 @@ function DeleteRecipe({ recipes, recipe, onReturn }) {
   // Das Rezept wird gelöscht.
   const handleRecipeDeletion = () => {
     // Das Rezept wird aus dem Array updatedRecipes entfernt
-    let updatedRecipes = [...recipes];
+    const updatedRecipes = [...recipes];
     const index = updatedRecipes.indexOf(recipe);
     updatedRecipes.splice(index, 1);
     // Es wird die Funktion fetch() verwendet,

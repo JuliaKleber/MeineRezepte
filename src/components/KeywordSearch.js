@@ -48,12 +48,15 @@ function KeywordSearch(props) {
       const searchWords = contentSearchField
         .split("oder")
         .map((word) => word.trim());
-      let newRecipesFound = [];
+      const newRecipesFound = [];
       searchWords.forEach((word) => {
         recipes.forEach((recipe) => {
-          recipe.keywords.includes(word) && newRecipesFound.push(recipe);
-          recipe.recipeName.toLowerCase().includes(contentSearchField) &&
+          if (recipe.keywords.includes(word)) {
             newRecipesFound.push(recipe);
+          }
+          if (recipe.recipeName.toLowerCase().includes(contentSearchField)) {
+            newRecipesFound.push(recipe);
+          }
         });
       });
       const setOfRecipes = new Set(newRecipesFound);
@@ -65,22 +68,24 @@ function KeywordSearch(props) {
       const searchWords = contentSearchField
         .split("und")
         .map((word) => word.trim());
-      let newRecipesFound = [];
+      const newRecipesFound = [];
       recipes.forEach((recipe) => {
         let recipeSelected = true;
         searchWords.forEach((word) => {
-          !recipe.keywords.includes(word) && (recipeSelected = false);
+          if (!recipe.keywords.includes(word)) {
+            recipeSelected = false;
+          }
         });
-        recipeSelected && newRecipesFound.push(recipe);
+        if (recipeSelected) {newRecipesFound.push(recipe)};
       });
       setRecipesFound(newRecipesFound);
     } else {
-      let newRecipesFound = [];
+      const newRecipesFound = [];
       recipes.forEach((recipe) => {
-        recipe.keywords.includes(contentSearchField) &&
-          newRecipesFound.push(recipe);
-        recipe.recipeName.toLowerCase().includes(contentSearchField) &&
-          newRecipesFound.push(recipe);
+        if (recipe.keywords.includes(contentSearchField))
+          {newRecipesFound.push(recipe)};
+        if (recipe.recipeName.toLowerCase().includes(contentSearchField))
+          {newRecipesFound.push(recipe)};
       });
       const recipesSet = new Set(newRecipesFound);
       setRecipesFound([...recipesSet]);

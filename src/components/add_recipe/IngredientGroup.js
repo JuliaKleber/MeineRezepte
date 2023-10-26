@@ -34,11 +34,13 @@ function IngredientGroup(props) {
   // falls sie vorher nicht angezeigt worden sind oder
   // es werden nur noch die vom Nutzer ausgewählten Zutaten angezeigt.
   function handleCategoryClick() {
-    let newVisibleIngredients = Array(choiceOfIngredients.length).fill(
+    const newVisibleIngredients = Array(choiceOfIngredients.length).fill(
       !listIsShown
     );
     for (let i = 0; i < choiceOfIngredients.length; i++) {
-      ingredientIsSelected[i] && (newVisibleIngredients[i] = true);
+      if (ingredientIsSelected[i]) {
+        newVisibleIngredients[i] = true;
+      }
     }
     setVisibleIngredients(newVisibleIngredients);
     setListIsShown((prevListIsShown) => !prevListIsShown);

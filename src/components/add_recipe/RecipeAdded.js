@@ -11,10 +11,10 @@ function RecipeAdded({ onChangeStep }) {
 
   return (
     <div className="container">
-      <p className="align-center">Das Rezept wurde der Datenbank hinzugefügt.</p>
-      <button onClick={handleAddOtherRecipe}>
-        weiteres Rezept hinzufügen
-      </button>
+      <p className="align-center">
+        Das Rezept wurde der Datenbank hinzugefügt.
+      </p>
+      <button onClick={handleAddOtherRecipe}>weiteres Rezept hinzufügen</button>
       <button onClick={handleGoToStartMenu}>zum Startmenü</button>
     </div>
   );

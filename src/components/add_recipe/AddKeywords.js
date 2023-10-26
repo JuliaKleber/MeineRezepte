@@ -1,23 +1,25 @@
 import React from "react";
 import KeywordCategories from "./KeywordCategories";
 
-function AddKeywords( {recipe, onSaveKeywords} ) {
-
+function AddKeywords({ setRecipe }) {
   // Schlagwort wird der Liste der Schlagwörter hinzugefügt.
   const handleAddKeyword = (keyword) => {
-    onSaveKeywords([...recipe.keywords, keyword]);
+    setRecipe((prevRecipe) => ({
+      ...prevRecipe,
+      keywords: [...prevRecipe.keywords, keyword],
+    }));
   };
 
   // Schlagwort wird aus der Liste der Schlagwörter entfernt.
   const handleRemoveKeyword = (keyword) => {
-    let newKeywords = [...recipe.keywords];
-    const index = newKeywords.indexOf(keyword);
-    newKeywords.splice(index, 1);
-    onSaveKeywords(newKeywords);
+    setRecipe((prevRecipe) => ({
+      ...prevRecipe,
+      keywords: [...prevRecipe.keywords.filter((k) => k !== keyword)],
+    }));
   };
 
   return (
-    <div>
+    <>
       <KeywordCategories
         keywordCategory="Ernährungsform"
         listOfKeywords={["vegan", "vegetarisch"]}
@@ -73,7 +75,7 @@ function AddKeywords( {recipe, onSaveKeywords} ) {
         onKeywordSelected={handleAddKeyword}
         onKeywordDeselected={handleRemoveKeyword}
       />
-    </div>
+    </>
   );
 }
 

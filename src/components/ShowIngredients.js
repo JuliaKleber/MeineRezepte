@@ -12,7 +12,7 @@ function ShowIngredients({ recipe }) {
       ? (multiplier = parseFloat(multiplier))
       : (multiplier = parseInt(multiplier));
     if (!isNaN(multiplier) && multiplier !== "") {
-      let newAmounts = [];
+      const newAmounts = [];
       for (let i = 0; i < recipe.amounts.length; i++) {
         let jointAmounts = "";
         if (recipe.amounts[i] !== "") {

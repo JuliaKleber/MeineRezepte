@@ -6,47 +6,42 @@ import DescriptionField from "./DescriptionField";
 
 function AddRecipeNameAndAmountAndDescriptions({
   recipe,
+  setRecipe,
   recipeNameFieldRef,
-  onSaveRecipeName,
-  onSaveAmounts,
-  onSaveIngredients,
-  onSaveDescription,
 }) {
 
   const handleRecipeNameChange = (updatedRecipeName) => {
-    onSaveRecipeName(updatedRecipeName);
+    setRecipe({...recipe, recipeName: updatedRecipeName});
   };
 
   const handleAmountChange = (value, index) => {
-    let newAmounts = [...recipe.amounts];
+    const newAmounts = [...recipe.amounts];
     newAmounts[index] = value;
-    onSaveAmounts(newAmounts);
+    setRecipe({...recipe, amounts: newAmounts});
   };
 
   const handleIngredientChange = (value, index) => {
-    let newIngredients = [...recipe.ingredients];
+    const newIngredients = [...recipe.ingredients];
     newIngredients[index] = value;
-    onSaveIngredients(newIngredients);
+    setRecipe({...recipe, ingredients: newIngredients});
   };
 
   const handleDeleteIngredient = (index) => {
     const newIngredients = recipe.ingredients.filter((_, i) => i !== index);
     const newAmounts = recipe.amounts.filter((_, i) => i !== index);
-    onSaveIngredients(newIngredients);
-    onSaveAmounts(newAmounts);
+    setRecipe({...recipe, amounts: newAmounts, ingredients: newIngredients});
   };
 
   const handleAddIngredient = () => {
-    let newAmounts = [...recipe.amounts];
-    let newIngredients = [...recipe.ingredients];
+    const newAmounts = [...recipe.amounts];
+    const newIngredients = [...recipe.ingredients];
     newAmounts.push("");
     newIngredients.push("");
-    onSaveAmounts(newAmounts);
-    onSaveIngredients(newIngredients);
+    setRecipe({...recipe, amounts: newAmounts, ingredients: newIngredients});
   };
 
   const handleDescriptionChange = (updatedDescription) => {
-    onSaveDescription(updatedDescription);
+    setRecipe({...recipe, description: updatedDescription});
   };
 
   return (

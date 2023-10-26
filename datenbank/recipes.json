@@ -415,35 +415,20 @@
     ]
   },
   {
-    "recipeName": "dddddddddd",
+    "recipeName": "lllllllllllll",
     "amounts": [],
     "ingredients": [
-      "Brot",
-      "Kartoffeln",
-      "Süßkartoffeln"
+      "Kokosöl",
+      "Olivenöl",
+      "Rapsöl"
     ],
     "description": "",
     "keywords": [
-      "Brot",
-      "Kartoffeln",
-      "Süßkartoffeln"
-    ]
-  },
-  {
-    "recipeName": "ggggggggggg",
-    "amounts": [],
-    "ingredients": [
-      "Brot",
-      "Kartoffeln",
-      "Süßkartoffeln"
-    ],
-    "description": "",
-    "keywords": [
-      "Brot",
-      "Kartoffeln",
-      "Süßkartoffeln",
-      "vegan",
-      "vegetarisch"
+      "Kokosöl",
+      "Olivenöl",
+      "Rapsöl",
+      "März",
+      "Februar"
     ]
   }
 ]

@@ -8,18 +8,13 @@ import Navigation from "./Navigation";
 
 function AddRecipe({ onReturnHome }) {
   const [currentStep, setCurrentStep] = useState("ingredients");
-  const [recipeName, setRecipeName] = useState("");
-  const [amounts, setAmounts] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
-  const [description, setDescription] = useState("");
-  const [keywords, setKeywords] = useState([]);
-  const recipe = {
-    recipeName,
-    amounts,
-    ingredients,
-    description,
-    keywords,
-  };
+  const [recipe, setRecipe] = useState({
+    recipeName: "",
+    amounts: [],
+    ingredients: [],
+    description: "",
+    keywords: [],
+  });
   const steps = [
     "home",
     "ingredients",
@@ -28,39 +23,19 @@ function AddRecipe({ onReturnHome }) {
     "recipeAdded",
     "recipeNotAdded",
   ];
-  const serverUrl = "http://localhost:3001";
   const recipeNameFieldRef = useRef(null);
+  const serverUrl = "http://localhost:3001";
 
   const handleCurrentStep = (nextStep) => {
-    nextStep === "home" && onReturnHome(true);
-    if (recipeName === "" && currentStep === "amounts") {
+    if (nextStep === "home") {
+      onReturnHome(true);
+    }
+    if (recipe.recipeName === "" && currentStep === "amounts") {
       recipeNameFieldRef.current.focus();
       recipeNameFieldRef.current.style.borderColor = "red";
-    }
-    else if (currentStep === "keywords") {
+    } else if (currentStep === "keywords") {
       handleSaveRecipe();
-    }
-    else setCurrentStep(nextStep);
-  };
-
-  const handleSaveRecipeName = (chosenRecipeName) => {
-    setRecipeName(chosenRecipeName);
-  };
-
-  const handleSaveAmounts = (chosenAmounts) => {
-    setAmounts(chosenAmounts);
-  };
-
-  const handleSaveIngredients = (chosenIngredients) => {
-    setIngredients(chosenIngredients);
-  };
-
-  const handleSaveDescription = (chosenDescription) => {
-    setDescription(chosenDescription);
-  };
-
-  const handleSaveKeywords = (chosenKeywords) => {
-    setKeywords(chosenKeywords);
+    } else setCurrentStep(nextStep);
   };
 
   // Speichert das Rezept ab
@@ -90,47 +65,32 @@ function AddRecipe({ onReturnHome }) {
         console.error("Fehler beim Senden der Daten:", error);
         setCurrentStep("recipeNotAdded");
       });
-  }
+  };
+
+  const stepsBeforeSave = ["ingredients", "amounts", "keywords"].includes(
+    currentStep
+  );
 
   return (
     <div className="align-center">
       {currentStep === "ingredients" && (
-        <div>
-          <AddIngredients
-            recipe={recipe}
-            onSaveIngredients={handleSaveIngredients}
-            onSaveKeywords={handleSaveKeywords}
-          />
-        </div>
+        <AddIngredients recipe={recipe} setRecipe={setRecipe} />
       )}
       {currentStep === "amounts" && (
-        <div>
-          <AddAmounts
-            recipe={recipe}
-            recipeNameFieldRef={recipeNameFieldRef}
-            onSaveRecipeName={handleSaveRecipeName}
-            onSaveAmounts={handleSaveAmounts}
-            onSaveIngredients={handleSaveIngredients}
-            onSaveDescription={handleSaveDescription}
-          />
-        </div>
+        <AddAmounts
+          recipe={recipe}
+          setRecipe={setRecipe}
+          recipeNameFieldRef={recipeNameFieldRef}
+        />
       )}
-      {currentStep === "keywords" && (
-        <div>
-          <AddKeywords recipe={recipe} onSaveKeywords={handleSaveKeywords} />
-        </div>
-      )}
+      {currentStep === "keywords" && <AddKeywords setRecipe={setRecipe} />}
       {currentStep === "recipeAdded" && (
-        <div>
-          <RecipeAdded onChangeStep={handleCurrentStep} />
-        </div>
+        <RecipeAdded onChangeStep={handleCurrentStep} />
       )}
       {currentStep === "recipeNotAdded" && (
-        <div>
-          <RecipeNotAdded onChangeStep={handleCurrentStep} />
-        </div>
+        <RecipeNotAdded onChangeStep={handleCurrentStep} />
       )}
-      {["ingredients", "amounts", "keywords"].includes(currentStep) && (
+      {stepsBeforeSave && (
         <Navigation
           onChangeStep={handleCurrentStep}
           steps={steps}

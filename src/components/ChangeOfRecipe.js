@@ -17,20 +17,20 @@ function ChangeOfRecipe({ recipe, recipes, onReturn }) {
   };
 
   const handleAmountUpdate = (event, index) => {
-    let newAmounts = [...amounts];
+    const newAmounts = [...amounts];
     newAmounts[index] = event.target.value;
     setAmounts(newAmounts);
   };
 
   const handleIngredientUpdate = (event, index) => {
-    let newIngredients = [...ingredients];
+    const newIngredients = [...ingredients];
     newIngredients[index] = event.target.value;
     setIngredients(newIngredients);
   };
 
   const handleAddIngredient = () => {
-    let newAmounts = [...amounts];
-    let newIngredients = [...ingredients];
+    const newAmounts = [...amounts];
+    const newIngredients = [...ingredients];
     newAmounts.push("");
     newIngredients.push("neue Zutat");
     setAmounts(newAmounts);
@@ -42,8 +42,8 @@ function ChangeOfRecipe({ recipe, recipes, onReturn }) {
   };
 
   const handleSave = () => {
-    let newIngredients = [...ingredients];
-    let newAmounts = [...amounts];
+    const newIngredients = [...ingredients];
+    const newAmounts = [...amounts];
     for (let i = newIngredients.length - 1; i >= 0; i--) {
       if (newIngredients[i] === "") {
         newIngredients.splice(i);
@@ -59,7 +59,7 @@ function ChangeOfRecipe({ recipe, recipes, onReturn }) {
   const replaceRecipe = (recipe) => {
     // Das Rezept wird aus dem Array updatedRecipes entfernt
     // und als updatedRecipe wieder hinzugefügt
-    let updatedRecipes = [...recipes];
+    const updatedRecipes = [...recipes];
     const index = updatedRecipes.indexOf(recipe);
     updatedRecipes.splice(index, 1);
     updatedRecipes.push(updatedRecipe);

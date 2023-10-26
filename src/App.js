@@ -49,8 +49,9 @@ function App() {
 
   // Die Startseite wird wieder angezeigt.
   const handleReturnHome = (home) => {
-    home && setCurrentStep("homeMenu");
-    home && setReturnedHome(true);
+    if (!home) return;
+    setCurrentStep("homeMenu");
+    setReturnedHome(true);
   };
 
   return (
