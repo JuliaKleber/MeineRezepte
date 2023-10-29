@@ -4,15 +4,16 @@ function Navigation({
   onChangeStep,
   steps,
   indexOfPreviousStep,
-  indexOfNextStep
+  indexOfNextStep,
 }) {
-
   const navigation = (
     <span className="container-vertical-alignment">
-      <button onClick={() => onChangeStep(steps[indexOfPreviousStep])}>zurück</button>
+      <button onClick={() => onChangeStep(steps[indexOfPreviousStep])}>
+        zurück
+      </button>
       <button
         onClick={() => {
-          onChangeStep(steps[indexOfNextStep])
+          onChangeStep(steps[indexOfNextStep]);
         }}
       >
         weiter
@@ -20,7 +21,7 @@ function Navigation({
     </span>
   );
 
-  return navigation
+  return navigation;
 }
 
 export default Navigation;

@@ -1,39 +1,13 @@
 import React from "react";
 import IngredientGroup from "./IngredientGroup";
 
-function AddIngredients({ recipe, setRecipe }) {
-  // Zutat wird der Liste der Zutaten hinzugefügt.
-  // Die Zutat wird ebenso zu der Liste der Schlagwörter hinzugefügt,
-  // damit das Rezept aufgrund der Zutaten gefunden werden kann
-  const addIngredient = (ingredient) => {
-    setRecipe({
-      ...recipe,
-      ingredients: [...recipe.ingredients, ingredient],
-      keywords: [...recipe.keywords, ingredient],
-    });
-  };
-
-  // Zutat wird aus der Liste der Zutaten und Keywords entfernt
-  const removeIngredient = (ingredient) => {
-    const newIngredients = [...recipe.ingredients];
-    let index = recipe.ingredients.indexOf(ingredient);
-    newIngredients.splice(index, 1);
-    const newKeywords = [...recipe.keywords];
-    index = recipe.keywords.indexOf(ingredient);
-    newKeywords.splice(index, 1);
-    setRecipe({
-      ...recipe,
-      ingredients: newIngredients,
-      keywords: newKeywords,
-    });
-  };
-
+function AddIngredientsStep({ recipe, setRecipe }) {
   return (
     <div className="container">
       <IngredientGroup
+        recipe={recipe}
+        setRecipe={setRecipe}
         ingredientsCategory="Basis"
-        onIngredientSelected={addIngredient}
-        onIngredientDeselected={removeIngredient}
         choiceOfIngredients={[
           "Brot",
           "Kartoffeln",
@@ -48,15 +22,15 @@ function AddIngredients({ recipe, setRecipe }) {
         ]}
       />
       <IngredientGroup
+        recipe={recipe}
+        setRecipe={setRecipe}
         ingredientsCategory="Öl"
-        onIngredientSelected={addIngredient}
-        onIngredientDeselected={removeIngredient}
         choiceOfIngredients={["Kokosöl", "Olivenöl", "Rapsöl"]}
       />
       <IngredientGroup
+        recipe={recipe}
+        setRecipe={setRecipe}
         ingredientsCategory="Gemüse"
-        onIngredientSelected={addIngredient}
-        onIngredientDeselected={removeIngredient}
         choiceOfIngredients={[
           "Zwiebeln",
           "Knoblauchzehen",
@@ -74,15 +48,14 @@ function AddIngredients({ recipe, setRecipe }) {
           "rote Bete",
           "Spargel",
           "Spinat",
-          "Süßkartoffeln",
           "Tomaten",
           "Zucchini",
         ]}
       />
       <IngredientGroup
+        recipe={recipe}
+        setRecipe={setRecipe}
         ingredientsCategory="Kohl"
-        onIngredientSelected={addIngredient}
-        onIngredientDeselected={removeIngredient}
         choiceOfIngredients={[
           "Blumenkohl",
           "Brokkoli",
@@ -98,9 +71,9 @@ function AddIngredients({ recipe, setRecipe }) {
         ]}
       />
       <IngredientGroup
+        recipe={recipe}
+        setRecipe={setRecipe}
         ingredientsCategory="Gewürze und Kräuter"
-        onIngredientSelected={addIngredient}
-        onIngredientDeselected={removeIngredient}
         choiceOfIngredients={[
           "Basilikum",
           "Chilischoten",
@@ -117,9 +90,9 @@ function AddIngredients({ recipe, setRecipe }) {
         ]}
       />
       <IngredientGroup
+        recipe={recipe}
+        setRecipe={setRecipe}
         ingredientsCategory="Hülsenfrüchte"
-        onIngredientSelected={addIngredient}
-        onIngredientDeselected={removeIngredient}
         choiceOfIngredients={[
           "Erbsen",
           "Kichererbsen",
@@ -129,9 +102,9 @@ function AddIngredients({ recipe, setRecipe }) {
         ]}
       />
       <IngredientGroup
+        recipe={recipe}
+        setRecipe={setRecipe}
         ingredientsCategory="Käse"
-        onIngredientSelected={addIngredient}
-        onIngredientDeselected={removeIngredient}
         choiceOfIngredients={[
           "Blauschimmelkäse",
           "Emmentaler",
@@ -144,9 +117,9 @@ function AddIngredients({ recipe, setRecipe }) {
         ]}
       />{" "}
       <IngredientGroup
+        recipe={recipe}
+        setRecipe={setRecipe}
         ingredientsCategory="Nüsse und Samen"
-        onIngredientSelected={addIngredient}
-        onIngredientDeselected={removeIngredient}
         choiceOfIngredients={[
           "Cashews",
           "Erdnüsse",
@@ -157,9 +130,9 @@ function AddIngredients({ recipe, setRecipe }) {
         ]}
       />
       <IngredientGroup
+        recipe={recipe}
+        setRecipe={setRecipe}
         ingredientsCategory="Obst"
-        onIngredientSelected={addIngredient}
-        onIngredientDeselected={removeIngredient}
         choiceOfIngredients={[
           "Äpfel",
           "Avocados",
@@ -170,9 +143,9 @@ function AddIngredients({ recipe, setRecipe }) {
         ]}
       />
       <IngredientGroup
+        recipe={recipe}
+        setRecipe={setRecipe}
         ingredientsCategory="Sonstiges"
-        onIngredientSelected={addIngredient}
-        onIngredientDeselected={removeIngredient}
         choiceOfIngredients={[
           "Avocado",
           "Champignons",
@@ -189,4 +162,4 @@ function AddIngredients({ recipe, setRecipe }) {
   );
 }
 
-export default AddIngredients;
+export default AddIngredientsStep;

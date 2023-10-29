@@ -1,4 +1,4 @@
-.category {
+.ingredient-category-button {
   color: black;
   background-color: white;
   width: 270px;
@@ -8,7 +8,7 @@
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
-.not-chosen {
+.is-not-chosen {
   color: black;
   background-color: white;
   width: 220px;
@@ -29,7 +29,6 @@
 }
 
 @media only screen and (min-width: 500px) {
-  /*in IngredientGroup.js */
   .ingredient-sub-group {
     display: flex;
     flex-direction: column;

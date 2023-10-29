@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 
-function DescriptionField( { description, onDescriptionChange}) {
+function DescriptionField({ recipe, setRecipe }) {
+  const handleDescriptionChange = (updatedDescription) => {
+    setRecipe({ ...recipe, description: updatedDescription });
+  };
 
   const descriptionField = (
     <div className="container">
       <p className="center">Zubereitung</p>
       <textarea
-        value={description}
-        onChange={(e) => onDescriptionChange(e.target.value)}
+        value={recipe.description}
+        onChange={(e) => handleDescriptionChange(e.target.value)}
         id="description-entry-field"
       ></textarea>
     </div>
   );
 
-  return descriptionField
+  return descriptionField;
 }
 
 export default DescriptionField;

@@ -1,15 +1,19 @@
 import React from "react";
 
-function RecipeNameField({ recipeName, onRecipeNameChange, recipeNameFieldRef }) {
+function RecipeNameField({ recipe, setRecipe, recipeNameFieldRef }) {
+  const handleRecipeNameChange = (updatedRecipeName) => {
+    setRecipe({ ...recipe, recipeName: updatedRecipeName });
+  };
+
   const recipeNameField = (
     <div className="container">
       Name des Rezepts
       <br />
       <input
         type="text"
-        value={recipeName}
+        value={recipe.recipeName}
         ref={recipeNameFieldRef}
-        onChange={(e) => onRecipeNameChange(e.target.value)}
+        onChange={(e) => handleRecipeNameChange(e.target.value)}
       />
     </div>
   );

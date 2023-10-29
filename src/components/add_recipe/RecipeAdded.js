@@ -6,7 +6,7 @@ function RecipeAdded({ onChangeStep }) {
   };
 
   const handleAddOtherRecipe = () => {
-    onChangeStep("ingredients");
+    onChangeStep("addIngredientsStep");
   };
 
   return (

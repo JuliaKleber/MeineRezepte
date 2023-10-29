@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
-import AddIngredients from "./AddIngredients";
-import AddAmounts from "./AddAmounts";
-import AddKeywords from "./AddKeywords";
+import AddIngredientsStep from "./AddIngredientsStep";
+import AddNameAmountsAndDescriptionStep from "./AddNameAmountsAndDescriptionStep";
+import AddKeywordsStep from "./AddKeywordsStep";
 import RecipeAdded from "./RecipeAdded";
 import RecipeNotAdded from "./RecipeNotAdded";
 import Navigation from "./Navigation";
@@ -17,9 +17,9 @@ function AddRecipe({ onReturnHome }) {
   });
   const steps = [
     "home",
-    "ingredients",
-    "amounts",
-    "keywords",
+    "addIngredientsStep",
+    "addNameAmountsDecriptionStep",
+    "addKeywordsStep",
     "recipeAdded",
     "recipeNotAdded",
   ];
@@ -29,11 +29,13 @@ function AddRecipe({ onReturnHome }) {
   const handleCurrentStep = (nextStep) => {
     if (nextStep === "home") {
       onReturnHome(true);
-    }
-    if (recipe.recipeName === "" && currentStep === "amounts") {
+    } else if (
+      recipe.recipeName === "" &&
+      currentStep === "addNameAmountsDecriptionStep"
+    ) {
       recipeNameFieldRef.current.focus();
       recipeNameFieldRef.current.style.borderColor = "red";
-    } else if (currentStep === "keywords") {
+    } else if (currentStep === "addKeywordsStep") {
       handleSaveRecipe();
     } else setCurrentStep(nextStep);
   };
@@ -73,17 +75,19 @@ function AddRecipe({ onReturnHome }) {
 
   return (
     <div className="align-center">
-      {currentStep === "ingredients" && (
-        <AddIngredients recipe={recipe} setRecipe={setRecipe} />
+      {currentStep === "addIngredientsStep" && (
+        <AddIngredientsStep recipe={recipe} setRecipe={setRecipe} />
       )}
-      {currentStep === "amounts" && (
-        <AddAmounts
+      {currentStep === "addNameAmountsDecriptionStep" && (
+        <AddNameAmountsAndDescriptionStep
           recipe={recipe}
           setRecipe={setRecipe}
           recipeNameFieldRef={recipeNameFieldRef}
         />
       )}
-      {currentStep === "keywords" && <AddKeywords setRecipe={setRecipe} />}
+      {currentStep === "addKeywordsStep" && (
+        <AddKeywordsStep recipe={recipe} setRecipe={setRecipe} />
+      )}
       {currentStep === "recipeAdded" && (
         <RecipeAdded onChangeStep={handleCurrentStep} />
       )}

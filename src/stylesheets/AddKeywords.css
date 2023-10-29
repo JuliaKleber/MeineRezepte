@@ -1,4 +1,4 @@
-.is-chosen-keywords {
+.keyword-is-chosen {
   width: 150px;
   background-color: rgb(184, 32, 146);
   color: white;
@@ -7,7 +7,7 @@
   font-size: 20px;
 }
 
-.not-chosen-keywords {
+.keyword-is-not-chosen {
   width: 150px;
   background-color: white;
   color: black;

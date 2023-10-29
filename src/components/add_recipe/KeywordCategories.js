@@ -1,14 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 
 function KeywordCategories({
-  onKeywordSelected,
-  onKeywordDeselected,
+  recipe,
+  setRecipe,
   keywordCategory,
   listOfKeywords,
 }) {
-  const [keywordIsSelected, setKeywordIsSelected] = useState(
-    Array(listOfKeywords.length).fill(false)
+  const areKeywordsSelected = listOfKeywords.map((keyword) =>
+    recipe.keywords.includes(keyword)
   );
+
+  const handleKeywordClick = (index) => {
+    areKeywordsSelected[index]
+      ? removeKeyword(listOfKeywords[index])
+      : addKeyword(listOfKeywords[index]);
+  };
+
+  const addKeyword = (keyword) => {
+    setRecipe((prevRecipe) => ({
+      ...prevRecipe,
+      keywords: [...prevRecipe.keywords, keyword],
+    }));
+  };
+
+  const removeKeyword = (keyword) => {
+    setRecipe((prevRecipe) => ({
+      ...prevRecipe,
+      keywords: [...prevRecipe.keywords.filter((k) => k !== keyword)],
+    }));
+  };
 
   const keywords = (
     <div>
@@ -16,9 +36,9 @@ function KeywordCategories({
         <button
           key={keyword}
           className={
-            keywordIsSelected[index]
-              ? "is-chosen-keywords"
-              : "not-chosen-keywords"
+            areKeywordsSelected[index]
+              ? "keyword-is-chosen"
+              : "keyword-is-not-chosen"
           }
           onClick={() => handleKeywordClick(index)}
         >
@@ -27,22 +47,6 @@ function KeywordCategories({
       ))}
     </div>
   );
-
-  function handleKeywordClick(index) {
-    // Erstellt eine Kopie des Arrays keywordIsSelected.
-    const newKeywordIsSelected = [...keywordIsSelected];
-    // Wenn ein Schlagwort angeklickt wird, wird es entweder ausgewählt,
-    // wenn es noch nicht ausgewählt war, oder es wird abgewählt,
-    // wenn es schon ausgewählt war.
-    keywordIsSelected[index]
-      ? (newKeywordIsSelected[index] = false)
-      : (newKeywordIsSelected[index] = true);
-    // Die Liste der Schlagwörter wird im Elternteil aktualisiert
-    newKeywordIsSelected[index]
-      ? onKeywordSelected(listOfKeywords[index])
-      : onKeywordDeselected(listOfKeywords[index]);
-    setKeywordIsSelected(newKeywordIsSelected);
-  }
 
   return (
     <div className="container">

@@ -1,70 +1,76 @@
 import React, { useState } from "react";
 
-function IngredientGroup(props) {
-  // Überbegriff der Kategorie von Zutaten
-  const ingredientsCategory = props.ingredientsCategory;
-  // Zutaten aus der Kategorie
-  const choiceOfIngredients = props.choiceOfIngredients;
-  // true, wenn alle Zutaten der Kategorie angezeigt werden.
-  // false, wenn nur die markierten Zutaten der Kategorie angezeigt werden.
-  const [listIsShown, setListIsShown] = useState(false);
-  // Speichert, welche Zutat aus der Kategorie vom Nutzer angeklickt wurde.
-  const [ingredientIsSelected, setIngredientIsSelected] = useState(
-    Array(choiceOfIngredients.length).fill(false)
+function IngredientGroup({
+  recipe,
+  setRecipe,
+  ingredientsCategory,
+  choiceOfIngredients,
+}) {
+  const [isCompleteListShown, setIsCompleteListShown] = useState(false);
+
+  const areIngredientsSelected = choiceOfIngredients.map((ingredient) =>
+    recipe.ingredients.includes(ingredient)
   );
-  // Speichert welche Zutaten angezeigt werden.
-  const [visibleIngredients, setVisibleIngredients] = useState(
-    Array(choiceOfIngredients.length).fill(false)
-  );
+
+  const handleCategoryClick = () => {
+    setIsCompleteListShown(
+      (prevIsCompleteListShown) => !prevIsCompleteListShown
+    );
+  };
+
+  const handleIngredientClick = (index) => {
+    areIngredientsSelected[index]
+      ? onRemoveIngredient(choiceOfIngredients[index])
+      : onAddIngredient(choiceOfIngredients[index]);
+  };
+
+  // Zutat wird der Liste der Zutaten hinzugefügt.
+  // Die Zutat wird ebenso zu der Liste der Schlagwörter hinzugefügt,
+  // damit das Rezept aufgrund der Zutaten gefunden werden kann
+  const onAddIngredient = (ingredient) => {
+    setRecipe({
+      ...recipe,
+      ingredients: [...recipe.ingredients, ingredient],
+      keywords: [...recipe.keywords, ingredient],
+    });
+  };
+
+  // Zutat wird aus der Liste der Zutaten und Keywords entfernt
+  const onRemoveIngredient = (ingredient) => {
+    const updatedIngredients = recipe.ingredients.filter(
+      (item) => item !== ingredient
+    );
+    const updatedKeywords = recipe.keywords.filter(
+      (item) => item !== ingredient
+    );
+    setRecipe({
+      ...recipe,
+      ingredients: updatedIngredients,
+      keywords: updatedKeywords,
+    });
+  };
+
   const ingredients = choiceOfIngredients.map(
     (ingredient, index) =>
-      visibleIngredients[index] && (
+      (areIngredientsSelected[index] || isCompleteListShown) && (
         <button
           key={ingredient}
           onClick={() => handleIngredientClick(index)}
-          className={ingredientIsSelected[index] ? "is-chosen" : "not-chosen"}
+          className={
+            areIngredientsSelected[index] ? "is-chosen" : "is-not-chosen"
+          }
         >
           {ingredient}
         </button>
       )
   );
 
-  // Wenn die Kategorie angeklickt wird,
-  // werden entweder alle Zutaten in der Kategorie angezeigt,
-  // falls sie vorher nicht angezeigt worden sind oder
-  // es werden nur noch die vom Nutzer ausgewählten Zutaten angezeigt.
-  function handleCategoryClick() {
-    const newVisibleIngredients = Array(choiceOfIngredients.length).fill(
-      !listIsShown
-    );
-    for (let i = 0; i < choiceOfIngredients.length; i++) {
-      if (ingredientIsSelected[i]) {
-        newVisibleIngredients[i] = true;
-      }
-    }
-    setVisibleIngredients(newVisibleIngredients);
-    setListIsShown((prevListIsShown) => !prevListIsShown);
-  }
-
-  function handleIngredientClick(index) {
-    // Erstellt eine Kopie des Arrays ingredientIsSelected.
-    const newIngredientIsSelected = [...ingredientIsSelected];
-    // Wenn eine Zutat angeklickt wird, wird sie entweder ausgewählt,
-    // wenn sie noch nicht ausgewählt war, oder sie wird abgewählt,
-    // wenn sie schon ausgewählt war.
-    ingredientIsSelected[index]
-      ? (newIngredientIsSelected[index] = false)
-      : (newIngredientIsSelected[index] = true);
-    // Die Liste der Zutaten wird im Elternteil aktualisiert
-    ingredientIsSelected[index]
-      ? props.onIngredientDeselected(choiceOfIngredients[index])
-      : props.onIngredientSelected(choiceOfIngredients[index]);
-    setIngredientIsSelected(newIngredientIsSelected);
-  }
-
   return (
     <div className="ingredient-sub-group container">
-      <button className="category" onClick={handleCategoryClick}>
+      <button
+        className="ingredient-category-button"
+        onClick={handleCategoryClick}
+      >
         {ingredientsCategory}
       </button>
       {ingredients}

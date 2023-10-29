@@ -1,7 +1,6 @@
 import React from "./RecipeAdded";
 
-function RecipeNotAdded( {onChangeStep} ) {
-
+function RecipeNotAdded({ onChangeStep }) {
   const goToStartMenu = () => {
     onChangeStep("home");
   };
