@@ -1,6 +1,12 @@
 import React from "./RecipeAdded";
 
-function RecipeAdded({ onChangeStep }) {
+function RecipeAdded({ onChangeStep, recipe }) {
+  recipe.recipeName = "";
+  recipe.amounts = [];
+  recipe.ingredients = [];
+  recipe.description = "";
+  recipe.keywords = [];
+
   const handleGoToStartMenu = () => {
     onChangeStep("home");
   };

@@ -6,8 +6,26 @@ import RecipeAdded from "./RecipeAdded";
 import RecipeNotAdded from "./RecipeNotAdded";
 import Navigation from "./Navigation";
 
-function AddRecipe({ onReturnHome }) {
-  const [currentStep, setCurrentStep] = useState("ingredients");
+const steps = {
+  homeStep: "homeStep",
+  addIngredientsStep: "addIngredientsStep",
+  addNameAmountsDescriptionStep: "addNameAmountsDecriptionStep",
+  addKeywordsStep: "addKeywordsStep",
+  recipeAddedStep: "recipeAddedStep",
+  recipeNotAddedStep: "recipeNotAddedStep",
+};
+
+const stepsArray = [
+  steps.homeStep,
+  steps.addIngredientsStep,
+  steps.addNameAmountsDescriptionStep,
+  steps.addKeywordsStep,
+  steps.recipeAddedStep,
+  steps.recipeNotAddedStep,
+];
+
+const AddRecipe = ({ onReturnHome }) => {
+  const [currentStep, setCurrentStep] = useState(steps.addIngredientsStep);
   const [recipe, setRecipe] = useState({
     recipeName: "",
     amounts: [],
@@ -15,27 +33,19 @@ function AddRecipe({ onReturnHome }) {
     description: "",
     keywords: [],
   });
-  const steps = [
-    "home",
-    "addIngredientsStep",
-    "addNameAmountsDecriptionStep",
-    "addKeywordsStep",
-    "recipeAdded",
-    "recipeNotAdded",
-  ];
   const recipeNameFieldRef = useRef(null);
   const serverUrl = "http://localhost:3001";
 
   const handleCurrentStep = (nextStep) => {
-    if (nextStep === "home") {
+    if (nextStep === steps.homeStep) {
       onReturnHome(true);
     } else if (
       recipe.recipeName === "" &&
-      currentStep === "addNameAmountsDecriptionStep"
+      currentStep === steps.addNameAmountsDescriptionStep
     ) {
       recipeNameFieldRef.current.focus();
       recipeNameFieldRef.current.style.borderColor = "red";
-    } else if (currentStep === "addKeywordsStep") {
+    } else if (currentStep === steps.addKeywordsStep && nextStep === steps.recipeAddedStep) {
       handleSaveRecipe();
     } else setCurrentStep(nextStep);
   };
@@ -60,46 +70,46 @@ function AddRecipe({ onReturnHome }) {
       .then((message) => {
         // Es wird die Nachricht aus der Server-Antwort in der Konsole ausgegeben.
         console.log("Antwort vom Server:", message);
-        setCurrentStep("recipeAdded");
+        setCurrentStep(steps.recipeAddedStep);
       })
       .catch((error) => {
         // Fehlerbehandlung
         console.error("Fehler beim Senden der Daten:", error);
-        setCurrentStep("recipeNotAdded");
+        setCurrentStep(steps.recipeNotAddedStep);
       });
   };
 
-  const stepsBeforeSave = ["ingredients", "amounts", "keywords"].includes(
+  const stepsBeforeSave = [steps.addIngredientsStep, steps.addNameAmountsDescriptionStep, steps.addKeywordsStep].includes(
     currentStep
   );
 
   return (
     <div className="align-center">
-      {currentStep === "addIngredientsStep" && (
+      {currentStep === steps.addIngredientsStep && (
         <AddIngredientsStep recipe={recipe} setRecipe={setRecipe} />
       )}
-      {currentStep === "addNameAmountsDecriptionStep" && (
+      {currentStep === steps.addNameAmountsDescriptionStep && (
         <AddNameAmountsAndDescriptionStep
           recipe={recipe}
           setRecipe={setRecipe}
           recipeNameFieldRef={recipeNameFieldRef}
         />
       )}
-      {currentStep === "addKeywordsStep" && (
+      {currentStep === steps.addKeywordsStep && (
         <AddKeywordsStep recipe={recipe} setRecipe={setRecipe} />
       )}
-      {currentStep === "recipeAdded" && (
-        <RecipeAdded onChangeStep={handleCurrentStep} />
+      {currentStep === steps.recipeAddedStep && (
+        <RecipeAdded onChangeStep={handleCurrentStep} recipe={recipe}/>
       )}
-      {currentStep === "recipeNotAdded" && (
+      {currentStep === steps.recipeNotAddedStep && (
         <RecipeNotAdded onChangeStep={handleCurrentStep} />
       )}
       {stepsBeforeSave && (
         <Navigation
           onChangeStep={handleCurrentStep}
-          steps={steps}
-          indexOfPreviousStep={steps.indexOf(currentStep) - 1}
-          indexOfNextStep={steps.indexOf(currentStep) + 1}
+          steps={stepsArray}
+          indexOfPreviousStep={stepsArray.indexOf(currentStep) - 1}
+          indexOfNextStep={stepsArray.indexOf(currentStep) + 1}
         />
       )}
     </div>
