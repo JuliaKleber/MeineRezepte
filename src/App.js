@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import KeywordSearch from "./components/KeywordSearch";
 import ShowRecipe from "./components/ShowRecipe";
-import AddRecipe from "./components/add_recipe/AddRecipe";
+import AddRecipe from "./components/addRecipe/AddRecipe";
 
 function App() {
   const [currentStep, setCurrentStep] = useState("homeMenu");
