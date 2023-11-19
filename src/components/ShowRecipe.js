@@ -37,9 +37,9 @@ function ShowRecipe({ recipe, onBackToSearchResults, recipes }) {
     <div className="container">
       {currentStep === "recipeIsShown" && (
         <div className="container">
-          <h2 className="recipe-box center">{recipe.recipeName}</h2>
+          <h2 className="recipe-card center">{recipe.recipeName}</h2>
           <ShowIngredients recipe={recipe} />
-          <p className="recipe-box center" id="recipe-description">
+          <p className="recipe-card center" id="recipe-description">
             {recipe.description}
           </p>
         </div>

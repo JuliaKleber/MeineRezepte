@@ -8,7 +8,7 @@
   color: rgb(184, 32, 146);
 }
 
-.recipe-box {
+.recipe-card {
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 10px;

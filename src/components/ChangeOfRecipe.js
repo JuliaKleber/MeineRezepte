@@ -101,10 +101,10 @@ function ChangeOfRecipe({ recipe, recipes, onReturn }) {
         value={recipeName}
         style={{ width: recipeName.length * 0.6 + "em" }}
         onChange={(event) => setRecipeName(event.target.value)}
-        className="recipe-change box"
+        className="recipe-change card"
         id="recipe-name"
       ></input>
-      <div className="recipe-change box">
+      <div className="recipe-change card">
         <p className="center">
           Zutaten für 1 Person
         </p>
@@ -141,7 +141,7 @@ function ChangeOfRecipe({ recipe, recipes, onReturn }) {
         </button>
       </div>
       <textarea
-        className="recipe-change box"
+        className="recipe-change card"
         id="description"
         value={description}
         onChange={(event) => setDescription(event.target.value)}

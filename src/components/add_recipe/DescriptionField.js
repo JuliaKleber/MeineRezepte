@@ -7,7 +7,7 @@ function DescriptionField({ recipe, setRecipe }) {
 
   const descriptionField = (
     <div className="container">
-      <p className="center">Zubereitung</p>
+      <p>Zubereitung</p>
       <textarea
         value={recipe.description}
         onChange={(e) => handleDescriptionChange(e.target.value)}
