@@ -57,7 +57,7 @@ function IngredientGroup({
           key={ingredient}
           onClick={() => handleIngredientClick(index)}
           className={
-            areIngredientsSelected[index] ? "is-chosen" : "is-not-chosen"
+            areIngredientsSelected[index] ? "is-chosen" : "is-not-chosen white-black-button"
           }
         >
           {ingredient}
@@ -68,7 +68,7 @@ function IngredientGroup({
   return (
     <div className="ingredient-sub-group container">
       <button
-        className="ingredient-category-button"
+        className="ingredient-category-button white-black-button"
         onClick={handleCategoryClick}
       >
         {ingredientsCategory}

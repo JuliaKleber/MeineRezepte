@@ -45,7 +45,7 @@ function ShowIngredients({ recipe }) {
   };
 
   return (
-    <div className="recipe-box container">
+    <div className="recipe-card container">
       <span>
         Zutaten für
         <input

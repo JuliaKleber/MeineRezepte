@@ -1,6 +1,8 @@
+@import 'Colors.scss';
+
 .keyword-is-chosen {
   width: 150px;
-  background-color: rgb(184, 32, 146);
+  background-color: $primary-color;
   color: white;
   padding: 5px;
   margin: 5px;

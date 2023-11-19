@@ -4,6 +4,7 @@ import IngredientGroup from "./IngredientGroup";
 function AddIngredientsStep({ recipe, setRecipe }) {
   return (
     <div className="container">
+      <h2>Zutaten</h2>
       <IngredientGroup
         recipe={recipe}
         setRecipe={setRecipe}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ShowIngredients from "./ShowIngredients";
 import ChangeOfRecipe from "./ChangeOfRecipe";
 import DeleteRecipe from "./DeleteRecipe";
+import pastaImage from "../images/pasta.jpg";
 
 function ShowRecipe({ recipe, onBackToSearchResults, recipes }) {
   const [currentStep, setCurrentStep] = useState("recipeIsShown");
@@ -38,6 +39,7 @@ function ShowRecipe({ recipe, onBackToSearchResults, recipes }) {
       {currentStep === "recipeIsShown" && (
         <div className="container">
           <h2 className="recipe-card center">{recipe.recipeName}</h2>
+          <img src={pastaImage} alt="recipe_picture" width="300px" />
           <ShowIngredients recipe={recipe} />
           <p className="recipe-card center" id="recipe-description">
             {recipe.description}

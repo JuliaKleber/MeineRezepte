@@ -1,0 +1,103 @@
+// @import "./stylesheets/KeywordSearch.scss";
+// @import "./stylesheets/ShowRecipe.scss";
+// @import "./stylesheets/ChangeRecipe.scss";
+@import "./stylesheets/IngredientGroup.scss";
+// @import "./stylesheets/AmountsAndIngredientsFields.scss";
+// @import "./stylesheets/DescriptionField.scss";
+// @import "./stylesheets/AddKeywords.scss";
+@import "./stylesheets/Colors.scss";
+
+
+body {
+  font-family: "Comic Sans MS";
+  color: $secondary-color;
+  font-size: 20px;
+}
+
+button {
+  color: white;
+  background-color: $primary-color;
+  border-width: 0px;
+  border-radius: 8px;
+  margin: 12px 4px;
+  padding: 4px 12px;
+  font-size: 17px;
+  box-shadow: 0 0 15px rgba($primary-color, 0.2);
+  font-family: "Comic Sans MS";
+}
+
+.reverse-button {
+  color: $primary-color;
+  background-color: white;
+  box-shadow: 0 0 15px rgba($primary-color, 0.1);
+}
+
+.white-black-button {
+  color: black;
+  background-color: white;
+  box-shadow: 0 0 15px rgba(black, 0.1);
+}
+
+// button:hover {
+//   box-shadow: 0 0 15px rgba($primary-color, 0.5);
+// }
+
+// input {
+//   color: $primary-color;
+//   border-radius: 8px;
+//   margin: 10px 5px;
+//   padding: 5px 10px;
+//   border: 2px solid $secondary-color;
+//   font-size: 17px;
+//   font-family: "Comic Sans MS";
+//   text-align: center;
+//   background-color: white;
+//   box-shadow: 0 0 15px rgba($primary-color, 0.1);
+// }
+
+// input:focus {
+//   outline: none;
+//   border: 2px solid $primary-color;
+// }
+
+// input:hover {
+//   box-shadow: 0 0 15px rgba($primary-color, 0.5);
+// }
+
+// .container {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   margin: 10px;
+// }
+
+// .container-vertical-alignment {
+//   display: flex;
+//   justify-content: center;
+// }
+
+// textarea {
+//   font-family: "Comic Sans MS";
+//   color: $primary-color;
+//   border: 1px solid $secondary-color;
+// }
+
+// textarea:hover {
+//   box-shadow: 0 0 15px rgba($primary-color, 0.5);
+// }
+
+// textarea:focus {
+//   outline: none;
+// }
+
+.align-center {
+  text-align: center;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}

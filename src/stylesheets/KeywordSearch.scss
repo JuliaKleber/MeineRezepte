@@ -1,3 +1,5 @@
+@import 'Colors.scss';
+
 #search-field {
   width: 170px;
   margin-top: 30px;
@@ -6,6 +8,6 @@
 
 .white {
   background-color: white;
-  color: rgb(184, 32, 146);
+  color: $primary-color;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
