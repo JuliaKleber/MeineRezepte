@@ -1,6 +1,6 @@
 import React from "react";
 
-function DeleteRecipe({ recipes, recipe, onReturn }) {
+const DeleteRecipe = ({ recipes, recipe, onReturn }) => {
   const serverUrl = "http://localhost:3001";
 
   // Das Rezept wird gelöscht.

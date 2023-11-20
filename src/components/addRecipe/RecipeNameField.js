@@ -1,6 +1,6 @@
 import React from "react";
 
-function RecipeNameField({ recipe, setRecipe, recipeNameFieldRef }) {
+const RecipeNameField = ({ recipe, setRecipe, recipeNameFieldRef }) => {
   const handleRecipeNameChange = (updatedRecipeName) => {
     setRecipe({ ...recipe, recipeName: updatedRecipeName });
   };

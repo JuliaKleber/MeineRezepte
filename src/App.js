@@ -3,7 +3,7 @@ import KeywordSearch from "./components/KeywordSearch";
 import ShowRecipe from "./components/ShowRecipe";
 import AddRecipe from "./components/addRecipe/AddRecipe";
 
-function App() {
+const App = () => {
   const [currentStep, setCurrentStep] = useState("homeMenu");
   const [searchTerm, setSearchTerm] = useState("");
   const [recipe, setRecipe] = useState();

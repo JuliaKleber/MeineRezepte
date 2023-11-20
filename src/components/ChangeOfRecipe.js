@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-
-function ChangeOfRecipe({ recipe, recipes, onReturn }) {
+const ChangeOfRecipe = ({ recipe, recipes, onReturn }) => {
   const serverUrl = "http://localhost:3001";
   const [recipeName, setRecipeName] = useState(recipe.recipeName);
   const [amounts, setAmounts] = useState(recipe.amounts);

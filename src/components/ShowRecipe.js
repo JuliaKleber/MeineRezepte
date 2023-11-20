@@ -4,7 +4,7 @@ import ChangeOfRecipe from "./ChangeOfRecipe";
 import DeleteRecipe from "./DeleteRecipe";
 import pastaImage from "../images/pasta.jpg";
 
-function ShowRecipe({ recipe, onBackToSearchResults, recipes }) {
+const ShowRecipe = ({ recipe, onBackToSearchResults, recipes }) => {
   const [currentStep, setCurrentStep] = useState("recipeIsShown");
   const [currentRecipe, setCurrentRecipe] = useState(recipe);
   const [output, setOutput] = useState("");

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function KeywordSearch(props) {
+const KeywordSearch = (props) => {
   const { onRecipeSelection, searchTerm, recipes } = props;
   const [contentSearchField, setContentSearchField] = useState(searchTerm);
   const [recipesFound, setRecipesFound] = useState([]);

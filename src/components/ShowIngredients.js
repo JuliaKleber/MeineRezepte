@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function ShowIngredients({ recipe }) {
+const ShowIngredients = ({ recipe }) => {
   const [scaledAmounts, setScaledAmounts] = useState(recipe.amounts);
   const [numberOfPersons, setNumberOfPersons] = useState(1);
 

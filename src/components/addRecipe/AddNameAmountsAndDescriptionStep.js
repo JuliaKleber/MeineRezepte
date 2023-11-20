@@ -4,11 +4,11 @@ import AmountsAndIngredientsFields from "./AmountsAndIngredientsFields";
 import AddIngredientButton from "./AddIngredientButton";
 import DescriptionField from "./DescriptionField";
 
-function AddNameAmountsAndDescriptionStep({
+const AddNameAmountsAndDescriptionStep = ({
   recipe,
   setRecipe,
   recipeNameFieldRef,
-}) {
+}) => {
   const handleAddIngredient = () => {
     setRecipe({
       ...recipe,
@@ -26,7 +26,7 @@ function AddNameAmountsAndDescriptionStep({
       />
       <AmountsAndIngredientsFields recipe={recipe} setRecipe={setRecipe} />
       <AddIngredientButton
-        buttonClass="white"
+        buttonClass="reverse-colored-button"
         buttonText="Zutat hinzufügen"
         onAddIngredient={handleAddIngredient}
       />

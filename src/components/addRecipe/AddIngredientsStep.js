@@ -1,10 +1,10 @@
 import React from "react";
 import IngredientGroup from "./IngredientGroup";
 
-function AddIngredientsStep({ recipe, setRecipe }) {
+const AddIngredientsStep = ({ recipe, setRecipe }) => {
   return (
     <div className="container">
-      <h2>Zutaten</h2>
+      <h3 className='primary-color bold'>Zutaten</h3>
       <IngredientGroup
         recipe={recipe}
         setRecipe={setRecipe}

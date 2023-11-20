@@ -1,7 +1,7 @@
 import React from "react";
 import KeywordCategories from "./KeywordCategories";
 
-function AddKeywordsStep({ recipe, setRecipe }) {
+const AddKeywordsStep = ({ recipe, setRecipe }) => {
   return (
     <>
       <KeywordCategories

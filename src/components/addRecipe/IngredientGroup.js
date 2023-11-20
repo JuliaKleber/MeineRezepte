@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-function IngredientGroup({
+const IngredientGroup = ({
   recipe,
   setRecipe,
   ingredientsCategory,
   choiceOfIngredients,
-}) {
+}) => {
   const [isCompleteListShown, setIsCompleteListShown] = useState(false);
 
   const areIngredientsSelected = choiceOfIngredients.map((ingredient) =>

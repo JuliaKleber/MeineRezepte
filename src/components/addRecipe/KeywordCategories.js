@@ -1,11 +1,11 @@
 import React from "react";
 
-function KeywordCategories({
+const KeywordCategories = ({
   recipe,
   setRecipe,
   keywordCategory,
   listOfKeywords,
-}) {
+}) => {
   const areKeywordsSelected = listOfKeywords.map((keyword) =>
     recipe.keywords.includes(keyword)
   );
@@ -31,14 +31,14 @@ function KeywordCategories({
   };
 
   const keywords = (
-    <div>
+    <div className="container-vertical-alignment">
       {listOfKeywords.map((keyword, index) => (
         <button
           key={keyword}
           className={
             areKeywordsSelected[index]
               ? "keyword-is-chosen"
-              : "keyword-is-not-chosen"
+              : "keyword-is-not-chosen white-black-button"
           }
           onClick={() => handleKeywordClick(index)}
         >
@@ -50,7 +50,7 @@ function KeywordCategories({
 
   return (
     <div className="container">
-      <p className="bold">{keywordCategory}</p>
+      <p className="bold primary-color">{keywordCategory}</p>
       {keywords}
     </div>
   );

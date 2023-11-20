@@ -1,6 +1,5 @@
 import React from "react";
-
-function DescriptionField({ recipe, setRecipe }) {
+const DescriptionField = ({ recipe, setRecipe }) => {
   const handleDescriptionChange = (updatedDescription) => {
     setRecipe({ ...recipe, description: updatedDescription });
   };

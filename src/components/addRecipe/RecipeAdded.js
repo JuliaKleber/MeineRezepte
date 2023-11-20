@@ -1,6 +1,6 @@
 import React from "./RecipeAdded";
 
-function RecipeAdded({ onChangeStep, recipe }) {
+const RecipeAdded = ({ onChangeStep, recipe }) => {
   recipe.recipeName = "";
   recipe.amounts = [];
   recipe.ingredients = [];

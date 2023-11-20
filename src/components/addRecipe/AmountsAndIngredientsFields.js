@@ -1,7 +1,7 @@
 import React from "react";
 import { AiFillDelete } from "react-icons/ai";
 
-function AmountsAndIngredientsFields({ recipe, setRecipe }) {
+const AmountsAndIngredientsFields = ({ recipe, setRecipe }) => {
   const handleAmountChange = (value, index) => {
     const newAmounts = [...recipe.amounts];
     newAmounts[index] = value;

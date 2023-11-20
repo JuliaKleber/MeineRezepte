@@ -44,36 +44,27 @@ const AddRecipe = ({ onReturnHome }) => {
       currentStep === steps.addNameAmountsDescriptionStep
     ) {
       recipeNameFieldRef.current.focus();
-      recipeNameFieldRef.current.style.borderColor = "red";
-    } else if (currentStep === steps.addKeywordsStep && nextStep === steps.recipeAddedStep) {
+      recipeNameFieldRef.current.style.borderColor = "mediumorchid";
+    } else if (nextStep === steps.recipeAddedStep) {
       handleSaveRecipe();
     } else setCurrentStep(nextStep);
   };
 
-  // Speichert das Rezept ab
   const handleSaveRecipe = () => {
-    // Es wird die Funktion fetch() verwendet, um Daten an einen Server zu senden.
-    // serverUrl ist die Adresse des Servers, an den die Daten gesendet werden sollen.
-    // addData ist der Endpunkt, der auf dem Server genutzt wird.
+    console.log("save");
     fetch(`${serverUrl}/addData`, {
-      // Es wird die HTTP-Methode POST verwendet, um Daten an den Server zu senden.
       method: "POST",
-      // Es wird angegeben, dass die Daten im JSON-Format gesendet werden.
       headers: {
         "Content-Type": "application/json",
       },
-      // Es wird das Rezept-Objekt in JSON-Format umgewandelt und als Datenkörper gesendet.
       body: JSON.stringify(recipe),
     })
-      // Promises
       .then((response) => response.text())
       .then((message) => {
-        // Es wird die Nachricht aus der Server-Antwort in der Konsole ausgegeben.
         console.log("Antwort vom Server:", message);
         setCurrentStep(steps.recipeAddedStep);
       })
       .catch((error) => {
-        // Fehlerbehandlung
         console.error("Fehler beim Senden der Daten:", error);
         setCurrentStep(steps.recipeNotAddedStep);
       });
