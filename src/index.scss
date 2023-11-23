@@ -1,3 +1,4 @@
+@import './stylesheets/Navbar.scss';
 // @import './stylesheets/KeywordSearch.scss';
 // @import './stylesheets/ShowRecipe.scss';
 // @import './stylesheets/ChangeRecipe.scss';
@@ -32,7 +33,7 @@ button {
 
 .reverse-colored-button {
   color: $primary-color;
-  background-color: white;
+  background-color: $tertiary-color;
   font-size: 20px;
   box-shadow: 0 0 16px rgba($primary-color, 0.2);
 }
@@ -48,14 +49,14 @@ input {
   border-radius: 8px;
   margin: 8px 4px;
   padding: 4px 8px;
-  border: 2px solid $secondary-color;
+  border: 0px solid $secondary-color;
   font-size: 17px;
   font-family: $secondary-font;
   text-align: center;
   background-color: white;
-  box-shadow: 0 0 16px rgba($primary-color, 0.1);
+  box-shadow: 0 0 16px rgba($primary-color, 0.4);
   &:hover {
-    box-shadow: 0 0 16px rgba($primary-color, 0.5);
+    box-shadow: 0 0 16px rgba($primary-color, 0.8);
   }
   &:focus {
     outline: none;
@@ -78,10 +79,11 @@ input {
 textarea {
   font-family: $secondary-font;
   color: $input-color;
-  border: 2px solid $secondary-color;
+  border: 0px solid $secondary-color;
   border-radius: 8px;
+  box-shadow: 0 0 16px rgba($primary-color, 0.4);
   &:hover {
-    box-shadow: 0 0 16px rgba($primary-color, 0.5);
+    box-shadow: 0 0 16px rgba($primary-color, 0.8);
   }
   &:focus {
     outline: none;

@@ -1,18 +1,18 @@
-import React, { useState, useRef } from "react";
-import AddIngredientsStep from "./AddIngredientsStep";
-import AddNameAmountsAndDescriptionStep from "./AddNameAmountsAndDescriptionStep";
-import AddKeywordsStep from "./AddKeywordsStep";
-import RecipeAdded from "./RecipeAdded";
-import RecipeNotAdded from "./RecipeNotAdded";
-import Navigation from "./Navigation";
+import React, { useState, useRef } from 'react';
+import AddIngredientsStep from './AddIngredientsStep';
+import AddNameAmountsAndDescriptionStep from './AddNameAmountsAndDescriptionStep';
+import AddKeywordsStep from './AddKeywordsStep';
+import RecipeAdded from './RecipeAdded';
+import RecipeNotAdded from './RecipeNotAdded';
+import Navigation from './Navigation';
 
 const steps = {
-  homeStep: "homeStep",
-  addIngredientsStep: "addIngredientsStep",
-  addNameAmountsDescriptionStep: "addNameAmountsDecriptionStep",
-  addKeywordsStep: "addKeywordsStep",
-  recipeAddedStep: "recipeAddedStep",
-  recipeNotAddedStep: "recipeNotAddedStep",
+  homeStep: 'homeStep',
+  addIngredientsStep: 'addIngredientsStep',
+  addNameAmountsDescriptionStep: 'addNameAmountsDecriptionStep',
+  addKeywordsStep: 'addKeywordsStep',
+  recipeAddedStep: 'recipeAddedStep',
+  recipeNotAddedStep: 'recipeNotAddedStep',
 };
 
 const stepsArray = [
@@ -27,45 +27,45 @@ const stepsArray = [
 const AddRecipe = ({ onReturnHome }) => {
   const [currentStep, setCurrentStep] = useState(steps.addIngredientsStep);
   const [recipe, setRecipe] = useState({
-    recipeName: "",
+    recipeName: '',
     amounts: [],
     ingredients: [],
-    description: "",
+    description: '',
     keywords: [],
   });
   const recipeNameFieldRef = useRef(null);
-  const serverUrl = "http://localhost:3001";
+  const serverUrl = 'http://localhost:3001';
 
   const handleCurrentStep = (nextStep) => {
     if (nextStep === steps.homeStep) {
       onReturnHome(true);
     } else if (
-      recipe.recipeName === "" &&
-      currentStep === steps.addNameAmountsDescriptionStep
+      recipe.recipeName === '' &&
+      nextStep === steps.addKeywordsStep
     ) {
       recipeNameFieldRef.current.focus();
-      recipeNameFieldRef.current.style.borderColor = "mediumorchid";
+      recipeNameFieldRef.current.style.borderColor = 'mediumorchid';
     } else if (nextStep === steps.recipeAddedStep) {
       handleSaveRecipe();
     } else setCurrentStep(nextStep);
   };
 
   const handleSaveRecipe = () => {
-    console.log("save");
+    console.log('save');
     fetch(`${serverUrl}/addData`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(recipe),
     })
       .then((response) => response.text())
       .then((message) => {
-        console.log("Antwort vom Server:", message);
+        console.log('Antwort vom Server:', message);
         setCurrentStep(steps.recipeAddedStep);
       })
       .catch((error) => {
-        console.error("Fehler beim Senden der Daten:", error);
+        console.error('Fehler beim Senden der Daten:', error);
         setCurrentStep(steps.recipeNotAddedStep);
       });
   };
@@ -75,7 +75,7 @@ const AddRecipe = ({ onReturnHome }) => {
   );
 
   return (
-    <div className="align-center">
+    <div className='align-center'>
       {currentStep === steps.addIngredientsStep && (
         <AddIngredientsStep recipe={recipe} setRecipe={setRecipe} />
       )}

@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 const KeywordSearch = (props) => {
   const { onRecipeSelection, searchTerm, recipes } = props;
   const [contentSearchField, setContentSearchField] = useState(searchTerm);
   const [recipesFound, setRecipesFound] = useState([]);
-  const [output, setOutput] = useState("");
+  const [output, setOutput] = useState('');
   const [searchResultsAreShown, setSearchResultsAreShown] = useState(false);
 
   // Wenn die Komponente montiert wird,
-  // wird automatisch die Suche mit "searchTerm" durchgeführt,
+  // wird automatisch die Suche mit 'searchTerm' durchgeführt,
   // falls dieser nicht leer ist.
   useEffect(() => {
-    if (searchTerm !== "") {
+    if (searchTerm !== '') {
       setContentSearchField(searchTerm);
       handleSearch();
     }
@@ -25,28 +25,28 @@ const KeywordSearch = (props) => {
   // Die Schlagwörter und der Rezeptname werden auf
   // Übereinstimmungen mit den Suchbegriffen untersucht
   const handleSearch = () => {
-    setOutput("Keine Rezepte gefunden");
-    // Fehlermeldung, wenn ",", "+", "&" enthalten sind.
+    setOutput('Keine Rezepte gefunden');
+    // Fehlermeldung, wenn ',', '+', '&' enthalten sind.
     if (
-      contentSearchField.includes(",") ||
-      contentSearchField.includes("+") ||
-      contentSearchField.includes("&")
+      contentSearchField.includes(',') ||
+      contentSearchField.includes('+') ||
+      contentSearchField.includes('&')
     ) {
-      setOutput("Als Verknüpfungen sind nur 'und' oder 'oder' erlaubt.");
+      setOutput('Als Verknüpfungen sind nur "und" oder "oder" erlaubt.');
       // Die Suche kann durch die Eingabe löschen gelöscht werden.
-    } else if (contentSearchField === "löschen") {
+    } else if (contentSearchField === 'löschen') {
       setRecipesFound([]);
-      setContentSearchField("");
-      setOutput("");
+      setContentSearchField('');
+      setOutput('');
       // Zeigt alle Rezepte an.
-    } else if (contentSearchField === "" || contentSearchField === "*") {
+    } else if (contentSearchField === '' || contentSearchField === '*') {
       setRecipesFound([...recipes]);
     }
     // Zeigt alle Rezepte an, in deren Schlagwörtern
     // mindestens eins der eingegebenen Wörter enthalten ist.
-    else if (contentSearchField.includes("oder")) {
+    else if (contentSearchField.includes('oder')) {
       const searchWords = contentSearchField
-        .split("oder")
+        .split('oder')
         .map((word) => word.trim());
       const newRecipesFound = [];
       searchWords.forEach((word) => {
@@ -64,9 +64,9 @@ const KeywordSearch = (props) => {
     }
     // Zeigt nur Rezepte an, wenn alle Wörter aus der Suche
     // in den Schlagwörtern enthalten sind.
-    else if (contentSearchField.includes("und")) {
+    else if (contentSearchField.includes('und')) {
       const searchWords = contentSearchField
-        .split("und")
+        .split('und')
         .map((word) => word.trim());
       const newRecipesFound = [];
       recipes.forEach((recipe) => {
@@ -99,13 +99,13 @@ const KeywordSearch = (props) => {
   };
 
   return (
-    <div className="container">
+    <div className='container'>
       <span>
         <input
-          type="text"
+          type='text'
           onChange={handleSearchFieldInput}
           value={contentSearchField}
-          id="search-field"
+          id='search-field'
         />
         <button onClick={handleSearch}>Suchen</button>
       </span>
@@ -114,7 +114,7 @@ const KeywordSearch = (props) => {
         recipesFound.map((recipe, index) => (
           <div key={index}>
             <button
-              className="white"
+              className='reverse-colored-button'
               onClick={() => handleRecipeSelection(recipe)}
             >
               {recipe.recipeName}
@@ -123,7 +123,7 @@ const KeywordSearch = (props) => {
         ))}
       {searchResultsAreShown && recipesFound.length === 0 && (
         <div>
-          <p className="center">{output}</p>
+          <p className='center'>{output}</p>
         </div>
       )}
     </div>

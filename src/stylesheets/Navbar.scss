@@ -1,0 +1,16 @@
+nav ul {
+  display: flex;
+  list-style-type: none;
+  justify-content: center;
+  margin-left: -35px;
+}
+
+nav ul li {
+  margin: 10px;
+  padding: 2px;
+}
+
+nav ul li.active {
+  color: rgb(23, 32, 126);
+  text-shadow: 8px 8px 8px rgba(23, 32, 126, 0.5);
+}

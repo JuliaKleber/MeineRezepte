@@ -27,7 +27,6 @@ const AddNameAmountsAndDescriptionStep = ({
       <AmountsAndIngredientsFields recipe={recipe} setRecipe={setRecipe} />
       <AddIngredientButton
         buttonClass="reverse-colored-button"
-        buttonText="Zutat hinzufügen"
         onAddIngredient={handleAddIngredient}
       />
       <DescriptionField recipe={recipe} setRecipe={setRecipe} />

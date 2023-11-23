@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import Navbar from './components/Navbar';
 import KeywordSearch from "./components/KeywordSearch";
 import ShowRecipe from "./components/ShowRecipe";
 import AddRecipe from "./components/addRecipe/AddRecipe";
+import homeImage from "./images/home.jpg";
+
 
 const App = () => {
   const [currentStep, setCurrentStep] = useState("homeMenu");
@@ -56,8 +59,9 @@ const App = () => {
 
   return (
     <div>
+      <Navbar />
       {currentStep === "homeMenu" && (
-        <div className="container">
+        <div className="container" style={{ backgroundImage: `url(${homeImage})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh' }}>
           <h1>Meine Rezepte</h1>
           <KeywordSearch
             onRecipeSelection={handleShowRecipe}

@@ -1,12 +1,12 @@
-import React from "./RecipeAdded";
+import React from './RecipeAdded';
 
 const RecipeNotAdded = ({ onChangeStep }) => {
   const goToStartMenu = () => {
-    onChangeStep("home");
+    onChangeStep('homeStep');
   };
 
   return (
-    <div className="container">
+    <div className='container'>
       <p>Das Rezept konnte nicht gespeichert werden.</p>
       <button onClick={goToStartMenu}>zum Startmenü</button>
     </div>
