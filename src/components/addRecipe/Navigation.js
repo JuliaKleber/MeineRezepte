@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Navigation = ({
   onChangeStep,
@@ -7,7 +7,7 @@ const Navigation = ({
   indexOfNextStep,
 }) => {
   const navigation = (
-    <span className="container-vertical-alignment">
+    <span className='container-vertical-alignment'>
       <button onClick={() => onChangeStep(steps[indexOfPreviousStep])}>
         zurück
       </button>

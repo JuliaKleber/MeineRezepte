@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const IngredientGroup = ({
   recipe,
@@ -57,7 +57,7 @@ const IngredientGroup = ({
           key={ingredient}
           onClick={() => handleIngredientClick(index)}
           className={
-            areIngredientsSelected[index] ? "is-chosen" : "is-not-chosen white-black-button"
+            areIngredientsSelected[index] ? 'is-chosen' : 'is-not-chosen white-black-button'
           }
         >
           {ingredient}
@@ -66,9 +66,9 @@ const IngredientGroup = ({
   );
 
   return (
-    <div className="ingredient-sub-group container">
+    <div className='ingredient-group container'>
       <button
-        className="ingredient-category-button white-black-button"
+        className='ingredient-category-button white-black-button'
         onClick={handleCategoryClick}
       >
         {ingredientsCategory}

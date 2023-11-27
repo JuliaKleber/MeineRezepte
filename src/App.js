@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
-import KeywordSearch from "./components/KeywordSearch";
-import ShowRecipe from "./components/ShowRecipe";
-import AddRecipe from "./components/addRecipe/AddRecipe";
-import homeImage from "./images/home.jpg";
+import KeywordSearch from './components/KeywordSearch';
+import ShowRecipe from './components/ShowRecipe';
+import AddRecipe from './components/addRecipe/AddRecipe';
+import homeImage from './images/home.jpg';
 
 
 const App = () => {
-  const [currentStep, setCurrentStep] = useState("homeMenu");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [currentStep, setCurrentStep] = useState('homeMenu');
+  const [searchTerm, setSearchTerm] = useState('');
   const [recipe, setRecipe] = useState();
   const [recipes, setRecipes] = useState([]);
   const [returnedHome, setReturnedHome] = useState(false);
@@ -17,15 +17,15 @@ const App = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("http://localhost:3001/getRecipes");
+        const response = await fetch('http://localhost:3001/getRecipes');
         if (response.status === 200) {
           const data = await response.json();
           setRecipes(data);
         } else {
-          console.error("Fehler beim Abrufen der Daten");
+          console.error('Fehler beim Abrufen der Daten');
         }
       } catch (error) {
-        console.error("Fehler beim Senden der Anfrage:", error);
+        console.error('Fehler beim Senden der Anfrage:', error);
       }
     }
     fetchData();
@@ -36,32 +36,32 @@ const App = () => {
   const handleShowRecipe = (selectedRecipe, latestSearchTerm) => {
     setSearchTerm(latestSearchTerm);
     setRecipe(selectedRecipe);
-    setCurrentStep("showRecipe");
+    setCurrentStep('showRecipe');
   };
 
   // Die letzten Suchergebnisse werden wieder angezeigt.
   const handleBackToSearchResults = () => {
-    setCurrentStep("homeMenu");
+    setCurrentStep('homeMenu');
     setReturnedHome(true);
   };
 
   // Die Maske zur Eingabe eines neuen Rezepts wird angezeigt.
   const handleAddRecipe = () => {
-    setCurrentStep("addRecipe");
+    setCurrentStep('addRecipe');
   };
 
   // Die Startseite wird wieder angezeigt.
   const handleReturnHome = (home) => {
     if (!home) return;
-    setCurrentStep("homeMenu");
+    setCurrentStep('homeMenu');
     setReturnedHome(true);
   };
 
   return (
     <div>
       <Navbar />
-      {currentStep === "homeMenu" && (
-        <div className="container" style={{ backgroundImage: `url(${homeImage})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '87.8vh' }}>
+      {currentStep === 'homeMenu' && (
+        <div className='container' style={{ backgroundImage: `url(${homeImage})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '87.8vh' }}>
           <h1>Meine Rezepte</h1>
           <KeywordSearch
             onRecipeSelection={handleShowRecipe}
@@ -71,14 +71,14 @@ const App = () => {
           <button onClick={handleAddRecipe}>Neues Rezept hinzufügen</button>
         </div>
       )}
-      {currentStep === "showRecipe" && (
+      {currentStep === 'showRecipe' && (
         <ShowRecipe
           recipe={recipe}
           onBackToSearchResults={handleBackToSearchResults}
           recipes={recipes}
         />
       )}
-      {currentStep === "addRecipe" && (
+      {currentStep === 'addRecipe' && (
         <AddRecipe onReturnHome={handleReturnHome} />
       )}
     </div>

@@ -10,7 +10,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav>
+    <nav class='navbar'>
       <ul>
         <li className={activeLink === 'home' ? 'active' : ''} onClick={() => handleLinkClick('home')}>
           <FontAwesomeIcon icon={faHouse} />

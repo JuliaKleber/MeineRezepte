@@ -1,8 +1,8 @@
-import React from "react";
-import RecipeNameField from "./RecipeNameField";
-import AmountsAndIngredientsFields from "./AmountsAndIngredientsFields";
-import AddIngredientButton from "./AddIngredientButton";
-import DescriptionField from "./DescriptionField";
+import React from 'react';
+import RecipeNameField from './RecipeNameField';
+import AmountsAndIngredientsFields from './AmountsAndIngredientsFields';
+import AddIngredientButton from './AddIngredientButton';
+import DescriptionField from './DescriptionField';
 
 const AddNameAmountsAndDescriptionStep = ({
   recipe,
@@ -12,13 +12,13 @@ const AddNameAmountsAndDescriptionStep = ({
   const handleAddIngredient = () => {
     setRecipe({
       ...recipe,
-      amounts: [...recipe.amounts, ""],
-      ingredients: [...recipe.ingredients, ""],
+      amounts: [...recipe.amounts, ''],
+      ingredients: [...recipe.ingredients, ''],
     });
   };
 
   return (
-    <div className="container">
+    <div className='container'>
       <RecipeNameField
         recipe={recipe}
         setRecipe={setRecipe}
@@ -26,7 +26,7 @@ const AddNameAmountsAndDescriptionStep = ({
       />
       <AmountsAndIngredientsFields recipe={recipe} setRecipe={setRecipe} />
       <AddIngredientButton
-        buttonClass="reverse-colored-button"
+        buttonClass='reverse-colored-button'
         onAddIngredient={handleAddIngredient}
       />
       <DescriptionField recipe={recipe} setRecipe={setRecipe} />

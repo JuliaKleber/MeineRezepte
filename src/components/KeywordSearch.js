@@ -99,7 +99,7 @@ const KeywordSearch = (props) => {
   };
 
   return (
-    <div className='container'>
+    <div className='container keyword-search'>
       <span>
         <input
           type='text'

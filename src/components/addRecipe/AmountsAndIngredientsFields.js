@@ -1,5 +1,5 @@
-import React from "react";
-import { AiFillDelete } from "react-icons/ai";
+import React from 'react';
+import { AiFillDelete } from 'react-icons/ai';
 
 const AmountsAndIngredientsFields = ({ recipe, setRecipe }) => {
   const handleAmountChange = (value, index) => {
@@ -21,7 +21,7 @@ const AmountsAndIngredientsFields = ({ recipe, setRecipe }) => {
   };
 
   const amountsAndIngredientsFields = (
-    <div>
+    <div className='amounts-and-ingredients-field'>
       <p>Zutaten pro Person</p>
       <table>
         <tbody>
@@ -29,25 +29,25 @@ const AmountsAndIngredientsFields = ({ recipe, setRecipe }) => {
             <tr key={index}>
               <td>
                 <input
-                  type="text"
+                  type='text'
                   value={recipe.amounts[index]}
                   onChange={(e) => handleAmountChange(e.target.value, index)}
-                  className="enter-amounts-fields"
+                  className='enter-amounts-fields'
                 />
               </td>
-              <td className="left">
+              <td className='left'>
                 <input
-                  type="text"
+                  type='text'
                   value={recipe.ingredients[index]}
                   onChange={(e) =>
                     handleIngredientChange(e.target.value, index)
                   }
-                  className="enter-ingredients-fields"
+                  className='enter-ingredients-fields'
                 />
               </td>
               <td>
                 <AiFillDelete
-                  className="delete-button"
+                  className='delete-button'
                   onClick={(e) => handleDeleteIngredient(index)}
                 />
               </td>

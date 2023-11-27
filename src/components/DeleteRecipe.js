@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const DeleteRecipe = ({ recipes, recipe, onReturn }) => {
-  const serverUrl = "http://localhost:3001";
+  const serverUrl = 'http://localhost:3001';
 
   // Das Rezept wird gelöscht.
   const handleRecipeDeletion = () => {
@@ -16,11 +16,11 @@ const DeleteRecipe = ({ recipes, recipe, onReturn }) => {
     fetch(`${serverUrl}/overwriteData`, {
       // Es wird die HTTP-Methode POST verwendet,
       // um Daten an den Server zu senden.
-      method: "POST",
+      method: 'POST',
       // Es wird angegeben, dass die Daten
       // im JSON-Format gesendet werden.
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       // Es wird das Rezept-Objekt in JSON-Format
       // umgewandelt und als Datenkörper gesendet.
@@ -30,26 +30,26 @@ const DeleteRecipe = ({ recipes, recipe, onReturn }) => {
       .then((message) => {
         // Es wird die Nachricht aus der
         // Server-Antwort in der Konsole ausgegeben.
-        console.log("Antwort vom Server:", message);
-        onReturn(true, "Das Rezept wurde aus der Datenbank entfernt");
+        console.log('Antwort vom Server:', message);
+        onReturn(true, 'Das Rezept wurde aus der Datenbank entfernt');
       })
       .catch((error) => {
         // Fehlerbehandlung
-        console.error("Fehler beim Senden der Daten:", error);
-        onReturn(false, "Das Rezept konnte nicht gelöscht werden.");
+        console.error('Fehler beim Senden der Daten:', error);
+        onReturn(false, 'Das Rezept konnte nicht gelöscht werden.');
       });
   };
 
   return (
-    <div className="container">
-      <span className="align-center black">
+    <div className='container'>
+      <span className='align-center black'>
         Möchtest du das Rezept wirklich unwiderbringlich löschen?
       </span>
       <span>
-        <button className="y-n" onClick={handleRecipeDeletion}>
+        <button className='y-n' onClick={handleRecipeDeletion}>
           ja
         </button>
-        <button className="y-n" onClick={() => onReturn(false)}>
+        <button className='y-n' onClick={() => onReturn(false)}>
           nein
         </button>
       </span>

@@ -1,68 +1,68 @@
-import React, { useState } from "react";
-import ShowIngredients from "./ShowIngredients";
-import ChangeOfRecipe from "./ChangeOfRecipe";
-import DeleteRecipe from "./DeleteRecipe";
-import pastaImage from "../images/pasta.jpg";
+import React, { useState } from 'react';
+import ShowIngredients from './ShowIngredients';
+import EditRecipe from './EditRecipe';
+import DeleteRecipe from './DeleteRecipe';
+import pastaImage from '../images/pasta.jpg';
 
 const ShowRecipe = ({ recipe, onBackToSearchResults, recipes }) => {
-  const [currentStep, setCurrentStep] = useState("recipeIsShown");
+  const [currentStep, setCurrentStep] = useState('recipeIsShown');
   const [currentRecipe, setCurrentRecipe] = useState(recipe);
-  const [output, setOutput] = useState("");
+  const [output, setOutput] = useState('');
 
   const handleRecipeChangeOn = () => {
-    setCurrentStep("recipeIsChanged");
+    setCurrentStep('recipeIsChanged');
   };
   // Die Frage, ob das Rezept wirklich gelöscht werden soll,
   // wird nicht mehr angezeigt
   const handleRecipeChangeOff = (newOutput, newRecipe) => {
     setOutput(newOutput);
     setCurrentRecipe(newRecipe);
-    setCurrentStep("recipeIsShown");
+    setCurrentStep('recipeIsShown');
   };
 
   // Die Frage, ob das Rezept wirklich gelöscht werden soll,
   // wird angezeigt
   const handleRecipeDeletionOn = () => {
-    setCurrentStep("deletionInitiated");
+    setCurrentStep('deletionInitiated');
   };
 
   // Die Frage, ob das Rezept wirklich gelöscht werden soll,
   // wird nicht mehr angezeigt
   const handleRecipeDeletionOff = (wasRemoved, newOutput) => {
-    wasRemoved && setCurrentStep("recipeWasRemoved");
+    wasRemoved && setCurrentStep('recipeWasRemoved');
     setOutput(newOutput);
-    !wasRemoved && setCurrentStep("recipeIsShown");
+    !wasRemoved && setCurrentStep('recipeIsShown');
   };
 
   return (
-    <div className="container">
+    <div className='container show-recipe'>
 
-      {currentStep === "recipeIsShown" && (
-        <div className="container">
-          <h2 className="recipe-card align-center">{recipe.recipeName}</h2>
-          <img src={pastaImage} alt="recipe_picture" width="300px" />
+      {currentStep === 'recipeIsShown' && (
+        <div className='container'>
+          <h2 className='recipe-card align-center'>{recipe.recipeName}</h2>
+          <img src={pastaImage} alt='recipe_picture' width='300px' />
           <ShowIngredients recipe={recipe} />
-          <p className={recipe.description === '' ? "display-none" : "recipe-card center"} id="recipe-description">
+          <p className={recipe.description === '' ? 'display-none' : 'recipe-card center'} id='recipe-description'>
             {recipe.description}
           </p>
           <span>
-            <button className="show-recipe-button white" onClick={handleRecipeChangeOn}>
+            <button className='show-recipe-button white' onClick={handleRecipeChangeOn}>
               Rezept ändern
             </button>
-            <button className="show-recipe-button white" onClick={handleRecipeDeletionOn}>
+            <button className='show-recipe-button white' onClick={handleRecipeDeletionOn}>
               Rezept löschen
             </button>
           </span>
           <button onClick={() => onBackToSearchResults()}>zurück</button>
-          <p className="align-center">{output}</p>
+          <p className='align-center'>{output}</p>
         </div>
       )}
 
-      {currentStep === "recipeIsChanged" && (
-        <ChangeOfRecipe recipe={recipe} recipes={recipes} onReturn={handleRecipeChangeOff} />
+      {currentStep === 'recipeIsChanged' && (
+        <EditRecipe recipe={recipe} recipes={recipes} onReturn={handleRecipeChangeOff} />
       )}
 
-      {currentStep === "deletionInitiated" && (
+      {currentStep === 'deletionInitiated' && (
         <DeleteRecipe
           recipes={recipes}
           recipe={recipe}
@@ -70,12 +70,12 @@ const ShowRecipe = ({ recipe, onBackToSearchResults, recipes }) => {
         />
       )}
 
-      {currentStep === "deletionNotPerformed" && (
-        <p className="align-center">{output}</p>
+      {currentStep === 'deletionNotPerformed' && (
+        <p className='align-center'>{output}</p>
       )}
 
-      {currentStep === "recipeWasRemoved" && (
-        <div className="align-center">
+      {currentStep === 'recipeWasRemoved' && (
+        <div className='align-center'>
           <p>{output}</p>
           <button onClick={() => onBackToSearchResults()}>zurück</button>
         </div>

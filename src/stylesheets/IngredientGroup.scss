@@ -1,4 +1,4 @@
-@import "Colors.scss";
+@import 'Colors.scss';
 
 .ingredient-category-button {
   width: 270px;
@@ -22,10 +22,4 @@
   margin: 5px;
   font-size: 20px;
   // box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-.ingredient-sub-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }

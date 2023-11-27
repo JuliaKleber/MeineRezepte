@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const RecipeNameField = ({ recipe, setRecipe, recipeNameFieldRef }) => {
   const handleRecipeNameChange = (updatedRecipeName) => {
@@ -6,11 +6,11 @@ const RecipeNameField = ({ recipe, setRecipe, recipeNameFieldRef }) => {
   };
 
   const recipeNameField = (
-    <div className="container">
+    <div className='container'>
       Name des Rezepts
       <br />
       <input
-        type="text"
+        type='text'
         value={recipe.recipeName}
         ref={recipeNameFieldRef}
         onChange={(e) => handleRecipeNameChange(e.target.value)}

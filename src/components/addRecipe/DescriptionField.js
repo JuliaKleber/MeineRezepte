@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 const DescriptionField = ({ recipe, setRecipe }) => {
   const handleDescriptionChange = (updatedDescription) => {
     setRecipe({ ...recipe, description: updatedDescription });
   };
 
   const descriptionField = (
-    <div className="container">
+    <div className='container description-field'>
       <p>Zubereitung</p>
       <textarea
         value={recipe.description}
         onChange={(e) => handleDescriptionChange(e.target.value)}
-        id="description-entry-field"
+        id='description-entry-field'
       ></textarea>
     </div>
   );
