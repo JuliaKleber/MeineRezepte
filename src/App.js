@@ -61,7 +61,7 @@ const App = () => {
     <div>
       <Navbar />
       {currentStep === "homeMenu" && (
-        <div className="container" style={{ backgroundImage: `url(${homeImage})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh' }}>
+        <div className="container" style={{ backgroundImage: `url(${homeImage})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '87.8vh' }}>
           <h1>Meine Rezepte</h1>
           <KeywordSearch
             onRecipeSelection={handleShowRecipe}

@@ -1,16 +1,11 @@
-#number-of-persons {
-  width: 30px;
-  height: 20px;
-  text-align: center;
-  margin: 5px;
-  margin-bottom: 15px;
-  border-color: rgb(184, 32, 146);
-  color: rgb(184, 32, 146);
+.recipe-card {
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 8px 16px;
+  margin: 16px 0px;
+  width: 328px;
 }
 
-.recipe-card {
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 10px;
-  margin: 15px 5px;
+.show-recipe-button {
+  margin: 12px;
 }

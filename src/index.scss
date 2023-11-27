@@ -1,7 +1,8 @@
 @import './stylesheets/Navbar.scss';
-// @import './stylesheets/KeywordSearch.scss';
-// @import './stylesheets/ShowRecipe.scss';
-// @import './stylesheets/ChangeRecipe.scss';
+@import './stylesheets/KeywordSearch.scss';
+@import './stylesheets/ShowRecipe.scss';
+@import './stylesheets/ShowIngredients.scss';
+@import './stylesheets/ChangeRecipe.scss';
 @import './stylesheets/IngredientGroup.scss';
 @import './stylesheets/AmountsAndIngredientsFields.scss';
 @import './stylesheets/DescriptionField.scss';
@@ -16,6 +17,11 @@ body {
   font-size: 20px;
 }
 
+h1 {
+  text-shadow: 0 0 4px rgba(white, 1);
+  color: $secondary-color;
+}
+
 button {
   color: white;
   background-color: $primary-color;
@@ -24,10 +30,10 @@ button {
   margin: 12px 4px;
   padding: 4px 12px;
   font-size: 17px;
-  box-shadow: 0 0 16px rgba($primary-color, 0.1);
+  box-shadow: 0 0 16px rgba($primary-color, 0.2);
   font-family: $tertiary-font;
   &:hover {
-    box-shadow: 0 0 16px rgba($primary-color, 0.5);
+    box-shadow: 0 0 16px rgba($primary-color, 0.4);
   }
 }
 
@@ -35,7 +41,10 @@ button {
   color: $primary-color;
   background-color: $tertiary-color;
   font-size: 20px;
-  box-shadow: 0 0 16px rgba($primary-color, 0.2);
+  box-shadow: 0 0 16px rgba($primary-color, 0.4);
+  &:hover {
+    box-shadow: 0 0 16px rgba($primary-color, 0.8);
+  }
 }
 
 .white-black-button {
@@ -59,9 +68,30 @@ input {
     box-shadow: 0 0 16px rgba($primary-color, 0.8);
   }
   &:focus {
-    outline: none;
-    border: 2px solid $primary-color;
+    outline: 2px solid $primary-color;
   }
+}
+
+textarea {
+  padding: 4px 8px;
+  font-family: $secondary-font;
+  color: $input-color;
+  border: 0px solid $secondary-color;
+  border-radius: 8px;
+  box-shadow: 0 0 16px rgba($primary-color, 0.4);
+  &:hover {
+    box-shadow: 0 0 16px rgba($primary-color, 0.8);
+  }
+  &:focus {
+    outline: 2px solid $primary-color;
+  }
+}
+
+img {
+  border-radius: 8px;
+  width: 360px;
+  margin: 12px 0px;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
 }
 
 .container {
@@ -76,18 +106,8 @@ input {
   flex-wrap: wrap;
 }
 
-textarea {
-  font-family: $secondary-font;
-  color: $input-color;
-  border: 0px solid $secondary-color;
-  border-radius: 8px;
-  box-shadow: 0 0 16px rgba($primary-color, 0.4);
-  &:hover {
-    box-shadow: 0 0 16px rgba($primary-color, 0.8);
-  }
-  &:focus {
-    outline: none;
-  }
+.display-none {
+  display: none;
 }
 
 .align-center {

@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { AiFillDelete } from "react-icons/ai";
+import pastaImage from "../images/pasta.jpg";
+
 const ChangeOfRecipe = ({ recipe, recipes, onReturn }) => {
   const serverUrl = "http://localhost:3001";
   const [recipeName, setRecipeName] = useState(recipe.recipeName);
@@ -25,6 +30,13 @@ const ChangeOfRecipe = ({ recipe, recipes, onReturn }) => {
     const newIngredients = [...ingredients];
     newIngredients[index] = event.target.value;
     setIngredients(newIngredients);
+  };
+
+  const handleDeleteIngredient = (index) => {
+    const newIngredients = recipe.ingredients.filter((_, i) => i !== index);
+    const newAmounts = recipe.amounts.filter((_, i) => i !== index);
+    setIngredients(newIngredients);
+    setAmounts(newAmounts);
   };
 
   const handleAddIngredient = () => {
@@ -98,11 +110,12 @@ const ChangeOfRecipe = ({ recipe, recipes, onReturn }) => {
     <div className="container">
       <input
         value={recipeName}
-        style={{ width: recipeName.length * 0.6 + "em" }}
+        // style={{ width: recipeName.length * 0.6 + "em" }}
         onChange={(event) => setRecipeName(event.target.value)}
         className="recipe-change card"
         id="recipe-name"
       ></input>
+      <img src={pastaImage} alt="recipe_picture" width="300px" />
       <div className="recipe-change card">
         <p className="center">
           Zutaten für 1 Person
@@ -127,16 +140,22 @@ const ChangeOfRecipe = ({ recipe, recipes, onReturn }) => {
                     onChange={(event) => handleIngredientUpdate(event, index)}
                   ></input>
                 </td>
+                <td>
+                <AiFillDelete
+                  className="delete-button"
+                  onClick={(e) => handleDeleteIngredient(index)}
+                />
+              </td>
               </tr>
             ))}
           </tbody>
         </table>
         <button
-          className="recipe-change"
+          className="recipe-change reverse-colored-button"
           id="add-ingredient-button"
           onClick={handleAddIngredient}
         >
-          Zutat hinzufügen
+          <FontAwesomeIcon icon={faPlus} /> Zutat
         </button>
       </div>
       <textarea

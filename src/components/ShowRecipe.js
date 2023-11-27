@@ -36,32 +36,27 @@ const ShowRecipe = ({ recipe, onBackToSearchResults, recipes }) => {
 
   return (
     <div className="container">
-      {currentStep === "recipeIsShown" && (
-        <div className="container">
-          <h2 className="recipe-card center">{recipe.recipeName}</h2>
-          <img src={pastaImage} alt="recipe_picture" width="300px" />
-          <ShowIngredients recipe={recipe} />
-          <p className="recipe-card center" id="recipe-description">
-            {recipe.description}
-          </p>
-        </div>
-      )}
 
       {currentStep === "recipeIsShown" && (
         <div className="container">
-          <button onClick={() => onBackToSearchResults()}>zurück</button>
+          <h2 className="recipe-card align-center">{recipe.recipeName}</h2>
+          <img src={pastaImage} alt="recipe_picture" width="300px" />
+          <ShowIngredients recipe={recipe} />
+          <p className={recipe.description === '' ? "display-none" : "recipe-card center"} id="recipe-description">
+            {recipe.description}
+          </p>
           <span>
-            <button className="white" onClick={handleRecipeChangeOn}>
+            <button className="show-recipe-button white" onClick={handleRecipeChangeOn}>
               Rezept ändern
             </button>
-            <button className="white" onClick={handleRecipeDeletionOn}>
+            <button className="show-recipe-button white" onClick={handleRecipeDeletionOn}>
               Rezept löschen
             </button>
           </span>
+          <button onClick={() => onBackToSearchResults()}>zurück</button>
+          <p className="align-center">{output}</p>
         </div>
       )}
-
-      {currentStep === "recipeIsShown" && <p className="align-center">{output}</p>}
 
       {currentStep === "recipeIsChanged" && (
         <ChangeOfRecipe recipe={recipe} recipes={recipes} onReturn={handleRecipeChangeOff} />

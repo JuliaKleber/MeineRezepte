@@ -114,7 +114,7 @@ const KeywordSearch = (props) => {
         recipesFound.map((recipe, index) => (
           <div key={index}>
             <button
-              className='reverse-colored-button'
+              className='reverse-colored-button search-results'
               onClick={() => handleRecipeSelection(recipe)}
             >
               {recipe.recipeName}

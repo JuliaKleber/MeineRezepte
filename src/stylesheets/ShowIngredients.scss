@@ -1,0 +1,15 @@
+@import './Colors.scss';
+
+#number-of-persons {
+  width: 24px;
+  height: 20px;
+  margin: 8px;
+  margin-bottom: 16px;
+  color: $primary-color;
+}
+
+td {
+  &:first-child {
+    padding-right: 16px;
+  }
+}

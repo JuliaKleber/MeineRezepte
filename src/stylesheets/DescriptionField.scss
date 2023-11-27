@@ -1,5 +1,9 @@
 #description-entry-field {
-  width: 336px;
-  height: 100px;
+  width: 312px;
+  height: 192px;
   font-size: 17px;
+  @media screen and (min-width: 768px) {
+    width: 624px;
+    height: 288px;
+  }
 }

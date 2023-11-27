@@ -385,58 +385,34 @@
     ]
   },
   {
-    "recipeName": "Paprikareis",
+    "recipeName": "Spaghetti mit Grünkohlpesto",
     "amounts": [
+      "125 g",
       "",
-      "1",
-      "1",
-      "3",
-      "1",
-      "500 g",
-      "1 Dose",
-      "2 Dosen",
-      "1 Glas",
-      "1 Packung"
+      "0,5",
+      "",
+      "",
+      "",
+      ""
     ],
     "ingredients": [
+      "Spaghetti",
       "Olivenöl",
-      "Zwiebel",
-      "Knoblauchzehe",
-      "Paprika",
-      "frische Chilischote",
-      "Reis",
-      "Tomaten",
-      "Kidneybohnen",
-      "Oliven",
-      "Feta",
-      "Salz",
-      "Kreuzkümmel",
-      "schwarzer Pfeffer",
-      "Kräuter der Provence"
-    ],
-    "description": "",
-    "keywords": [
-      "Reis",
-      "Olivenöl",
-      "Paprika",
-      "Kräuter der Provence",
-      "schwarzer Pfeffer",
-      "Salz",
-      "Kidneybohnen",
-      "Zwiebeln",
       "Knoblauchzehen",
-      "Feta",
-      "Oliven",
-      "vegetarisch",
-      "mittel",
-      "Sommer",
-      "Herbst",
-      "Juli",
-      "August",
-      "September",
-      "Oktober",
-      "TexMex",
-      "Sonstiges"
+      "Grünkohl",
+      "Sonnenblumenkerne",
+      "Salz",
+      "schwarzer Pfeffer"
+    ],
+    "description": "Grünkohl in Salzwasser kochen. Spaghetti in Salzwasser kochen.\n\nGrünkohl mit Knoblauch, gerösteten Sonnenblumenkernen und Nudelwasser pürieren. Mit Olivenöl und Pfeffer vermengen.",
+    "keywords": [
+      "Spaghetti",
+      "Olivenöl",
+      "Knoblauchzehen",
+      "Grünkohl",
+      "Sonnenblumenkerne",
+      "Salz",
+      "schwarzer Pfeffer"
     ]
   }
 ]
