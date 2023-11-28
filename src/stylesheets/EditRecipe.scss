@@ -1,4 +1,4 @@
-.recipe-change.card {
+.edit-recipe .card {
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   padding: 8px 16px;
@@ -9,7 +9,7 @@
   align-items: center;
 }
 
-.recipe-change#recipe-name {
+.edit-recipe #recipe-name {
   font-size: 20px;
   width: 344px;
   padding: 8px;
@@ -19,7 +19,7 @@
   }
 }
 
-.recipe-change.reverse-colored-button {
+.edit-recipe .reverse-colored-button {
   font-size: 17px;
   // background-color: white;
   // width: 200px;
@@ -30,13 +30,13 @@
   // }
 }
 
-.recipe-change#description {
+.edit-recipe #description {
   width: 328px;
   height: 204px;
   font-size: 17px;
 }
 
-// .recipe-change {
+// .edit-recipe {
   //   color: rgb(184, 32, 146);
   //   font-size: 20px;
   //   border-width: 0px;

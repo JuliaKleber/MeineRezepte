@@ -1,16 +1,16 @@
-.keyword-is-chosen {
+.add-keywords-step .keyword-is-chosen {
   width: 150px;
   margin: 5px;
   font-size: 20px;
 }
 
-.keyword-is-not-chosen {
+.add-keywords-step .keyword-is-not-chosen {
   width: 150px;
   margin: 5px;
   font-size: 20px;
 }
 
-.add-keywords-step-width {
+.add-keywords-step .width {
   max-width: 620px;
   @media screen and (min-width: 768px) {
     max-width: 640px;

@@ -1,6 +1,6 @@
 @import 'Colors.scss';
 
-.ingredient-category-button {
+.ingredient-group .ingredient-category-button {
   width: 270px;
   padding: 5px;
   margin: 10px;
@@ -8,7 +8,7 @@
   // box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
-.is-not-chosen {
+.ingredient-group .is-not-chosen {
   width: 220px;
   padding: 5px;
   margin: 5px;
@@ -16,7 +16,7 @@
   // box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
-.is-chosen {
+.ingredient-group .is-chosen {
   width: 230px;
   padding: 5px;
   margin: 5px;

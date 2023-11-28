@@ -1,26 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
-  const [activeLink, setActiveLink] = useState('home');
+  const location = useLocation();
 
-  const handleLinkClick = (link) => {
-    setActiveLink(link);
+  const isActive = (path) => {
+    return location.pathname === path ? 'active' : '';
   };
 
   return (
     <nav class='navbar'>
       <ul>
-        <li className={activeLink === 'home' ? 'active' : ''} onClick={() => handleLinkClick('home')}>
+        <li className={isActive('/')}><Link to='/'>
           <FontAwesomeIcon icon={faHouse} />
-        </li>
-        <li className={activeLink === 'search' ? 'active' : ''} onClick={() => handleLinkClick('search')}>
+        </Link></li>
+        <li className={isActive('/search')}><Link to='/search'>
           <FontAwesomeIcon icon={faMagnifyingGlass} />
-        </li>
-        <li className={activeLink === 'add' ? 'active' : ''} onClick={() => handleLinkClick('add')}>
+        </Link></li>
+        <li className={isActive('/add')}><Link to='/add'>
           <FontAwesomeIcon icon={faPlus} />
-        </li>
+        </Link></li>
       </ul>
     </nav>
   );

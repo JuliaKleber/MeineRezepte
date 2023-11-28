@@ -1,13 +1,13 @@
 @import 'Colors.scss';
 
-.enter-amounts-fields {
+.amounts-and-ingredients-fields .enter-amounts-fields {
   width: 100px;
 }
 
-.enter-ingredients-fields {
+.amounts-and-ingredients-fields .enter-ingredients-fields {
   width: 160px;
 }
 
-.delete-button:hover {
+.amounts-and-ingredients-fields .delete-button:hover {
   box-shadow: 0 0 16px rgba($primary-color, 0.5);
 }

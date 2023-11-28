@@ -1,6 +1,6 @@
 @import './Colors.scss';
 
-#number-of-persons {
+.show-ingredients #number-of-persons {
   width: 24px;
   height: 20px;
   margin: 8px;
@@ -8,7 +8,7 @@
   color: $primary-color;
 }
 
-td {
+.show-ingredients td {
   &:first-child {
     padding-right: 16px;
   }

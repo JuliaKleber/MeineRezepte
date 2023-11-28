@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import KeywordSearch from './components/KeywordSearch';
 import ShowRecipe from './components/ShowRecipe';
 import AddRecipe from './components/addRecipe/AddRecipe';
 import homeImage from './images/home.jpg';
+
+
+
 
 
 const App = () => {
@@ -12,6 +16,20 @@ const App = () => {
   const [recipe, setRecipe] = useState();
   const [recipes, setRecipes] = useState([]);
   const [returnedHome, setReturnedHome] = useState(false);
+
+  const Home = () => {
+    return (
+      <div className='container' style={{ backgroundImage: `url(${homeImage})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '87.8vh' }}>
+        <h1>Meine Rezepte</h1>
+        <KeywordSearch
+          onRecipeSelection={handleShowRecipe}
+          searchTerm={searchTerm}
+          recipes={recipes}
+        />
+        <button onClick={handleAddRecipe}>Neues Rezept hinzufügen</button>
+      </div>
+    );
+  }
 
   // Die Rezepte werden aus der JSON-Datei geladen.
   useEffect(() => {
@@ -59,28 +77,24 @@ const App = () => {
 
   return (
     <div>
-      <Navbar />
-      {currentStep === 'homeMenu' && (
-        <div className='container' style={{ backgroundImage: `url(${homeImage})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '87.8vh' }}>
-          <h1>Meine Rezepte</h1>
-          <KeywordSearch
-            onRecipeSelection={handleShowRecipe}
-            searchTerm={searchTerm}
-            recipes={recipes}
-          />
-          <button onClick={handleAddRecipe}>Neues Rezept hinzufügen</button>
-        </div>
-      )}
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<KeywordSearch onRecipeSelection={handleShowRecipe} searchTerm={searchTerm} recipes={recipes} />} />
+          <Route path="/add" element={<AddRecipe onReturnHome={handleReturnHome} />} />
+        </Routes>
       {currentStep === 'showRecipe' && (
         <ShowRecipe
-          recipe={recipe}
-          onBackToSearchResults={handleBackToSearchResults}
+        recipe={recipe}
+        onBackToSearchResults={handleBackToSearchResults}
           recipes={recipes}
         />
       )}
       {currentStep === 'addRecipe' && (
         <AddRecipe onReturnHome={handleReturnHome} />
       )}
+      </Router>
     </div>
   );
 }

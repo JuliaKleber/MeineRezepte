@@ -4,7 +4,7 @@ import KeywordCategories from './KeywordCategories';
 const AddKeywordsStep = ({ recipe, setRecipe }) => {
   return (
     <div className="container add-keywords-step">
-      <div className="add-keywords-step-width">
+      <div className="width">
         <KeywordCategories
           keywordCategory='Ernährungsform'
           listOfKeywords={['vegan', 'vegetarisch']}

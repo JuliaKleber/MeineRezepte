@@ -1,11 +1,19 @@
-#search-field {
+@import './Colors.scss';
+
+.keyword-search #search-field {
   width: 170px;
   margin-top: 30px;
   margin-bottom: 50px;
   margin-right: 20px;
-  box-shadow: 0px 0px 4px rgba(white, 0.4);
+  box-shadow: 0px 0px 16px rgba($primary-color, 0.4);
+  &:hover {
+    box-shadow: 0px 0px 16px rgba($primary-color, 0.6);
+  }
 }
 
-// .search-results button {
-//   box-shadow: 0px 0px 4px rgba(white, 1);
-// }
+.keyword-search button {
+  box-shadow: 0px 0px 16px rgba($primary-color, 0.4);
+  &:hover {
+    box-shadow: 0px 0px 16px rgba($primary-color, 0.6);
+  }
+}
