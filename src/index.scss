@@ -10,16 +10,16 @@
 @import './stylesheets/Colors.scss';
 @import './stylesheets/Fonts';
 
-
 body {
   font-family: $primary-font;
   color: $primary-color;
   font-size: 20px;
+  text-shadow: 0 0 16px rgba($primary-color, 0.1);
 }
 
 h1 {
-  text-shadow: 0 0 4px rgba(white, 1);
-  color: $secondary-color;
+  text-shadow: 0 0 4px rgba(black, 1);
+  color: white;
 }
 
 button {
@@ -31,7 +31,7 @@ button {
   padding: 4px 12px;
   font-size: 17px;
   box-shadow: 0 0 16px rgba($primary-color, 0.2);
-  font-family: $tertiary-font;
+  font-family: $button-font;
   &:hover {
     box-shadow: 0 0 16px rgba($primary-color, 0.4);
   }
@@ -60,7 +60,7 @@ input {
   padding: 4px 8px;
   border: 0px solid $secondary-color;
   font-size: 17px;
-  font-family: $secondary-font;
+  font-family: $input-font;
   text-align: center;
   background-color: white;
   box-shadow: 0 0 16px rgba($primary-color, 0.4);
@@ -74,7 +74,7 @@ input {
 
 textarea {
   padding: 4px 8px;
-  font-family: $secondary-font;
+  font-family: $input-font;
   color: $input-color;
   border: 0px solid $secondary-color;
   border-radius: 8px;
