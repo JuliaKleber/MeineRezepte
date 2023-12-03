@@ -21,7 +21,7 @@ const AmountsAndIngredientsFields = ({ recipe, setRecipe }) => {
   };
 
   const amountsAndIngredientsFields = (
-    <div className='amounts-and-ingredients-field'>
+    <div className='amounts-and-ingredients-fields'>
       <p>Zutaten pro Person</p>
       <table>
         <tbody>

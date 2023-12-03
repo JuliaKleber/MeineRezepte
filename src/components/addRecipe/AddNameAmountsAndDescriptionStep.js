@@ -3,6 +3,7 @@ import RecipeNameField from './RecipeNameField';
 import AmountsAndIngredientsFields from './AmountsAndIngredientsFields';
 import AddIngredientButton from './AddIngredientButton';
 import DescriptionField from './DescriptionField';
+import ImageUpload from './ImageUpload';
 
 const AddNameAmountsAndDescriptionStep = ({
   recipe,
@@ -30,6 +31,7 @@ const AddNameAmountsAndDescriptionStep = ({
         onAddIngredient={handleAddIngredient}
       />
       <DescriptionField recipe={recipe} setRecipe={setRecipe} />
+      <ImageUpload />
     </div>
   );
 }
