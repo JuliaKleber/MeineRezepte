@@ -54,4 +54,4 @@ The application fetches recipes from a local API available at http://localhost:3
 
 ## Author
 
-[GoldieCrystal](https://github.com/GoldieCrystal)
+[Julia Kleber](https://github.com/GoldieCrystal)
