@@ -8,26 +8,39 @@ This is a React application for managing and searching recipes.
 - Add new recipes
 - View selected recipes
 
+## Built with
+
+- React.js
+- SCSS
+- React Router
+
 ## Installation
 
-Clone the repository:
+1. Clone the repository:
 
   ```bash
   git clone https://github.com/GoldieCrystal/MeineRezepte.git
+  ```
 
-Navigate to the project directory:
+2. Navigate to the project directory:
+
   ```bash
   cd MeineRezepte
+  ```
 
-Install the dependencies:
+3. Install the dependencies:
+
   ```bash
   npm install
+  ```
 
 ## Usage
 
 To start the application, run:
+
   ```bash
   npm start
+  ```
 
 The application will be available at http://localhost:3000.
 
