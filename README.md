@@ -13,6 +13,7 @@ This is a React application for managing and searching recipes.
 - React.js
 - SCSS
 - React Router
+- Express.js
 
 ## Installation
 
@@ -40,6 +41,10 @@ To start the application, run:
 
   ```bash
   npm start
+  ```
+
+  ```bash
+  node server.js
   ```
 
 The application will be available at http://localhost:3000.
