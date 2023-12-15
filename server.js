@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
   res.send("Willkommen!");
 });
 
-app.get("/getRecipes", (req, res) => {
+app.get("/loadRecipes", (req, res) => {
   fs.readFile(filePath, (err, data) => {
     if (err) {
       console.error("Fehler beim Lesen der Datei: ", err);
@@ -37,7 +37,7 @@ app.get("/getRecipes", (req, res) => {
   });
 });
 
-app.post("/addData", (req, res) => {
+app.post("/addRecipe", (req, res) => {
   // Daten, die vom Client gesendet werden
   const newData = req.body;
   // Lese die vorhandenen Daten aus der JSON-Datei (falls vorhanden)
@@ -69,7 +69,7 @@ app.post("/addData", (req, res) => {
   });
 });
 
-app.post("/overwriteData", (req, res) => {
+app.post("/updateRecipe", (req, res) => {
   // Daten, die vom Client gesendet werden
   const newData = req.body;
   // Schreibe die neuen Daten zurück in die JSON-Datei (komplett ersetzen)

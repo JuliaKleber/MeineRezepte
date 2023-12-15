@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import RecipesOfMonth from './components/RecipesOfMonth';
 import KeywordSearch from './components/KeywordSearch';
 import ShowRecipe from './components/ShowRecipe';
 import AddRecipe from './components/addRecipe/AddRecipe';
-import homeImage from './images/home.jpg';
-
-
-
-
 
 const App = () => {
-  const [currentStep, setCurrentStep] = useState('homeMenu');
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [recipe, setRecipe] = useState();
   const [recipes, setRecipes] = useState([]);
   const [returnedHome, setReturnedHome] = useState(false);
 
-  const Home = () => {
+  const Homeold = () => {
     return (
-      <div className='container' style={{ backgroundImage: `url(${homeImage})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '87.8vh' }}>
+      <div className='container'>
         <h1>Meine Rezepte</h1>
         <KeywordSearch
           onRecipeSelection={handleShowRecipe}
@@ -31,11 +27,19 @@ const App = () => {
     );
   }
 
+  const Home = () => {
+    return (
+      <div className='container'>
+        <RecipesOfMonth recipes={recipes} onRecipeSelection={handleShowRecipe} />
+      </div>
+    );
+  }
+
   // Die Rezepte werden aus der JSON-Datei geladen.
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:3001/getRecipes');
+        const response = await fetch('http://localhost:3001/loadRecipes');
         if (response.status === 200) {
           const data = await response.json();
           setRecipes(data);
@@ -54,47 +58,36 @@ const App = () => {
   const handleShowRecipe = (selectedRecipe, latestSearchTerm) => {
     setSearchTerm(latestSearchTerm);
     setRecipe(selectedRecipe);
-    setCurrentStep('showRecipe');
+    navigate('recipe');
   };
 
   // Die letzten Suchergebnisse werden wieder angezeigt.
   const handleBackToSearchResults = () => {
-    setCurrentStep('homeMenu');
+    navigate('home');
     setReturnedHome(true);
   };
 
   // Die Maske zur Eingabe eines neuen Rezepts wird angezeigt.
   const handleAddRecipe = () => {
-    setCurrentStep('addRecipe');
+    navigate('add');
   };
 
   // Die Startseite wird wieder angezeigt.
   const handleReturnHome = (home) => {
     if (!home) return;
-    setCurrentStep('homeMenu');
+    navigate('home');
     setReturnedHome(true);
   };
 
   return (
     <div>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/search" element={<KeywordSearch onRecipeSelection={handleShowRecipe} searchTerm={searchTerm} recipes={recipes} />} />
-          <Route path="/add" element={<AddRecipe onReturnHome={handleReturnHome} />} />
-        </Routes>
-      {currentStep === 'showRecipe' && (
-        <ShowRecipe
-        recipe={recipe}
-        onBackToSearchResults={handleBackToSearchResults}
-          recipes={recipes}
-        />
-      )}
-      {currentStep === 'addRecipe' && (
-        <AddRecipe onReturnHome={handleReturnHome} />
-      )}
-      </Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/search" element={<KeywordSearch onRecipeSelection={handleShowRecipe} searchTerm={searchTerm} recipes={recipes} />} />
+        <Route path="/add" element={<AddRecipe onReturnHome={handleReturnHome} />} />
+        <Route path="/recipe" element={<ShowRecipe recipe={recipe} onBackToSearchResults={handleBackToSearchResults} recipes={recipes} />} />
+      </Routes>
     </div>
   );
 }

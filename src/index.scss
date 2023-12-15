@@ -17,9 +17,10 @@ body {
   text-shadow: 0 0 16px rgba($primary-color, 0.1);
 }
 
-h1 {
-  text-shadow: 0 0 4px rgba(black, 1);
-  color: white;
+h1, h2 {
+  text-shadow: 0 0 4px rgba(black, 0.2);
+  color: $primary-color;
+  text-align: center;
 }
 
 button {
@@ -30,10 +31,10 @@ button {
   margin: 12px 4px;
   padding: 4px 12px;
   font-size: 17px;
-  box-shadow: 0 0 16px rgba($primary-color, 0.2);
+  box-shadow: 0 0 8px rgba($primary-color, 0.2);
   font-family: $button-font;
   &:hover {
-    box-shadow: 0 0 16px rgba($primary-color, 0.4);
+    box-shadow: 0 0 8px rgba($primary-color, 0.4);
   }
 }
 
@@ -41,16 +42,16 @@ button {
   color: $primary-color;
   background-color: $tertiary-color;
   font-size: 20px;
-  box-shadow: 0 0 16px rgba($primary-color, 0.4);
+  box-shadow: 0 0 8px rgba($primary-color, 0.4);
   &:hover {
-    box-shadow: 0 0 16px rgba($primary-color, 0.8);
+    box-shadow: 0 0 8px rgba($primary-color, 0.8);
   }
 }
 
 .white-black-button {
   color: black;
   background-color: white;
-  box-shadow: 0 0 16px rgba(black, 0.1);
+  box-shadow: 0 0 8px rgba(black, 0.1);
 }
 
 input {
@@ -63,9 +64,9 @@ input {
   font-family: $input-font;
   text-align: center;
   background-color: white;
-  box-shadow: 0 0 16px rgba($primary-color, 0.4);
+  box-shadow: 0 0 8px rgba($primary-color, 0.4);
   &:hover {
-    box-shadow: 0 0 16px rgba($primary-color, 0.8);
+    box-shadow: 0 0 8px rgba($primary-color, 0.8);
   }
   &:focus {
     outline: 2px solid $primary-color;
@@ -78,9 +79,9 @@ textarea {
   color: $input-color;
   border: 0px solid $secondary-color;
   border-radius: 8px;
-  box-shadow: 0 0 16px rgba($primary-color, 0.4);
+  box-shadow: 0 0 8px rgba($primary-color, 0.4);
   &:hover {
-    box-shadow: 0 0 16px rgba($primary-color, 0.8);
+    box-shadow: 0 0 8px rgba($primary-color, 0.8);
   }
   &:focus {
     outline: 2px solid $primary-color;
@@ -91,7 +92,11 @@ img {
   border-radius: 8px;
   width: 360px;
   margin: 12px 0px;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+ul {
+  list-style-type: none;
 }
 
 .container {

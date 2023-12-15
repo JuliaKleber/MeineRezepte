@@ -52,7 +52,7 @@ const AddRecipe = ({ onReturnHome }) => {
 
   const handleSaveRecipe = () => {
     console.log('save');
-    fetch(`${serverUrl}/addData`, {
+    fetch(`${serverUrl}/addRecipe`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

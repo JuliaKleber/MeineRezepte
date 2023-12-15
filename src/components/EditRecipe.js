@@ -78,7 +78,7 @@ const EditRecipe = ({ recipe, recipes, onReturn }) => {
     // um Daten an einen Server zu senden.
     // serverUrl ist die Adresse des Servers,
     // an den die Daten gesendet werden sollen.
-    fetch(`${serverUrl}/overwriteData`, {
+    fetch(`${serverUrl}/updateRecipe`, {
       // Es wird die HTTP-Methode POST verwendet,
       // um Daten an den Server zu senden.
       method: 'POST',
