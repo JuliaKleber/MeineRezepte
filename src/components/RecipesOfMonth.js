@@ -17,14 +17,19 @@ const RecipesOfMonth = ({ recipes, onRecipeSelection }) => {
     11: "November",
     12: "Dezember",
   };
-  const currentMonth = monthNumberToName[new Date().getMonth()] || "März";
+  const currentMonth = monthNumberToName[new Date().getMonth()] || 'undefined';
 
   // Die Rezepte des aktuellen Monats werden gefiltert.
   const filterRecipesByMonth = () => {
-    const recipesOfMonth = recipes.filter((recipe) => {
-      return recipe.keywords.includes(currentMonth);
-    });
-    setRecipesOfMonth(recipesOfMonth);
+    if (currentMonth === 'undefined') {
+      setRecipesOfMonth([recipes]);
+    }
+    else {
+      const recipesOfMonth = recipes.filter((recipe) => {
+        return recipe.keywords.includes(currentMonth);
+      });
+      setRecipesOfMonth(recipesOfMonth);
+    }
   };
 
   // Die Rezepte des aktuellen Monats werden gefiltert, sobald die Rezepte geladen wurden.
