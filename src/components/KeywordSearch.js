@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const KeywordSearch = (props) => {
-  const { onRecipeSelection, searchTerm, recipes } = props;
+  const { onRecipeSelection, searchTerm, recipes, setRecipes } = props;
   const [contentSearchField, setContentSearchField] = useState(searchTerm);
   const [recipesFound, setRecipesFound] = useState([]);
   const [output, setOutput] = useState('');
@@ -116,6 +116,7 @@ const KeywordSearch = (props) => {
             <button
               className='reverse-colored-button search-results'
               onClick={() => handleRecipeSelection(recipe)}
+
             >
               {recipe.recipeName}
             </button>

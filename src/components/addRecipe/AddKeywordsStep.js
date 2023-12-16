@@ -49,14 +49,13 @@ const AddKeywordsStep = ({ recipe, setRecipe }) => {
             'deutsch',
             'italienisch',
             'TexMex',
-            'Sonstiges',
           ]}
           recipe={recipe}
           setRecipe={setRecipe}
         />
         <KeywordCategories
           keywordCategory='Kategorie'
-          listOfKeywords={['Curry', 'Lasagne', 'Nudeln', 'Reis', 'Sonstiges']}
+          listOfKeywords={['Curry', 'Lasagne', 'Nudeln', 'Reis']}
           recipe={recipe}
           setRecipe={setRecipe}
         />

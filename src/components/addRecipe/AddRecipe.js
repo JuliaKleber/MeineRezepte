@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AddIngredientsStep from './AddIngredientsStep';
 import AddNameAmountsAndDescriptionStep from './AddNameAmountsAndDescriptionStep';
 import AddKeywordsStep from './AddKeywordsStep';
@@ -24,7 +25,8 @@ const stepsArray = [
   steps.recipeNotAddedStep,
 ];
 
-const AddRecipe = ({ onReturnHome }) => {
+const AddRecipe = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(steps.addIngredientsStep);
   const [recipe, setRecipe] = useState({
     recipeName: '',
@@ -38,7 +40,7 @@ const AddRecipe = ({ onReturnHome }) => {
 
   const handleCurrentStep = (nextStep) => {
     if (nextStep === steps.homeStep) {
-      onReturnHome(true);
+      navigate('/');
     } else if (
       recipe.recipeName === '' &&
       nextStep === steps.addKeywordsStep
@@ -51,7 +53,6 @@ const AddRecipe = ({ onReturnHome }) => {
   };
 
   const handleSaveRecipe = () => {
-    console.log('save');
     fetch(`${serverUrl}/addRecipe`, {
       method: 'POST',
       headers: {

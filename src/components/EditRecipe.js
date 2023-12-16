@@ -66,7 +66,7 @@ const EditRecipe = ({ recipe, recipes, onReturn }) => {
     replaceRecipe();
   };
 
-  // Das Rezept wird ersetzt
+  // The updated recipe is exchanged with the old one in the json file
   const replaceRecipe = (recipe) => {
     // Das Rezept wird aus dem Array updatedRecipes entfernt
     // und als updatedRecipe wieder hinzugefügt
@@ -74,10 +74,6 @@ const EditRecipe = ({ recipe, recipes, onReturn }) => {
     const index = updatedRecipes.indexOf(recipe);
     updatedRecipes.splice(index, 1);
     updatedRecipes.push(updatedRecipe);
-    // Es wird die Funktion fetch() verwendet,
-    // um Daten an einen Server zu senden.
-    // serverUrl ist die Adresse des Servers,
-    // an den die Daten gesendet werden sollen.
     fetch(`${serverUrl}/updateRecipe`, {
       // Es wird die HTTP-Methode POST verwendet,
       // um Daten an den Server zu senden.

@@ -3,32 +3,22 @@ import React, { useState, useEffect } from "react";
 // Die Rezepte des aktuellen Monats werden angezeigt.
 const RecipesOfMonth = ({ recipes, onRecipeSelection }) => {
   const [recipesOfMonth, setRecipesOfMonth] = useState([]);
-  const monthNumberToName = {
-    1: "Januar",
-    2: "Februar",
-    3: "März",
-    4: "April",
-    5: "Mai",
-    6: "Juni",
-    7: "Juli",
-    8: "August",
-    9: "September",
-    10: "Oktober",
-    11: "November",
-    12: "Dezember",
-  };
-  const currentMonth = monthNumberToName[new Date().getMonth()] || 'undefined';
+  const [header, setHeader] = useState("");
+  const options = { month: "long" };
+  const currentMonth = new Intl.DateTimeFormat("de-DE", options).format(new Date()) || 'undefined';
 
   // Die Rezepte des aktuellen Monats werden gefiltert.
   const filterRecipesByMonth = () => {
     if (currentMonth === 'undefined') {
       setRecipesOfMonth([recipes]);
+      setHeader("Meine Rezepte");
     }
     else {
       const recipesOfMonth = recipes.filter((recipe) => {
         return recipe.keywords.includes(currentMonth);
       });
       setRecipesOfMonth(recipesOfMonth);
+      setHeader("Rezepte des Monats");
     }
   };
 
@@ -44,7 +34,7 @@ const RecipesOfMonth = ({ recipes, onRecipeSelection }) => {
 
   return (
     <div>
-      <h2>Rezepte des Monats</h2>
+      <h2>{header}</h2>
       <ul>
         {recipesOfMonth.map((recipe, index) => (
           <li key={index}>
@@ -52,7 +42,7 @@ const RecipesOfMonth = ({ recipes, onRecipeSelection }) => {
               className="reverse-colored-button search-results"
               onClick={() => handleRecipeSelection(recipe)}
             >
-              {recipe.recipeName}
+              { recipe.recipeName }
             </button>
           </li>
         ))}

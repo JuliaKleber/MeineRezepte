@@ -13,20 +13,6 @@ const App = () => {
   const [recipes, setRecipes] = useState([]);
   const [returnedHome, setReturnedHome] = useState(false);
 
-  const Homeold = () => {
-    return (
-      <div className='container'>
-        <h1>Meine Rezepte</h1>
-        <KeywordSearch
-          onRecipeSelection={handleShowRecipe}
-          searchTerm={searchTerm}
-          recipes={recipes}
-        />
-        <button onClick={handleAddRecipe}>Neues Rezept hinzufügen</button>
-      </div>
-    );
-  }
-
   const Home = () => {
     return (
       <div className='container'>
@@ -72,21 +58,14 @@ const App = () => {
     navigate('add');
   };
 
-  // Die Startseite wird wieder angezeigt.
-  const handleReturnHome = (home) => {
-    if (!home) return;
-    navigate('home');
-    setReturnedHome(true);
-  };
-
   return (
     <div>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/search" element={<KeywordSearch onRecipeSelection={handleShowRecipe} searchTerm={searchTerm} recipes={recipes} />} />
-        <Route path="/add" element={<AddRecipe onReturnHome={handleReturnHome} />} />
-        <Route path="/recipe" element={<ShowRecipe recipe={recipe} onBackToSearchResults={handleBackToSearchResults} recipes={recipes} />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/search' element={<KeywordSearch onRecipeSelection={handleShowRecipe} searchTerm={searchTerm} recipes={recipes} />} />
+        <Route path='/add' element={<AddRecipe />} />
+        <Route path='/recipe' element={<ShowRecipe recipe={recipe} onBackToSearchResults={handleBackToSearchResults} recipes={recipes} setRecipes={setRecipes} />} />
       </Routes>
     </div>
   );

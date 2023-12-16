@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import ShowIngredients from './ShowIngredients';
 import EditRecipe from './EditRecipe';
 import DeleteRecipe from './DeleteRecipe';
 import pastaImage from '../images/pasta.jpg';
 
-const ShowRecipe = ({ recipe, onBackToSearchResults, recipes }) => {
+const ShowRecipe = ({ recipe, onBackToSearchResults, recipes, setRecipes }) => {
   const [currentStep, setCurrentStep] = useState('recipeIsShown');
   const [currentRecipe, setCurrentRecipe] = useState(recipe);
   const [output, setOutput] = useState('');
@@ -65,6 +66,7 @@ const ShowRecipe = ({ recipe, onBackToSearchResults, recipes }) => {
       {currentStep === 'deletionInitiated' && (
         <DeleteRecipe
           recipes={recipes}
+          setRecipes={setRecipes}
           recipe={recipe}
           onReturn={handleRecipeDeletionOff}
         />
@@ -77,7 +79,9 @@ const ShowRecipe = ({ recipe, onBackToSearchResults, recipes }) => {
       {currentStep === 'recipeWasRemoved' && (
         <div className='align-center'>
           <p>{output}</p>
-          <button onClick={() => onBackToSearchResults()}>zurück</button>
+          <NavLink exact to='/'>
+            <button>zum Startmenü</button>
+          </NavLink>
         </div>
       )}
     </div>
