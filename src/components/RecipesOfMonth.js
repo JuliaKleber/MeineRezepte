@@ -33,9 +33,9 @@ const RecipesOfMonth = ({ recipes, onRecipeSelection }) => {
   };
 
   return (
-    <div>
+    <div class="container">
       <h2>{header}</h2>
-      <ul>
+      <ul class="container">
         {recipesOfMonth.map((recipe, index) => (
           <li key={index}>
             <button
