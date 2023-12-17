@@ -5,9 +5,8 @@ import EditRecipe from './EditRecipe';
 import DeleteRecipe from './DeleteRecipe';
 import pastaImage from '../images/pasta.jpg';
 
-const ShowRecipe = ({ recipe, onBackToSearchResults, recipes, setRecipes }) => {
+const ShowRecipe = ({ recipe, setRecipe, onBackToSearchResults, recipes, setRecipes }) => {
   const [currentStep, setCurrentStep] = useState('recipeIsShown');
-  const [currentRecipe, setCurrentRecipe] = useState(recipe);
   const [output, setOutput] = useState('');
 
   const handleRecipeChangeOn = () => {
@@ -15,9 +14,8 @@ const ShowRecipe = ({ recipe, onBackToSearchResults, recipes, setRecipes }) => {
   };
   // Die Frage, ob das Rezept wirklich gelöscht werden soll,
   // wird nicht mehr angezeigt
-  const handleRecipeChangeOff = (newOutput, newRecipe) => {
-    setOutput(newOutput);
-    setCurrentRecipe(newRecipe);
+  const handleRecipeChangeOff = (output) => {
+    setOutput(output);
     setCurrentStep('recipeIsShown');
   };
 
@@ -60,7 +58,7 @@ const ShowRecipe = ({ recipe, onBackToSearchResults, recipes, setRecipes }) => {
       )}
 
       {currentStep === 'recipeIsChanged' && (
-        <EditRecipe recipe={recipe} recipes={recipes} onReturn={handleRecipeChangeOff} />
+        <EditRecipe recipe={recipe} setRecipe={setRecipe} recipes={recipes} onReturn={handleRecipeChangeOff} />
       )}
 
       {currentStep === 'deletionInitiated' && (

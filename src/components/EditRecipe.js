@@ -4,86 +4,70 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AiFillDelete } from 'react-icons/ai';
 import pastaImage from '../images/pasta.jpg';
 
-const EditRecipe = ({ recipe, recipes, onReturn }) => {
+const EditRecipe = ({ recipe, setRecipe, recipes, onReturn }) => {
   const serverUrl = 'http://localhost:3001';
-  const [recipeName, setRecipeName] = useState(recipe.recipeName);
-  const [amounts, setAmounts] = useState(recipe.amounts);
-  const [ingredients, setIngredients] = useState(recipe.ingredients);
-  const [description, setDescription] = useState(recipe.description);
-  const [output, setOutput] = useState('');
-
-  const updatedRecipe = {
-    recipeName: recipeName,
-    amounts: amounts,
-    ingredients: ingredients,
-    description: description,
-    keywords: recipe.keywords,
-  };
+  const [updatedRecipe, setUpdatedRecipe] = useState(recipe);
+  let output = '';
 
   const handleAmountUpdate = (event, index) => {
-    const newAmounts = [...amounts];
-    newAmounts[index] = event.target.value;
-    setAmounts(newAmounts);
+    const amounts = [...updatedRecipe.amounts];
+    amounts[index] = event.target.value;
+    setUpdatedRecipe({...updatedRecipe, amounts: [...amounts]});
   };
 
   const handleIngredientUpdate = (event, index) => {
-    const newIngredients = [...ingredients];
-    newIngredients[index] = event.target.value;
-    setIngredients(newIngredients);
+    const ingredients = [...updatedRecipe.ingredients];
+    ingredients[index] = event.target.value;
+    setUpdatedRecipe({...updatedRecipe, ingredients: [...ingredients]});
   };
 
   const handleDeleteIngredient = (index) => {
-    const newIngredients = recipe.ingredients.filter((_, i) => i !== index);
-    const newAmounts = recipe.amounts.filter((_, i) => i !== index);
-    setIngredients(newIngredients);
-    setAmounts(newAmounts);
+    const ingredients = updatedRecipe.ingredients.filter((_, i) => i !== index);
+    const amounts = updatedRecipe.amounts.filter((_, i) => i !== index);
+    setUpdatedRecipe({...updatedRecipe, ingredients: [...ingredients], amounts: [...amounts]});
   };
 
   const handleAddIngredient = () => {
-    const newAmounts = [...amounts];
-    const newIngredients = [...ingredients];
-    newAmounts.push('');
-    newIngredients.push('neue Zutat');
-    setAmounts(newAmounts);
-    setIngredients(newIngredients);
-  };
+    const amounts = [...updatedRecipe.amounts];
+    const ingredients = [...updatedRecipe.ingredients];
+    amounts.push('');
+    ingredients.push('neue Zutat');
+    setUpdatedRecipe({...updatedRecipe, amounts: [...amounts], ingredients: [...ingredients]});
+  }
 
   const handleReturn = () => {
     onReturn('');
   };
 
   const handleSave = () => {
-    const newIngredients = [...ingredients];
-    const newAmounts = [...amounts];
-    for (let i = newIngredients.length - 1; i >= 0; i--) {
-      if (newIngredients[i] === '') {
-        newIngredients.splice(i);
-        newAmounts.splice(i);
+    const ingredients = [...updatedRecipe.ingredients];
+    const amounts = [...updatedRecipe.amounts];
+    for (let i = ingredients.length - 1; i >= 0; i--) {
+      if (ingredients[i] === '') {
+        ingredients.splice(i);
+        amounts.splice(i);
       }
     }
-    setIngredients(newIngredients);
-    setAmounts(newAmounts);
+    setUpdatedRecipe({...updatedRecipe, amounts: [...amounts], ingredients: [...ingredients]});
     replaceRecipe();
   };
 
   // The updated recipe is exchanged with the old one in the json file
-  const replaceRecipe = (recipe) => {
+  const replaceRecipe = () => {
     // Das Rezept wird aus dem Array updatedRecipes entfernt
-    // und als updatedRecipe wieder hinzugefügt
+    // und als geändertes Rezept (updatedRecipe) wieder hinzugefügt
     const updatedRecipes = [...recipes];
     const index = updatedRecipes.indexOf(recipe);
-    updatedRecipes.splice(index, 1);
+    updatedRecipes.splice(index);
     updatedRecipes.push(updatedRecipe);
     fetch(`${serverUrl}/updateRecipe`, {
-      // Es wird die HTTP-Methode POST verwendet,
-      // um Daten an den Server zu senden.
       method: 'POST',
       // Es wird angegeben, dass die Daten
       // im JSON-Format gesendet werden.
       headers: {
         'Content-Type': 'application/json',
       },
-      // Es wird das Rezept-Objekt in JSON-Format
+      // Es wird das updatedRecipes-Objekt in JSON-Format
       // umgewandelt und als Datenkörper gesendet.
       body: JSON.stringify(updatedRecipes),
     })
@@ -92,22 +76,23 @@ const EditRecipe = ({ recipe, recipes, onReturn }) => {
         // Es wird die Nachricht aus der
         // Server-Antwort in der Konsole ausgegeben.
         console.log('Antwort vom Server:', message);
-        setOutput('Das Rezept wurde geändert.');
-        onReturn(output, updatedRecipe)
+        output = 'Das Rezept wurde geändert.';
+        setRecipe(updatedRecipe);
+        onReturn(output)
       })
       .catch((error) => {
         // Fehlerbehandlung
         console.error('Fehler beim Senden der Daten:', error);
-        setOutput('Das Rezept konnte nicht geändert werden.');
+        output = 'Das Rezept konnte nicht geändert werden.';
       });
   };
 
   return (
     <div className='container edit-recipe'>
       <input
-        value={recipeName}
+        value={updatedRecipe.recipeName}
         // style={{ width: recipeName.length * 0.6 + 'em' }}
-        onChange={(event) => setRecipeName(event.target.value)}
+        onChange={(event) => setUpdatedRecipe({...updatedRecipe, recipeName: event.target.value})}
         className='recipe-change card'
         id='recipe-name'
       ></input>
@@ -118,13 +103,13 @@ const EditRecipe = ({ recipe, recipes, onReturn }) => {
         </p>
         <table>
           <tbody>
-            {ingredients.map((ingredient, index) => (
+            {updatedRecipe.ingredients.map((ingredient, index) => (
               <tr key={index}>
                 <td className='align-right'>
                   <input
                     className='recipe-change amounts-fields'
-                    value={amounts[index]}
-                    style={(amounts[index].length === 0) ? { width: '50px' } : { width: amounts[index].length * 0.6 + 'em' }}
+                    value={updatedRecipe.amounts[index]}
+                    style={(updatedRecipe.amounts[index].length === 0) ? { width: '50px' } : { width: updatedRecipe.amounts[index].length * 0.6 + 'em' }}
                     onChange={(event) => handleAmountUpdate(event, index)}
                   ></input>
                 </td>
@@ -157,8 +142,8 @@ const EditRecipe = ({ recipe, recipes, onReturn }) => {
       <textarea
         className='recipe-change card'
         id='description'
-        value={description}
-        onChange={(event) => setDescription(event.target.value)}
+        value={updatedRecipe.description}
+        onChange={(event) => setUpdatedRecipe({...updatedRecipe, description: event.target.value})}
       ></textarea>
       <span>
         <button onClick={handleReturn}>zurück</button>

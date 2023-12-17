@@ -65,7 +65,7 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/search' element={<KeywordSearch onRecipeSelection={handleShowRecipe} searchTerm={searchTerm} recipes={recipes} />} />
         <Route path='/add' element={<AddRecipe />} />
-        <Route path='/recipe' element={<ShowRecipe recipe={recipe} onBackToSearchResults={handleBackToSearchResults} recipes={recipes} setRecipes={setRecipes} />} />
+        <Route path='/recipe' element={<ShowRecipe recipe={recipe} setRecipe={setRecipe} onBackToSearchResults={handleBackToSearchResults} recipes={recipes} setRecipes={setRecipes} />} />
       </Routes>
     </div>
   );
