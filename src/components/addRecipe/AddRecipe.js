@@ -25,7 +25,7 @@ const stepsArray = [
   steps.recipeNotAddedStep,
 ];
 
-const AddRecipe = () => {
+const AddRecipe = ({ recipes, setRecipes }) => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(steps.addIngredientsStep);
   const [recipe, setRecipe] = useState({
@@ -63,6 +63,7 @@ const AddRecipe = () => {
       .then((response) => response.text())
       .then((message) => {
         console.log('Antwort vom Server:', message);
+        setRecipes([...recipes, recipe]);
         setCurrentStep(steps.recipeAddedStep);
       })
       .catch((error) => {
@@ -91,7 +92,7 @@ const AddRecipe = () => {
         <AddKeywordsStep recipe={recipe} setRecipe={setRecipe} />
       )}
       {currentStep === steps.recipeAddedStep && (
-        <RecipeAdded onChangeStep={handleCurrentStep} recipe={recipe}/>
+        <RecipeAdded onChangeStep={handleCurrentStep} setRecipe={setRecipe}/>
       )}
       {currentStep === steps.recipeNotAddedStep && (
         <RecipeNotAdded onChangeStep={handleCurrentStep} />

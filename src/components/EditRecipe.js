@@ -4,7 +4,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AiFillDelete } from 'react-icons/ai';
 import pastaImage from '../images/pasta.jpg';
 
-const EditRecipe = ({ recipe, setRecipe, recipes, onReturn }) => {
+const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
   const serverUrl = 'http://localhost:3001';
   const [updatedRecipe, setUpdatedRecipe] = useState(recipe);
   let output = '';
@@ -78,6 +78,7 @@ const EditRecipe = ({ recipe, setRecipe, recipes, onReturn }) => {
         console.log('Antwort vom Server:', message);
         output = 'Das Rezept wurde geändert.';
         setRecipe(updatedRecipe);
+        setRecipes(updatedRecipes);
         onReturn(output)
       })
       .catch((error) => {

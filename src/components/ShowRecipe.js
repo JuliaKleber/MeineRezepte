@@ -58,7 +58,7 @@ const ShowRecipe = ({ recipe, setRecipe, onBackToSearchResults, recipes, setReci
       )}
 
       {currentStep === 'recipeIsChanged' && (
-        <EditRecipe recipe={recipe} setRecipe={setRecipe} recipes={recipes} onReturn={handleRecipeChangeOff} />
+        <EditRecipe recipe={recipe} setRecipe={setRecipe} recipes={recipes} setRecipes={setRecipes} onReturn={handleRecipeChangeOff} />
       )}
 
       {currentStep === 'deletionInitiated' && (
