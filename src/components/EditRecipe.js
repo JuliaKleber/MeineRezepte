@@ -17,14 +17,17 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
 
   const handleIngredientUpdate = (event, index) => {
     const ingredients = [...updatedRecipe.ingredients];
+    const keywords = updatedRecipe.keywords.filter((_, i) => i !== index);
     ingredients[index] = event.target.value;
-    setUpdatedRecipe({...updatedRecipe, ingredients: [...ingredients]});
+    keywords.push(event.target.value);
+    setUpdatedRecipe({...updatedRecipe, ingredients: [...ingredients], keywords: [...keywords]});
   };
 
   const handleDeleteIngredient = (index) => {
+    const keywords = updatedRecipe.keywords.filter((keyword) => keyword !== ingredients[index]);
     const ingredients = updatedRecipe.ingredients.filter((_, i) => i !== index);
     const amounts = updatedRecipe.amounts.filter((_, i) => i !== index);
-    setUpdatedRecipe({...updatedRecipe, ingredients: [...ingredients], amounts: [...amounts]});
+    setUpdatedRecipe({...updatedRecipe, ingredients: [...ingredients], amounts: [...amounts], keywords: [...keywords]});
   };
 
   const handleAddIngredient = () => {
