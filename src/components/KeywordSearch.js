@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const KeywordSearch = (props) => {
-  const { onRecipeSelection, searchTerm, recipes, setRecipes } = props;
+const KeywordSearch = ({ onRecipeSelection, searchTerm, recipes }) => {
   const [contentSearchField, setContentSearchField] = useState(searchTerm);
   const [recipesFound, setRecipesFound] = useState([]);
   const [output, setOutput] = useState('');
@@ -9,13 +8,18 @@ const KeywordSearch = (props) => {
 
   // Wenn die Komponente montiert wird,
   // wird automatisch die Suche mit 'searchTerm' durchgeführt,
-  // falls dieser nicht leer ist.
+  // falls dieser nicht leer ist. Ansonsten werden alle Rezepte angezeigt.
   useEffect(() => {
-    if (searchTerm !== '') {
-      setContentSearchField(searchTerm);
+    if (searchTerm === 'fromHome') {
+      setContentSearchField('');
+    }
+    else if (searchTerm !== '') {
       handleSearch();
     }
-  }, [searchTerm]);
+    else if (searchTerm === '') {
+      handleSearch();
+    }
+  }, []);
 
   // Die Benutzereingabe im Suchfeld wird ausgelesen.
   const handleSearchFieldInput = (event) => {
@@ -116,7 +120,6 @@ const KeywordSearch = (props) => {
             <button
               className='reverse-colored-button search-results'
               onClick={() => handleRecipeSelection(recipe)}
-
             >
               {recipe.recipeName}
             </button>

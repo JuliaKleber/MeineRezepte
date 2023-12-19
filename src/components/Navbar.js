@@ -8,13 +8,13 @@ const Navbar = () => {
   return (
     <nav className='navbar'>
       <ul>
-        <li><NavLink exact to='/'>
+        <li><NavLink to='/' className={({ isActive }) => isActive ? "active" : "not-active" }>
           <FontAwesomeIcon icon={faHouse} />
         </NavLink></li>
-        <li><NavLink exact to='/search'>
+        <li><NavLink to='/search' className={({ isActive }) => isActive ? "active" : "not-active" }>
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </NavLink></li>
-        <li><NavLink exact to='/add'>
+        <li><NavLink to='/add' className={({ isActive }) => isActive ? "active" : "not-active" }>
           <FontAwesomeIcon icon={faPlus} />
         </NavLink></li>
       </ul>

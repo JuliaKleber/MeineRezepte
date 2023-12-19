@@ -29,13 +29,13 @@ const RecipesOfMonth = ({ recipes, onRecipeSelection }) => {
 
   // Das selektierte Rezept wird an die App-Komponente weitergegeben.
   const handleRecipeSelection = (recipe) => {
-    onRecipeSelection(recipe, currentMonth);
+    onRecipeSelection(recipe, 'fromHome');
   };
 
   return (
-    <div class="container">
+    <div className="container">
       <h2>{header}</h2>
-      <ul class="container">
+      <ul className="container">
         {recipesOfMonth.map((recipe, index) => (
           <li key={index}>
             <button

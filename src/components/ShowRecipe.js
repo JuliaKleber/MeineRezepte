@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ShowIngredients from './ShowIngredients';
 import EditRecipe from './EditRecipe';
 import DeleteRecipe from './DeleteRecipe';
 import pastaImage from '../images/pasta.jpg';
 
-const ShowRecipe = ({ recipe, setRecipe, onBackToSearchResults, recipes, setRecipes }) => {
+const ShowRecipe = ({ recipe, setRecipe, recipes, setRecipes, searchTerm, onBackToSearch }) => {
   const [currentStep, setCurrentStep] = useState('recipeIsShown');
   const [output, setOutput] = useState('');
+  const navigate = useNavigate();
 
-  const handleRecipeChangeOn = () => {
-    setCurrentStep('recipeIsChanged');
+  const handleRecipeEditingOn = () => {
+    setCurrentStep('recipeIsEdited');
   };
+
   // Die Frage, ob das Rezept wirklich gelöscht werden soll,
   // wird nicht mehr angezeigt
   const handleRecipeChangeOff = (output) => {
@@ -38,26 +40,29 @@ const ShowRecipe = ({ recipe, setRecipe, onBackToSearchResults, recipes, setReci
 
       {currentStep === 'recipeIsShown' && (
         <div className='container'>
-          <h2 className='recipe-card align-center'>{recipe.recipeName}</h2>
           <img src={pastaImage} alt='recipe_picture' width='300px' />
+          <h2 className='align-center'>{recipe.recipeName}</h2>
           <ShowIngredients recipe={recipe} />
           <p className={recipe.description === '' ? 'display-none' : 'recipe-card center'} id='recipe-description'>
             {recipe.description}
           </p>
           <span>
-            <button className='show-recipe-button white' onClick={handleRecipeChangeOn}>
+            <button className='show-recipe-button white' onClick={handleRecipeEditingOn}>
               Rezept ändern
             </button>
             <button className='show-recipe-button white' onClick={handleRecipeDeletionOn}>
               Rezept löschen
             </button>
           </span>
-          <button onClick={() => onBackToSearchResults()}>zurück</button>
+        </div>)}
+      {currentStep === 'recipeIsShown' && searchTerm !== 'fromHome' && (
+        <button onClick={() => onBackToSearch(searchTerm)}>zurück</button>
+      )}
+      {currentStep === 'recipeIsShown' && (
           <p className='align-center'>{output}</p>
-        </div>
       )}
 
-      {currentStep === 'recipeIsChanged' && (
+      {currentStep === 'recipeIsEdited' && (
         <EditRecipe recipe={recipe} setRecipe={setRecipe} recipes={recipes} setRecipes={setRecipes} onReturn={handleRecipeChangeOff} />
       )}
 
@@ -77,9 +82,7 @@ const ShowRecipe = ({ recipe, setRecipe, onBackToSearchResults, recipes, setReci
       {currentStep === 'recipeWasRemoved' && (
         <div className='align-center'>
           <p>{output}</p>
-          <NavLink exact to='/'>
-            <button>zum Startmenü</button>
-          </NavLink>
+            <button onClick={() => navigate('/')}>zum Startmenü</button>
         </div>
       )}
     </div>

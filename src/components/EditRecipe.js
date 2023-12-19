@@ -90,6 +90,7 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
 
   return (
     <div className='container edit-recipe'>
+      <img src={pastaImage} alt='recipe_picture' width='300px' />
       <input
         value={updatedRecipe.recipeName}
         // style={{ width: recipeName.length * 0.6 + 'em' }}
@@ -97,7 +98,6 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
         className='recipe-change card'
         id='recipe-name'
       ></input>
-      <img src={pastaImage} alt='recipe_picture' width='300px' />
       <div className='recipe-change card'>
         <p className='center'>
           Zutaten für 1 Person

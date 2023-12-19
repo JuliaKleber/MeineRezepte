@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import RecipesOfMonth from './components/RecipesOfMonth';
 import KeywordSearch from './components/KeywordSearch';
@@ -11,7 +11,6 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [recipe, setRecipe] = useState();
   const [recipes, setRecipes] = useState([]);
-  const [returnedHome, setReturnedHome] = useState(false);
 
   const Home = () => {
     return (
@@ -37,8 +36,7 @@ const App = () => {
       }
     }
     fetchData();
-    setReturnedHome(false);
-  }, [returnedHome]);
+  }, []);
 
   // Das nach der durchgeführten Suche selektierte Rezept wird angezeigt.
   const handleShowRecipe = (selectedRecipe, latestSearchTerm) => {
@@ -47,26 +45,24 @@ const App = () => {
     navigate('recipe');
   };
 
-  // Die letzten Suchergebnisse werden wieder angezeigt.
-  const handleBackToSearchResults = () => {
-    navigate('home');
-    setReturnedHome(true);
+  const handleBackToSearch = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    navigate('search');
   };
 
-  // Die Maske zur Eingabe eines neuen Rezepts wird angezeigt.
-  const handleAddRecipe = () => {
-    navigate('add');
-  };
+  const router = (
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/search' element={<KeywordSearch onRecipeSelection={handleShowRecipe} searchTerm={searchTerm} recipes={recipes} />} />
+      <Route path='/add' element={<AddRecipe recipes={recipes} setRecipes={setRecipes} />} />
+      <Route path='/recipe' element={<ShowRecipe recipe={recipe} setRecipe={setRecipe} recipes={recipes} setRecipes={setRecipes} searchTerm={searchTerm} onBackToSearch={handleBackToSearch} />} />
+    </Routes>
+  );
 
   return (
     <div>
       <Navbar />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/search' element={<KeywordSearch onRecipeSelection={handleShowRecipe} searchTerm={searchTerm} recipes={recipes} />} />
-        <Route path='/add' element={<AddRecipe recipes={recipes} setRecipes={setRecipes} />} />
-        <Route path='/recipe' element={<ShowRecipe recipe={recipe} setRecipe={setRecipe} onBackToSearchResults={handleBackToSearchResults} recipes={recipes} setRecipes={setRecipes} />} />
-      </Routes>
+      {router}
     </div>
   );
 }
