@@ -1,20 +1,34 @@
 const express = require("express"); // Import express
 const fs = require("fs"); // fs = file system
 const cors = require("cors");
+const multer = require("multer");
 const app = express(); // Create new express "app"
 const path = require("path");
 //Pfad zur json-Datei
 const filePath = path.join(__dirname, "datenbank", "recipes.json");
+const imagesPath = path.join(__dirname, "images");
 
 app.use(
   cors({
     origin: "http://localhost:3000",
-    methods: "GET,POST", //HEAD,PUT,PATCH,DELETE
+    methods: "GET,POST",
     credentials: true,
   })
 );
 
 app.use(express.json());
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, imagesPath);
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + "-" + uniqueSuffix + ".jpg");
+  },
+});
+
+const upload = multer({ storage: storage });
 
 app.get("/", (req, res) => {
   res.send("Willkommen!");
@@ -37,17 +51,18 @@ app.get("/loadRecipes", (req, res) => {
   });
 });
 
-app.post("/addRecipe", (req, res) => {
-  // Daten, die vom Client gesendet werden
+app.post("/addRecipe", upload.single("image"), (req, res) => {
   const newData = req.body;
-  // Lese die vorhandenen Daten aus der JSON-Datei (falls vorhanden)
+  const uploadedFile = req.file;
+
   fs.readFile(filePath, (err, data) => {
     if (err) {
       console.error("Fehler beim Lesen der Datei: ", err);
       return res.status(500).send("Interner Serverfehler");
     }
+
     let jsonData = [];
-    // Falls Daten in der Datei vorhanden sind, deserialisiere sie
+
     if (data.length > 0) {
       try {
         jsonData = JSON.parse(data);
@@ -56,14 +71,15 @@ app.post("/addRecipe", (req, res) => {
         return res.status(500).send("Interner Serverfehler");
       }
     }
-    // Füge die neuen Daten hinzu
-    jsonData.push(newData);
-    // Schreibe die aktualisierten Daten zurück in die JSON-Datei
+
+    jsonData.push({ ...newData, image: uploadedFile.filename });
+
     fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), (err) => {
       if (err) {
         console.error("Fehler beim Schreiben der Datei: ", err);
         return res.status(500).send("Interner Serverfehler");
       }
+
       res.status(200).send("Daten erfolgreich gespeichert");
     });
   });

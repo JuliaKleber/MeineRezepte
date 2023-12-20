@@ -34,7 +34,9 @@ const AddRecipe = ({ recipes, setRecipes }) => {
     ingredients: [],
     description: '',
     keywords: [],
+    image: null,
   });
+  const [uploadedFile, setUploadedFile] = useState(null);
   const recipeNameFieldRef = useRef(null);
   const serverUrl = 'http://localhost:3001';
 
@@ -53,17 +55,42 @@ const AddRecipe = ({ recipes, setRecipes }) => {
   };
 
   const handleSaveRecipe = () => {
+    let newRecipe = { ...recipe };
+    if (recipe.amounts.length === 0) {
+      recipe.ingredients.forEach(() => {
+        newRecipe.amounts.push('');
+      });
+      setRecipe(newRecipe);
+    }
+    const imageName = `${newRecipe.recipeName.toLowerCase().replace(/\s+/g, '-')}.jpg`;
+    const imagePath = `${serverUrl}/images/${imageName}`;
+
     fetch(`${serverUrl}/addRecipe`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(recipe),
+      body: JSON.stringify({ ...newRecipe, image: imageName }),
     })
       .then((response) => response.text())
       .then((message) => {
         console.log('Antwort vom Server:', message);
-        setRecipes([...recipes, recipe]);
+        // Speichere das Bild auf dem Server im images-Ordner
+        fetch(imagePath, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'image/jpeg',
+          },
+          body: uploadedFile,
+        })
+          .then((response) => response.text())
+          .then((imageMessage) => {
+            console.log('Bild hochgeladen:', imageMessage);
+          })
+          .catch((imageError) => {
+            console.error('Fehler beim Hochladen des Bildes:', imageError);
+          });
+        setRecipes([...recipes, newRecipe]);
         setCurrentStep(steps.recipeAddedStep);
       })
       .catch((error) => {
@@ -86,6 +113,8 @@ const AddRecipe = ({ recipes, setRecipes }) => {
           recipe={recipe}
           setRecipe={setRecipe}
           recipeNameFieldRef={recipeNameFieldRef}
+          uploadedFile={uploadedFile}
+          setUploadedFile={setUploadedFile}
         />
       )}
       {currentStep === steps.addKeywordsStep && (

@@ -9,13 +9,23 @@ const AddNameAmountsAndDescriptionStep = ({
   recipe,
   setRecipe,
   recipeNameFieldRef,
+  uploadedFile,
+  setUploadedFile,
 }) => {
+
   const handleAddIngredient = () => {
     setRecipe({
       ...recipe,
       amounts: [...recipe.amounts, ''],
       ingredients: [...recipe.ingredients, ''],
     });
+  };
+
+  const handleImageUpload = (file) => {
+    setRecipe((prevRecipe) => ({
+      ...prevRecipe,
+      image: file,
+    }));
   };
 
   return (
@@ -31,7 +41,7 @@ const AddNameAmountsAndDescriptionStep = ({
         onAddIngredient={handleAddIngredient}
       />
       <DescriptionField recipe={recipe} setRecipe={setRecipe} />
-      <ImageUpload />
+      <ImageUpload onImageUpload={handleImageUpload} uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
     </div>
   );
 }
