@@ -55,7 +55,7 @@ The application fetches recipes from a local API available at http://localhost:3
 
 ## Screenshot
 
-![image](https://github.com/JuliaKleber/MeineRezepte/assets/142741980/d0e8d649-4e20-481d-9e82-6e85c89517bb)
+![image](https://github.com/JuliaKleber/MeineRezepte/assets/142741980/7c368824-64d8-4fd5-89e9-af8f6bf602dd)
 
 ## Author
 
