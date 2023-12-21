@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ShowImage from './ShowImage';
 import ShowIngredients from './ShowIngredients';
+import ShowRecipeDescription from './ShowRecipeDescription';
 import EditRecipe from './EditRecipe';
 import DeleteRecipe from './DeleteRecipe';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHandPointRight } from '@fortawesome/free-solid-svg-icons';
+import { faHandPointLeft } from '@fortawesome/free-solid-svg-icons';
 
 const ShowRecipe = ({ recipe, setRecipe, recipes, setRecipes, searchTerm, onBackToSearch }) => {
   const [currentStep, setCurrentStep] = useState('recipeIsShown');
@@ -16,8 +19,9 @@ const ShowRecipe = ({ recipe, setRecipe, recipes, setRecipes, searchTerm, onBack
 
   // Die Frage, ob das Rezept wirklich gelöscht werden soll,
   // wird nicht mehr angezeigt
-  const handleRecipeChangeOff = (output) => {
+  const handleRecipeChangeOff = (output, editedRecipe) => {
     setOutput(output);
+    setRecipe(editedRecipe);
     setCurrentStep('recipeIsShown');
   };
 
@@ -40,12 +44,9 @@ const ShowRecipe = ({ recipe, setRecipe, recipes, setRecipes, searchTerm, onBack
 
       {currentStep === 'recipeIsShown' && (
         <div className='container'>
-          {/* <ShowImage recipe={recipe} /> */}
           <h2 className='align-center'>{recipe.recipeName}</h2>
           <ShowIngredients recipe={recipe} setRecipe={setRecipe} />
-          <p className={recipe.description === '' ? 'display-none' : 'recipe-partial-card center'} id='recipe-description'>
-            {recipe.description}
-          </p>
+          <ShowRecipeDescription recipeDescription={recipe.description} />
           <span>
             <button className='show-recipe-button white' onClick={handleRecipeEditingOn}>
               Rezept ändern
@@ -55,11 +56,17 @@ const ShowRecipe = ({ recipe, setRecipe, recipes, setRecipes, searchTerm, onBack
             </button>
           </span>
         </div>)}
+
       {currentStep === 'recipeIsShown' && searchTerm !== 'fromHome' && (
         <button onClick={() => onBackToSearch(searchTerm)}>zurück</button>
       )}
-      {currentStep === 'recipeIsShown' && (
-          <p className='align-center'>{output}</p>
+
+      {currentStep === 'recipeIsShown' && output !== '' && (
+        <p className='align-center primary-color'>
+          <FontAwesomeIcon icon={faHandPointRight} />
+          {output}
+          <FontAwesomeIcon icon={faHandPointLeft} />
+        </p>
       )}
 
       {currentStep === 'recipeIsEdited' && (
@@ -76,12 +83,20 @@ const ShowRecipe = ({ recipe, setRecipe, recipes, setRecipes, searchTerm, onBack
       )}
 
       {currentStep === 'deletionNotPerformed' && (
-        <p className='align-center'>{output}</p>
+        <p className='align-center'>
+          <FontAwesomeIcon icon={faHandPointRight} />
+          {output}
+          <FontAwesomeIcon icon={faHandPointLeft} />
+        </p>
       )}
 
       {currentStep === 'recipeWasRemoved' && (
         <div className='align-center'>
-          <p>{output}</p>
+          <p className='secondary-color'>
+            <FontAwesomeIcon icon={faHandPointRight} />
+            {output}
+            <FontAwesomeIcon icon={faHandPointLeft} />
+          </p>
             <button onClick={() => navigate('/')}>zum Startmenü</button>
         </div>
       )}

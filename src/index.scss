@@ -3,6 +3,7 @@
 @import './stylesheets/KeywordSearch.scss';
 @import './stylesheets/ShowRecipe.scss';
 @import './stylesheets/ShowIngredients.scss';
+@import './stylesheets/ShowRecipeDescription.scss';
 @import './stylesheets/EditRecipe.scss';
 @import './stylesheets/IngredientGroup.scss';
 @import './stylesheets/AmountsAndIngredientsFields.scss';
@@ -13,14 +14,14 @@
 
 body {
   font-family: $primary-font;
-  color: $primary-color;
+  // color: $primary-color;
   font-size: 20px;
   text-shadow: 0 0 16px rgba($primary-color, 0.1);
 }
 
 h1, h2 {
-  text-shadow: 0 0 4px rgba(black, 0.2);
-  color: $primary-color;
+  text-shadow: 4px 4px 4px rgba(black, 0.4);
+  color: $secondary-color;
 }
 
 button {
@@ -131,6 +132,20 @@ ul {
   justify-content: center;
 }
 
+.card {
+  border-radius: 8px;
+  box-shadow: 2px 2px 6px rgba(black, 0.3);
+  padding: 8px 16px;
+  margin: 16px 12px;
+  width: 328px;
+  &:hover {
+    box-shadow: 2px 2px 8px rgba(black, 0.4);
+  }
+  &:focus {
+    outline: 2px solid $primary-color;
+  }
+}
+
 .margin-top {
   margin-top: 24px;
 }
@@ -157,4 +172,8 @@ ul {
 
 .primary-color {
   color: $primary-color;
+}
+
+.secondary-color {
+  color: $secondary-color;
 }

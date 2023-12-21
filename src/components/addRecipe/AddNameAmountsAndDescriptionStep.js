@@ -27,7 +27,7 @@ const AddNameAmountsAndDescriptionStep = ({
   };
 
   return (
-    <div className='container'>
+    <div className='container primary-color'>
       <RecipeNameField
         recipe={recipe}
         setRecipe={setRecipe}

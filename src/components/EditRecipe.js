@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AiFillDelete } from 'react-icons/ai';
-import pastaImage from '../images/pasta.jpg';
+import ShowImage from './ShowImage';
 import AddKeywordsStep from './addRecipe/AddKeywordsStep';
 
 const steps = {
@@ -31,7 +31,7 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
   };
 
   const handleDeleteIngredient = (index) => {
-    const keywords = updatedRecipe.keywords.filter((keyword) => keyword !== ingredients[index]);
+    const keywords = updatedRecipe.keywords.filter((keyword) => keyword !== updatedRecipe.ingredients[index]);
     const ingredients = updatedRecipe.ingredients.filter((_, i) => i !== index);
     const amounts = updatedRecipe.amounts.filter((_, i) => i !== index);
     setUpdatedRecipe({...updatedRecipe, ingredients: [...ingredients], amounts: [...amounts], keywords: [...keywords]});
@@ -46,7 +46,7 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
   }
 
   const handleReturn = () => {
-    onReturn('');
+    onReturn('', recipe);
   };
 
   const cleanUpRecipe = () => {
@@ -54,12 +54,12 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
     const amounts = [...updatedRecipe.amounts];
     for (let i = ingredients.length - 1; i >= 0; i--) {
       if (ingredients[i] === '') {
-        ingredients.splice(i);
-        amounts.splice(i);
+        ingredients.splice(i, 1);
+        amounts.splice(i, 1);
       }
     }
     const cleanedRecipe = {...updatedRecipe, amounts: [...amounts], ingredients: [...ingredients]}
-    setUpdatedRecipe({cleanedRecipe});
+    setUpdatedRecipe(cleanedRecipe);
     return cleanedRecipe;
   };
 
@@ -91,7 +91,7 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
         output = 'Das Rezept wurde geändert.';
         setRecipe(cleanedRecipe);
         setRecipes(updatedRecipes);
-        onReturn(output)
+        onReturn(output, cleanedRecipe)
       })
       .catch((error) => {
         // Fehlerbehandlung
@@ -101,21 +101,20 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
   };
 
   return (
-    <div className='container edit-recipe'>
+    <div className='edit-recipe'>
       {currentStep === steps.editRecipeStep && (
-        <div>
-          <img src={pastaImage} alt='recipe_picture' width='300px' />
+        <div className='container'>
+          <ShowImage recipe={recipe} className='card' />
 
           <input
             value={updatedRecipe.recipeName}
-            // style={{ width: recipeName.length * 0.6 + 'em' }}
             onChange={(event) => setUpdatedRecipe({...updatedRecipe, recipeName: event.target.value})}
-            className='edit-recipe card'
+            className='card'
             id='recipe-name'
           />
 
-          <div className='edit-recipe card'>
-            <span>
+          <div className='card'>
+            <div className='align-center primary-color'>
               Zutaten für
               <input
                 id='number-of-persons'
@@ -125,7 +124,7 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
               {updatedRecipe.numberOfPersons === 1 || updatedRecipe.numberOfPersons === '1'
                 ? 'Person'
                 : 'Personen'}
-            </span>
+            </div>
 
             <table>
               <tbody>
@@ -133,42 +132,42 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
                   <tr key={index}>
                     <td className='align-right'>
                       <input
-                        className='edit-recipe amounts-fields'
+                        className='amounts-fields'
                         value={updatedRecipe.amounts[index]}
-                        style={(updatedRecipe.amounts[index].length === 0) ? { width: '50px' } : { width: updatedRecipe.amounts[index].length * 0.6 + 'em' }}
                         onChange={(event) => handleAmountUpdate(event, index)}
                       ></input>
                     </td>
                     <td>
                       <input
-                        className='edit-recipe ingredients-fields'
+                        className='ingredients-fields'
                         value={ingredient}
-                        style={{ width: ingredient.length * 0.6 + 'em' }}
                         onChange={(event) => handleIngredientUpdate(event, index)}
                       ></input>
                     </td>
                     <td>
-                    <AiFillDelete
-                      className='delete-button'
-                      onClick={(e) => handleDeleteIngredient(index)}
-                    />
-                  </td>
+                      <AiFillDelete
+                        className='delete-button primary-color'
+                        onClick={(e) => handleDeleteIngredient(index)}
+                      />
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
 
-            <button
-              className='edit-recipe reverse-colored-button'
-              id='add-ingredient-button'
-              onClick={handleAddIngredient}
-            >
+            <div className='align-center'>
+              <button
+                className='reverse-colored-button'
+                id='add-ingredient-button'
+                onClick={handleAddIngredient}
+              >
               <FontAwesomeIcon icon={faPlus} /> Zutat
-            </button>
+              </button>
+            </div>
           </div>
 
           <textarea
-            className='edit-recipe card'
+            className='card'
             id='description'
             value={updatedRecipe.description}
             onChange={(event) => setUpdatedRecipe({...updatedRecipe, description: event.target.value})}
@@ -182,7 +181,10 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
             </span>
           </div>
 
-          {output}
+          <div className='secondary-color'>
+            <i class="fa-solid fa-circle-info"></i>
+            {output}
+          </div>
 
         </div>
       )}

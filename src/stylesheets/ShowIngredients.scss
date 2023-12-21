@@ -1,11 +1,11 @@
 @import './Colors.scss';
 
-.show-ingredients #number-of-persons {
+.show-ingredients .number-of-persons {
   width: 24px;
   height: 20px;
   margin: 8px;
   margin-bottom: 16px;
-  color: $primary-color;
+  color: $secondary-color;
 }
 
 .show-ingredients td {

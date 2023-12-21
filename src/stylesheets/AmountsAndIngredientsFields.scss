@@ -1,11 +1,20 @@
 @import 'Colors.scss';
 
+.amounts-and-ingredients-fields .number-persons-field {
+  width: 24px;
+  height: 20px;
+  margin: 8px;
+  margin-bottom: 16px;
+  color: black;
+}
+
 .amounts-and-ingredients-fields .enter-amounts-fields {
   width: 100px;
 }
 
 .amounts-and-ingredients-fields .enter-ingredients-fields {
   width: 160px;
+  align-items: left;
 }
 
 .amounts-and-ingredients-fields .delete-button:hover {

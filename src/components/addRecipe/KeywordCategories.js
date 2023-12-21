@@ -50,7 +50,7 @@ const KeywordCategories = ({
 
   return (
     <div className='container'>
-      <p className='bold primary-color'>{keywordCategory}</p>
+      <p className='bold secondary-color'>{keywordCategory}</p>
       {keywords}
     </div>
   );

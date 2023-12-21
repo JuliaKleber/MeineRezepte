@@ -1,15 +1,20 @@
+.recipe-card {
+  position: relative;
+  border: 1px solid lightgrey;
+  color: black;
+  width: 340px;
+  height: 300px;
+}
+
 .recipe-card .recipe-image {
+  position: absolute;
+  top: 0;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  margin-top: 0px;
   width: 340px;
 }
 
-.recipe-card {
-  border: 1px solid lightgrey;
-  border-radius: 8px;
-  margin: 12px;
-  padding-bottom: 8px;
-  color: black;
-  width: 340px;
+.recipe-card-text {
+  position: absolute;
+  top: 250px;
 }

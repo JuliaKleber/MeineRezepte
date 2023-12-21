@@ -156,7 +156,11 @@ const AddIngredientsStep = ({ recipe, setRecipe }) => {
         ingredientsCategory='Sonstiges'
         choiceOfIngredients={[
           'Avocado',
+          'Butter',
           'Champignons',
+          'Hackfleisch',
+          'Mehl',
+          'Milch',
           'Oliven',
           'Quark',
           'Rotwein',

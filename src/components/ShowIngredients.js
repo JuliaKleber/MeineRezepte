@@ -46,11 +46,11 @@ const ShowIngredients = ({ recipe }) => {
   };
 
   return (
-    <div className='show-ingredients recipe-partial-card container'>
+    <div className='show-ingredients card container'>
       <span>
         Zutaten für
         <input
-          id='number-of-persons'
+          className='number-of-persons'
           onChange={(event) => {
             calculateAmounts(event.target.value);
           }}
