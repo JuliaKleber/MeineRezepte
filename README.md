@@ -40,11 +40,11 @@ This is a React application for managing and searching recipes.
 To start the application, run:
 
   ```bash
-  npm start
+  node server.js
   ```
 
   ```bash
-  node server.js
+  npm start
   ```
 
 The application will be available at http://localhost:3000.
