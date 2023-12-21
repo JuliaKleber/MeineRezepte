@@ -1,4 +1,5 @@
 @import './stylesheets/Navbar.scss';
+@import './stylesheets/RecipeCard.scss';
 @import './stylesheets/KeywordSearch.scss';
 @import './stylesheets/ShowRecipe.scss';
 @import './stylesheets/ShowIngredients.scss';
@@ -122,6 +123,12 @@ ul {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.container-flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .margin-top {

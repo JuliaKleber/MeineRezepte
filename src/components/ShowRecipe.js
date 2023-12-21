@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ShowImage from './ShowImage';
 import ShowIngredients from './ShowIngredients';
 import EditRecipe from './EditRecipe';
 import DeleteRecipe from './DeleteRecipe';
-import pastaImage from '../images/pasta.jpg';
 
 const ShowRecipe = ({ recipe, setRecipe, recipes, setRecipes, searchTerm, onBackToSearch }) => {
   const [currentStep, setCurrentStep] = useState('recipeIsShown');
@@ -40,10 +40,10 @@ const ShowRecipe = ({ recipe, setRecipe, recipes, setRecipes, searchTerm, onBack
 
       {currentStep === 'recipeIsShown' && (
         <div className='container'>
-          <img src={pastaImage} alt='recipe_picture' width='300px' />
+          {/* <ShowImage recipe={recipe} /> */}
           <h2 className='align-center'>{recipe.recipeName}</h2>
           <ShowIngredients recipe={recipe} setRecipe={setRecipe} />
-          <p className={recipe.description === '' ? 'display-none' : 'recipe-card center'} id='recipe-description'>
+          <p className={recipe.description === '' ? 'display-none' : 'recipe-partial-card center'} id='recipe-description'>
             {recipe.description}
           </p>
           <span>

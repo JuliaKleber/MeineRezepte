@@ -55,7 +55,7 @@ const AddKeywordsStep = ({ recipe, setRecipe }) => {
         />
         <KeywordCategories
           keywordCategory='Kategorie'
-          listOfKeywords={['Curry', 'Lasagne', 'Nudeln', 'Reis']}
+          listOfKeywords={['Curry', 'Pesto', 'Lasagne', 'Nudeln', 'Reis']}
           recipe={recipe}
           setRecipe={setRecipe}
         />

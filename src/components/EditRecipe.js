@@ -58,8 +58,9 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
         amounts.splice(i);
       }
     }
-    setUpdatedRecipe({...updatedRecipe, amounts: [...amounts], ingredients: [...ingredients]});
-
+    const cleanedRecipe = {...updatedRecipe, amounts: [...amounts], ingredients: [...ingredients]}
+    setUpdatedRecipe({cleanedRecipe});
+    return cleanedRecipe;
   };
 
   // The updated recipe is exchanged with the old one in the json file
@@ -69,7 +70,7 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
     // und als geändertes Rezept (updatedRecipe) wieder hinzugefügt
     const updatedRecipes = [...recipes];
     const index = updatedRecipes.indexOf(recipe);
-    updatedRecipes.splice(index);
+    updatedRecipes.splice(index, 1);
     updatedRecipes.push(cleanedRecipe);
     fetch(`${serverUrl}/updateRecipe`, {
       method: 'POST',
@@ -88,7 +89,7 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
         // Server-Antwort in der Konsole ausgegeben.
         console.log('Antwort vom Server:', message);
         output = 'Das Rezept wurde geändert.';
-        setRecipe(updatedRecipe);
+        setRecipe(cleanedRecipe);
         setRecipes(updatedRecipes);
         onReturn(output)
       })

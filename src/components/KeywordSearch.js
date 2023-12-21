@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import RecipeCard from './RecipeCard';
 
 const KeywordSearch = ({ onRecipeSelection, searchTerm, recipes }) => {
   const [contentSearchField, setContentSearchField] = useState(searchTerm);
@@ -113,18 +114,15 @@ const KeywordSearch = ({ onRecipeSelection, searchTerm, recipes }) => {
         />
         <button onClick={handleSearch}>Suchen</button>
       </span>
-      {searchResultsAreShown &&
-        recipesFound &&
-        recipesFound.map((recipe, index) => (
-          <div key={index}>
-            <button
-              className='reverse-colored-button search-results'
-              onClick={() => handleRecipeSelection(recipe)}
-            >
-              {recipe.recipeName}
-            </button>
-          </div>
-        ))}
+
+      <div className='container-flex-wrap'>
+        {searchResultsAreShown &&
+          recipesFound &&
+          recipesFound.map((recipe, index) => (
+            <RecipeCard recipe={recipe} key={index} onRecipeSelection={handleRecipeSelection}/>
+          ))}
+      </div>
+
       {searchResultsAreShown && recipesFound.length === 0 && (
         <div>
           <p className='center'>{output}</p>

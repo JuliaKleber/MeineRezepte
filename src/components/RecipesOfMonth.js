@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import RecipeCard from "./RecipeCard";
 
 // Die Rezepte des aktuellen Monats werden angezeigt.
 const RecipesOfMonth = ({ recipes, onRecipeSelection }) => {
@@ -35,18 +36,11 @@ const RecipesOfMonth = ({ recipes, onRecipeSelection }) => {
   return (
     <div className="container">
       <h2>{header}</h2>
-      <ul className="container">
+      <div className="container-flex-wrap">
         {recipesOfMonth.map((recipe, index) => (
-          <li key={index}>
-            <button
-              className="reverse-colored-button search-results"
-              onClick={() => handleRecipeSelection(recipe)}
-            >
-              {recipe.recipeName}
-            </button>
-          </li>
+          <RecipeCard recipe={recipe} onRecipeSelection={handleRecipeSelection} key={index} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

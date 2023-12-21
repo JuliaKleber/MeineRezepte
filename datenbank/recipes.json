@@ -299,39 +299,6 @@
     "imageName": null
   },
   {
-    "recipeName": "Spaghetti mit Grünkohlpesto",
-    "numberOfPersons": 1,
-    "amounts": [
-      "125 g",
-      "",
-      "0,5",
-      "",
-      "",
-      "",
-      ""
-    ],
-    "ingredients": [
-      "Spaghetti",
-      "Olivenöl",
-      "Knoblauchzehen",
-      "Grünkohl",
-      "Sonnenblumenkerne",
-      "Salz",
-      "schwarzer Pfeffer"
-    ],
-    "description": "Grünkohl in Salzwasser kochen. Spaghetti in Salzwasser kochen. Grünkohl mit Knoblauch, gerösteten Sonnenblumenkernen und Nudelwasser pürieren. Mit Olivenöl und Pfeffer vermengen.",
-    "keywords": [
-      "Spaghetti",
-      "Olivenöl",
-      "Knoblauchzehen",
-      "Grünkohl",
-      "Sonnenblumenkerne",
-      "Salz",
-      "schwarzer Pfeffer"
-    ],
-    "imageName": null
-  },
-  {
     "recipeName": "Spaghetti Bolognese (vegan)",
     "numberOfPersons": 1,
     "amounts": [
@@ -512,21 +479,6 @@
     "imageName": null
   },
   {
-    "recipeName": "Spinat-Feta-Nudeln",
-    "numberOfPersons": 1,
-    "amounts": [
-      ""
-    ],
-    "ingredients": [
-      "Spaghetti"
-    ],
-    "description": "",
-    "keywords": [
-      "Spaghetti"
-    ],
-    "imageName": null
-  },
-  {
     "recipeName": "Brokkoli-Nudelpfanne",
     "numberOfPersons": 1,
     "amounts": [
@@ -558,5 +510,87 @@
       "Bandnudeln"
     ],
     "imageName": "nudeln-mit-schwarzkohl.jpg"
+  },
+  {
+    "recipeName": "Spaghetti mit Grünkohlpesto",
+    "numberOfPersons": 1,
+    "amounts": [
+      "125 g",
+      "",
+      "0,5",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "ingredients": [
+      "Spaghetti",
+      "Olivenöl",
+      "Knoblauchzehen",
+      "Grünkohl",
+      "Sonnenblumenkerne",
+      "Salz",
+      "schwarzer Pfeffer"
+    ],
+    "description": "Grünkohl in Salzwasser kochen. Spaghetti in Salzwasser kochen. Grünkohl mit Knoblauch, gerösteten Sonnenblumenkernen und Nudelwasser pürieren. Mit Olivenöl und Pfeffer vermengen.",
+    "keywords": [
+      "Spaghetti",
+      "Olivenöl",
+      "Knoblauchzehen",
+      "Grünkohl",
+      "Sonnenblumenkerne",
+      "Salz",
+      "schwarzer Pfeffer",
+      "Pesto",
+      "November",
+      "Dezember",
+      "Januar",
+      "Februar",
+      "März",
+      "Nudeln",
+      "deutsch",
+      "italienisch",
+      "Herbst",
+      "Winter",
+      "vegan",
+      "mittel"
+    ],
+    "imageName": null
+  },
+  {
+    "recipeName": "Spinat-Feta-Nudeln",
+    "numberOfPersons": 1,
+    "amounts": [
+      ""
+    ],
+    "ingredients": [
+      "Spaghetti"
+    ],
+    "description": "",
+    "keywords": [
+      "Spaghetti",
+      "vegetarisch",
+      "schnell",
+      "Winter",
+      "Herbst",
+      "Sommer",
+      "Frühling",
+      "Januar",
+      "Mai",
+      "September",
+      "Oktober",
+      "Juni",
+      "Februar",
+      "März",
+      "Juli",
+      "November",
+      "Dezember",
+      "April",
+      "August",
+      "deutsch",
+      "italienisch",
+      "Nudeln"
+    ],
+    "imageName": null
   }
 ]

@@ -46,7 +46,7 @@ const ShowIngredients = ({ recipe }) => {
   };
 
   return (
-    <div className='show-ingredients recipe-card container'>
+    <div className='show-ingredients recipe-partial-card container'>
       <span>
         Zutaten für
         <input
