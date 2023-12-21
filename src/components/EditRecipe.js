@@ -24,7 +24,7 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
 
   const handleIngredientUpdate = (event, index) => {
     const ingredients = [...updatedRecipe.ingredients];
-    const keywords = updatedRecipe.keywords.filter((_, i) => i !== index);
+    const keywords = updatedRecipe.keywords.filter((keyword) => keyword !== ingredients[index]);
     ingredients[index] = event.target.value;
     keywords.push(event.target.value);
     setUpdatedRecipe({...updatedRecipe, ingredients: [...ingredients], keywords: [...keywords]});
@@ -49,7 +49,7 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
     onReturn('');
   };
 
-  const handleSave = () => {
+  const cleanUpRecipe = () => {
     const ingredients = [...updatedRecipe.ingredients];
     const amounts = [...updatedRecipe.amounts];
     for (let i = ingredients.length - 1; i >= 0; i--) {
@@ -59,17 +59,18 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
       }
     }
     setUpdatedRecipe({...updatedRecipe, amounts: [...amounts], ingredients: [...ingredients]});
-    replaceRecipe();
+
   };
 
   // The updated recipe is exchanged with the old one in the json file
   const replaceRecipe = () => {
+    const cleanedRecipe = cleanUpRecipe();
     // Das Rezept wird aus dem Array updatedRecipes entfernt
     // und als geändertes Rezept (updatedRecipe) wieder hinzugefügt
     const updatedRecipes = [...recipes];
     const index = updatedRecipes.indexOf(recipe);
     updatedRecipes.splice(index);
-    updatedRecipes.push(updatedRecipe);
+    updatedRecipes.push(cleanedRecipe);
     fetch(`${serverUrl}/updateRecipe`, {
       method: 'POST',
       // Es wird angegeben, dass die Daten
@@ -103,24 +104,35 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
       {currentStep === steps.editRecipeStep && (
         <div>
           <img src={pastaImage} alt='recipe_picture' width='300px' />
+
           <input
             value={updatedRecipe.recipeName}
             // style={{ width: recipeName.length * 0.6 + 'em' }}
             onChange={(event) => setUpdatedRecipe({...updatedRecipe, recipeName: event.target.value})}
-            className='recipe-change card'
+            className='edit-recipe card'
             id='recipe-name'
-          ></input>
-          <div className='recipe-change card'>
-            <p className='center'>
-              Zutaten für 1 Person
-            </p>
+          />
+
+          <div className='edit-recipe card'>
+            <span>
+              Zutaten für
+              <input
+                id='number-of-persons'
+                value={updatedRecipe.numberOfPersons}
+                onChange={(e) => setUpdatedRecipe({...updatedRecipe, numberOfPersons: e.target.value})}
+              />
+              {updatedRecipe.numberOfPersons === 1 || updatedRecipe.numberOfPersons === '1'
+                ? 'Person'
+                : 'Personen'}
+            </span>
+
             <table>
               <tbody>
                 {updatedRecipe.ingredients.map((ingredient, index) => (
                   <tr key={index}>
                     <td className='align-right'>
                       <input
-                        className='recipe-change amounts-fields'
+                        className='edit-recipe amounts-fields'
                         value={updatedRecipe.amounts[index]}
                         style={(updatedRecipe.amounts[index].length === 0) ? { width: '50px' } : { width: updatedRecipe.amounts[index].length * 0.6 + 'em' }}
                         onChange={(event) => handleAmountUpdate(event, index)}
@@ -128,7 +140,7 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
                     </td>
                     <td>
                       <input
-                        className='recipe-change ingredients-fields'
+                        className='edit-recipe ingredients-fields'
                         value={ingredient}
                         style={{ width: ingredient.length * 0.6 + 'em' }}
                         onChange={(event) => handleIngredientUpdate(event, index)}
@@ -144,39 +156,46 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
                 ))}
               </tbody>
             </table>
+
             <button
-              className='recipe-change reverse-colored-button'
+              className='edit-recipe reverse-colored-button'
               id='add-ingredient-button'
               onClick={handleAddIngredient}
             >
               <FontAwesomeIcon icon={faPlus} /> Zutat
             </button>
           </div>
+
           <textarea
-            className='recipe-change card'
+            className='edit-recipe card'
             id='description'
             value={updatedRecipe.description}
             onChange={(event) => setUpdatedRecipe({...updatedRecipe, description: event.target.value})}
           ></textarea>
+
           <div className='container'>
             <button onClick={() => setCurrentStep(steps.editKeywordsStep)}>Schlagwörter ändern</button>
             <span>
-              <button onClick={handleReturn}>zurück</button>
-              <button onClick={handleSave}>speichern</button>
+              <button onClick={() => handleReturn()}>zurück</button>
+              <button onClick={() => replaceRecipe()}>speichern</button>
             </span>
           </div>
+
           {output}
+
         </div>
       )}
+
       { currentStep === steps.editKeywordsStep && (
         <div>
           <AddKeywordsStep recipe={updatedRecipe} setRecipe={setUpdatedRecipe} />
           <div className='container-vertical-alignment margin-top'>
             <button onClick={() => setCurrentStep(steps.editRecipeStep)}>zurück</button>
-            <button onClick={handleSave}>speichern</button>
+            <button onClick={() => replaceRecipe()}>speichern</button>
           </div>
         </div>
       )}
+
     </div>
   );
 }

@@ -37,7 +37,7 @@ button {
     background-color: $secondary-color;
   }
   &:focus {
-    outline: 2px solid $primary-color;
+    outline: 0px solid $primary-color;
   }
   :focus:not(:focus-visible) {
     outline: none;
@@ -80,7 +80,7 @@ input {
     box-shadow: 0 0 4px rgba($primary-color, 0.8);
   }
   &:focus {
-    outline: 2px solid $primary-color;
+    outline: 0px solid $primary-color;
   }
 }
 

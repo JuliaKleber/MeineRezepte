@@ -22,7 +22,14 @@ const AmountsAndIngredientsFields = ({ recipe, setRecipe }) => {
 
   const amountsAndIngredientsFields = (
     <div className='amounts-and-ingredients-fields'>
-      <p>Zutaten pro Person</p>
+      <p>Anzahl Personen:
+        <input
+          type='text'
+          value={recipe.numberOfPersons}
+          onChange={(e) => setRecipe({ ...recipe, amountOfPeople: e.target.value })}
+          className='enter-amounts-fields'
+        />
+      </p>
       <table>
         <tbody>
           {recipe.ingredients.map((_, index) => (

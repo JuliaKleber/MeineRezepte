@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const ShowIngredients = ({ recipe }) => {
   const [scaledAmounts, setScaledAmounts] = useState(recipe.amounts);
-  const [numberOfPersons, setNumberOfPersons] = useState(1);
+  const [numberOfPersons, setNumberOfPersons] = useState(recipe.numberOfPersons);
 
   // Die benötigten Mengen werden anhand der Personenzahl berechnet.
   const calculateAmounts = (multiplier) => {
@@ -19,7 +19,7 @@ const ShowIngredients = ({ recipe }) => {
           const splitAmounts = recipe.amounts[i].split(' ');
           if (splitAmounts[0].includes(',')) {
             const amountValue = parseFloat(splitAmounts[0].replace(',', '.'));
-            const newAmountValue = amountValue * multiplier;
+            const newAmountValue = amountValue * multiplier / recipe.numberOfPersons;
             splitAmounts[0] = newAmountValue.toFixed(1).replace('.', ',');
             if (splitAmounts[0].includes(',0')) {
               const index = splitAmounts[0].indexOf(',');
@@ -27,14 +27,15 @@ const ShowIngredients = ({ recipe }) => {
             }
           } else if (multiplier % 1 !== 0) {
             splitAmounts[0] = String(
-              (parseInt(splitAmounts[0]) * multiplier).toFixed(1)
-            ).replace('.', ',');
-            if (splitAmounts[0].includes(',0')) {
-              const index = splitAmounts[0].indexOf(',');
-              splitAmounts[0] = splitAmounts[0].slice(0, index);
-            }
-          } else {
-            splitAmounts[0] = parseInt(splitAmounts[0]) * multiplier;
+              (parseInt(splitAmounts[0]) * multiplier / recipe.numberOfPersons).toFixed(1)
+              ).replace('.', ',');
+              if (splitAmounts[0].includes(',0')) {
+                const index = splitAmounts[0].indexOf(',');
+                splitAmounts[0] = splitAmounts[0].slice(0, index);
+              }
+            } else if (isNaN(Number(splitAmounts[0]))) {
+            } else {
+              splitAmounts[0] = parseInt(splitAmounts[0]) * multiplier / recipe.numberOfPersons;
           }
           jointAmounts = splitAmounts.join(' ');
         }

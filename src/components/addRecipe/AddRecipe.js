@@ -30,11 +30,12 @@ const AddRecipe = ({ recipes, setRecipes }) => {
   const [currentStep, setCurrentStep] = useState(steps.addIngredientsStep);
   const [recipe, setRecipe] = useState({
     recipeName: '',
+    numberOfPersons: 1,
     amounts: [],
     ingredients: [],
     description: '',
     keywords: [],
-    image: null,
+    imageName: null,
   });
   const [uploadedFile, setUploadedFile] = useState(null);
   const recipeNameFieldRef = useRef(null);
@@ -54,34 +55,50 @@ const AddRecipe = ({ recipes, setRecipes }) => {
     } else setCurrentStep(nextStep);
   };
 
-  const handleSaveRecipe = () => {
+  const cleanUpRecipe = () => {
     let newRecipe = { ...recipe };
     if (recipe.amounts.length === 0) {
       recipe.ingredients.forEach(() => {
         newRecipe.amounts.push('');
       });
-      setRecipe(newRecipe);
     }
-    const imageName = `${newRecipe.recipeName.toLowerCase().replace(/\s+/g, '-')}.jpg`;
-    const imagePath = `${serverUrl}/images/${imageName}`;
+    newRecipe.amounts.forEach((amount) => {
+      if (amount === null || amount === undefined) {
+        amount = '';
+      }
+    });
+    setRecipe(newRecipe);
+    return newRecipe;
+  };
 
+  const handleSaveRecipe = () => {
+    let newRecipe = cleanUpRecipe();
+    if (uploadedFile !== null) {
+      const imageName = `${newRecipe.recipeName.toLowerCase().replace(/\s+/g, '-')}.jpg`;
+      newRecipe = { ...newRecipe, imageName: imageName };
+      setRecipe(newRecipe);
+    };
+    // const imagePath = `${serverUrl}/images/${imageName}`;
     fetch(`${serverUrl}/addRecipe`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ...newRecipe, image: imageName }),
+      body: JSON.stringify(newRecipe),
     })
-      .then((response) => response.text())
-      .then((message) => {
-        console.log('Antwort vom Server:', message);
-        // Speichere das Bild auf dem Server im images-Ordner
-        fetch(imagePath, {
+    .then((response) => response.text())
+    .then((message) => {
+      console.log('Antwort vom Server:', message);
+      // Speichert das Bild auf dem Server im images-Ordner
+      if (uploadedFile !== null) {
+        console.log('uploadedFile:', uploadedFile);
+        const formData = new FormData();
+        const imageName = `${newRecipe.recipeName.toLowerCase().replace(/\s+/g, '-')}.jpg`;
+        formData.append('image', uploadedFile, imageName);
+        console.log('formData:', formData);
+        fetch(`${serverUrl}/addRecipeImage`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'image/jpeg',
-          },
-          body: uploadedFile,
+          body: formData,
         })
           .then((response) => response.text())
           .then((imageMessage) => {
@@ -90,8 +107,9 @@ const AddRecipe = ({ recipes, setRecipes }) => {
           .catch((imageError) => {
             console.error('Fehler beim Hochladen des Bildes:', imageError);
           });
-        setRecipes([...recipes, newRecipe]);
-        setCurrentStep(steps.recipeAddedStep);
+      }
+      setRecipes([...recipes, newRecipe]);
+      setCurrentStep(steps.recipeAddedStep);
       })
       .catch((error) => {
         console.error('Fehler beim Senden der Daten:', error);

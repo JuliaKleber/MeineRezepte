@@ -13,6 +13,7 @@ const AddIngredientsStep = ({ recipe, setRecipe }) => {
           'Brot',
           'Kartoffeln',
           'Süßkartoffeln',
+          'Bandnudeln',
           'Fusilli',
           'Lasagneplatten',
           'Spaghetti',
@@ -51,6 +52,7 @@ const AddIngredientsStep = ({ recipe, setRecipe }) => {
           'rote Bete',
           'Spargel',
           'Spinat',
+          'Suppengrün',
           'Tomaten',
           'Zucchini',
         ]}
@@ -83,6 +85,7 @@ const AddIngredientsStep = ({ recipe, setRecipe }) => {
           'Ingwer',
           'Kräuter der Provence',
           'Kreuzkümmel',
+          'Lorberrblätter',
           'Muskat',
           'Petersilie',
           'Rosmarin',
@@ -91,6 +94,7 @@ const AddIngredientsStep = ({ recipe, setRecipe }) => {
           'Salz',
           'Schnittlauch',
           'schwarzer Pfeffer',
+          'Thymian',
         ]}
       />
       <IngredientGroup

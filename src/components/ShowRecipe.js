@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ShowIngredients from './ShowIngredients';
 import EditRecipe from './EditRecipe';
@@ -42,7 +42,7 @@ const ShowRecipe = ({ recipe, setRecipe, recipes, setRecipes, searchTerm, onBack
         <div className='container'>
           <img src={pastaImage} alt='recipe_picture' width='300px' />
           <h2 className='align-center'>{recipe.recipeName}</h2>
-          <ShowIngredients recipe={recipe} />
+          <ShowIngredients recipe={recipe} setRecipe={setRecipe} />
           <p className={recipe.description === '' ? 'display-none' : 'recipe-card center'} id='recipe-description'>
             {recipe.description}
           </p>

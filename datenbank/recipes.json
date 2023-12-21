@@ -1,6 +1,7 @@
 [
   {
     "recipeName": "Spaghetti mit Rahmspinat",
+    "numberOfPersons": 1,
     "amounts": [
       "125 g",
       "1 Pk",
@@ -41,10 +42,12 @@
       "Mai",
       "deutsch",
       "Nudeln"
-    ]
+    ],
+    "imageName": null
   },
   {
     "recipeName": "Fusilli mit Brokkoli",
+    "numberOfPersons": 1,
     "amounts": [
       "125 g",
       "0,5",
@@ -85,10 +88,12 @@
       "deutsch",
       "Nudeln",
       "italienisch"
-    ]
+    ],
+    "imageName": null
   },
   {
     "recipeName": "Ofenkartoffeln",
+    "numberOfPersons": 1,
     "amounts": [
       "300 g",
       "150 g",
@@ -130,10 +135,12 @@
       "Oktober",
       "deutsch",
       "Sonstiges"
-    ]
+    ],
+    "imageName": null
   },
   {
     "recipeName": "Nudeln mit Avocado",
+    "numberOfPersons": 1,
     "amounts": [
       "125 g",
       "",
@@ -179,10 +186,12 @@
       "Januar",
       "italienisch",
       "Nudeln"
-    ]
+    ],
+    "imageName": null
   },
   {
     "recipeName": "Nudeln mit Tomaten-Oliven-Sauce",
+    "numberOfPersons": 1,
     "amounts": [
       "125 g",
       "",
@@ -241,10 +250,12 @@
       "Oktober",
       "italienisch",
       "Nudeln"
-    ]
+    ],
+    "imageName": null
   },
   {
     "recipeName": "Spaghetti Aglio e Olio",
+    "numberOfPersons": 1,
     "amounts": [
       "150 g",
       "",
@@ -284,10 +295,12 @@
       "November",
       "italienisch",
       "Nudeln"
-    ]
+    ],
+    "imageName": null
   },
   {
     "recipeName": "Spaghetti mit Grünkohlpesto",
+    "numberOfPersons": 1,
     "amounts": [
       "125 g",
       "",
@@ -315,10 +328,12 @@
       "Sonnenblumenkerne",
       "Salz",
       "schwarzer Pfeffer"
-    ]
+    ],
+    "imageName": null
   },
   {
     "recipeName": "Spaghetti Bolognese (vegan)",
+    "numberOfPersons": 1,
     "amounts": [
       "125 g",
       "1 Pk",
@@ -382,26 +397,166 @@
       "Dezember",
       "italienisch",
       "Nudeln"
-    ]
+    ],
+    "imageName": null
   },
   {
-    "recipeName": "ffffff",
+    "recipeName": "Spaghetti mit Suppengrün-Tomatensoße",
+    "numberOfPersons": 4,
     "amounts": [
+      "500 g",
+      "1",
+      "1",
+      "1 Pk",
+      "2 Dosen",
+      "1 Pk",
+      "event.",
+      "",
+      "",
+      "",
+      "",
+      "event."
+    ],
+    "ingredients": [
+      "Spaghetti",
+      "Zwiebeln",
+      "Knoblauchzehen",
+      "Suppengrün",
+      "Tomaten",
+      "Mozarella",
+      "Parmesan",
+      "Rotwein",
+      "schwarzer Pfeffer",
+      "Salz",
+      "Lorberrblätter",
+      "Kräuter der Provence"
+    ],
+    "description": "Zwiebel, Knoblauch und Gemüse anbraten.\nMit Rotwein ablöschen.\nTomaten und Lorbeerblatt hinzugeben.\nZum Schluss würzen und Käse hinzugeben.",
+    "keywords": [
+      "Spaghetti",
+      "Zwiebeln",
+      "Knoblauchzehen",
+      "Suppengrün",
+      "Dosentomaten",
+      "Mozarella",
+      "Parmesan",
+      "Rotwein",
+      "schwarzer Pfeffer",
+      "Salz",
+      "Lorberrblätter",
+      "Januar",
+      "Februar",
+      "März",
+      "April",
+      "Mai",
+      "November",
+      "Dezember",
+      "Winter",
+      "Frühling",
+      "mittel",
+      "vegetarisch",
+      "italienisch",
+      "deutsch",
+      "Nudeln"
+    ],
+    "imageName": null
+  },
+  {
+    "recipeName": "Bandnudeln mit Zucchini und Safran",
+    "numberOfPersons": 1,
+    "amounts": [
+      "125 g",
+      "",
+      "0,5 Döschen",
+      "1",
+      "",
+      "",
       "",
       "",
       ""
     ],
     "ingredients": [
-      "Brot",
-      "Kartoffeln",
-      "Süßkartoffeln"
+      "Bandnudeln",
+      "Olivenöl",
+      "Safran",
+      "Zucchini",
+      "Salz",
+      "Pfeffer",
+      "Thymian",
+      "Basilikum",
+      "Pinienkerne"
+    ],
+    "description": "Nudeln kochen, Zucchini längs raspeln und eine Minute vor Ende der Garzeit zu den Nudeln geben. Etwas Nudelwasser aufbewahren.\n\nOlivenöl in einer Pfanne erhitzen, Safran darin lösen und Knoblauch anbraten. Nudeln und Zucchini dazu geben. Mit Salz, Pfeffer und Thymian würzen. Geröstete Pinienkerne und frischen Basilikum dazu geben.",
+    "keywords": [
+      "Bandnudeln",
+      "Oktober",
+      "Olivenöl",
+      "Safran",
+      "vegan",
+      "vegetarisch",
+      "mittel",
+      "Sommer",
+      "Juni",
+      "Juli",
+      "August",
+      "September",
+      "italienisch",
+      "Nudeln",
+      "Zucchini",
+      "Salz",
+      "Pfeffer",
+      "Thymian",
+      "Basilikum",
+      "Pinienkerne"
+    ],
+    "imageName": null
+  },
+  {
+    "recipeName": "Spinat-Feta-Nudeln",
+    "numberOfPersons": 1,
+    "amounts": [
+      ""
+    ],
+    "ingredients": [
+      "Spaghetti"
     ],
     "description": "",
     "keywords": [
-      "Brot",
-      "Kartoffeln",
-      "Süßkartoffeln"
+      "Spaghetti"
     ],
-    "image": "ffffff.jpg"
+    "imageName": null
+  },
+  {
+    "recipeName": "Brokkoli-Nudelpfanne",
+    "numberOfPersons": 1,
+    "amounts": [
+      "",
+      ""
+    ],
+    "ingredients": [
+      "Fusilli",
+      "Brokkoli"
+    ],
+    "description": "",
+    "keywords": [
+      "Fusilli",
+      "Brokkoli"
+    ],
+    "imageName": "brokkoli-nudelpfanne.jpg"
+  },
+  {
+    "recipeName": "Nudeln mit Schwarzkohl",
+    "numberOfPersons": 1,
+    "amounts": [
+      ""
+    ],
+    "ingredients": [
+      "Bandnudeln"
+    ],
+    "description": "",
+    "keywords": [
+      "Bandnudeln"
+    ],
+    "imageName": "nudeln-mit-schwarzkohl.jpg"
   }
 ]

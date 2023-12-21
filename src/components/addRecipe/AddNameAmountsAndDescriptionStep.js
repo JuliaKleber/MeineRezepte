@@ -22,10 +22,8 @@ const AddNameAmountsAndDescriptionStep = ({
   };
 
   const handleImageUpload = (file) => {
-    setRecipe((prevRecipe) => ({
-      ...prevRecipe,
-      image: file,
-    }));
+    const imageName = `${recipe.recipeName.toLowerCase().replace(/\s+/g, '-')}.jpg`;
+    setRecipe({ ...recipe, imageName: imageName});
   };
 
   return (
@@ -41,7 +39,7 @@ const AddNameAmountsAndDescriptionStep = ({
         onAddIngredient={handleAddIngredient}
       />
       <DescriptionField recipe={recipe} setRecipe={setRecipe} />
-      <ImageUpload onImageUpload={handleImageUpload} uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
+      <ImageUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
     </div>
   );
 }

@@ -6,7 +6,6 @@ const app = express(); // Create new express "app"
 const path = require("path");
 //Pfad zur json-Datei
 const filePath = path.join(__dirname, "datenbank", "recipes.json");
-const imagesPath = path.join(__dirname, "images");
 
 app.use(
   cors({
@@ -18,16 +17,7 @@ app.use(
 
 app.use(express.json());
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, imagesPath);
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + "-" + uniqueSuffix + ".jpg");
-  },
-});
-
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 app.get("/", (req, res) => {
@@ -51,18 +41,14 @@ app.get("/loadRecipes", (req, res) => {
   });
 });
 
-app.post("/addRecipe", upload.single("image"), (req, res) => {
+app.post("/addRecipe", (req, res) => {
   const newData = req.body;
-  const uploadedFile = req.file;
-
   fs.readFile(filePath, (err, data) => {
     if (err) {
       console.error("Fehler beim Lesen der Datei: ", err);
       return res.status(500).send("Interner Serverfehler");
     }
-
     let jsonData = [];
-
     if (data.length > 0) {
       try {
         jsonData = JSON.parse(data);
@@ -71,15 +57,12 @@ app.post("/addRecipe", upload.single("image"), (req, res) => {
         return res.status(500).send("Interner Serverfehler");
       }
     }
-
-    jsonData.push({ ...newData, image: uploadedFile.filename });
-
+    jsonData.push({ ...newData });
     fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), (err) => {
       if (err) {
         console.error("Fehler beim Schreiben der Datei: ", err);
         return res.status(500).send("Interner Serverfehler");
       }
-
       res.status(200).send("Daten erfolgreich gespeichert");
     });
   });
@@ -95,6 +78,18 @@ app.post("/updateRecipe", (req, res) => {
       return res.status(500).send("Interner Serverfehler");
     }
     res.status(200).send("Daten erfolgreich gespeichert");
+  });
+});
+
+app.post("/addRecipeImage", upload.single("image"), (req, res) => {
+  const uploadedFile = req.file;
+  const imagePath = path.join(__dirname, "datenbank", "images", uploadedFile.originalname);
+  fs.writeFile(imagePath, uploadedFile.buffer, (err) => {
+    if (err) {
+      console.error("Fehler beim Speichern des Bildes: ", err);
+      return res.status(500).send("Interner Serverfehler");
+    }
+    res.status(200).send("Bild erfolgreich gespeichert");
   });
 });
 
