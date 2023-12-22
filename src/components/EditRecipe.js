@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AiFillDelete } from 'react-icons/ai';
 import ShowImage from './ShowImage';
+import ImageUpload from './addRecipe/ImageUpload';
 import AddKeywordsStep from './addRecipe/AddKeywordsStep';
 
 const steps = {
@@ -15,6 +16,7 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
   const [updatedRecipe, setUpdatedRecipe] = useState(recipe);
   let output = '';
   const [currentStep, setCurrentStep] = useState(steps.editRecipeStep);
+  const [uploadedFile, setUploadedFile] = useState(null);
 
   const handleAmountUpdate = (event, index) => {
     const amounts = [...updatedRecipe.amounts];
@@ -65,7 +67,17 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
 
   // The updated recipe is exchanged with the old one in the json file
   const replaceRecipe = () => {
-    const cleanedRecipe = cleanUpRecipe();
+    let cleanedRecipe = cleanUpRecipe();
+    if (uploadedFile !== null) {
+      const cleanedRecipeName = cleanedRecipe.recipeName.toLowerCase()
+        .replace(/ä/g, 'ae')
+        .replace(/ö/g, 'oe')
+        .replace(/ü/g, 'ue')
+        .replace(/ß/g, 'ss')
+        .replace(/\s+/g, '-');
+      const imageName = `${cleanedRecipeName}.jpg`;
+      cleanedRecipe = { ...cleanedRecipe, imageName: imageName };
+    };
     // Das Rezept wird aus dem Array updatedRecipes entfernt
     // und als geändertes Rezept (updatedRecipe) wieder hinzugefügt
     const updatedRecipes = [...recipes];
@@ -88,6 +100,21 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
         // Es wird die Nachricht aus der
         // Server-Antwort in der Konsole ausgegeben.
         console.log('Antwort vom Server:', message);
+        if (uploadedFile !== null) {
+          const formData = new FormData();
+          formData.append('image', uploadedFile, cleanedRecipe.imageName);
+          fetch(`${serverUrl}/addRecipeImage`, {
+            method: 'POST',
+            body: formData,
+          })
+            .then((response) => response.text())
+            .then((imageMessage) => {
+              console.log('Bild hochgeladen:', imageMessage);
+            })
+            .catch((imageError) => {
+              console.error('Fehler beim Hochladen des Bildes:', imageError);
+            });
+        }
         output = 'Das Rezept wurde geändert.';
         setRecipe(cleanedRecipe);
         setRecipes(updatedRecipes);
@@ -105,7 +132,7 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
       {currentStep === steps.editRecipeStep && (
         <div className='container'>
           <ShowImage recipe={recipe} className='card' />
-
+          <ImageUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} text="Klicke, um das aktuelle Bild zu ersetzen." />
           <input
             value={updatedRecipe.recipeName}
             onChange={(event) => setUpdatedRecipe({...updatedRecipe, recipeName: event.target.value})}

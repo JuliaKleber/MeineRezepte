@@ -74,7 +74,13 @@ const AddRecipe = ({ recipes, setRecipes }) => {
   const handleSaveRecipe = () => {
     let newRecipe = cleanUpRecipe();
     if (uploadedFile !== null) {
-      const imageName = `${newRecipe.recipeName.toLowerCase().replace(/\s+/g, '-')}.jpg`;
+      const recipeName = newRecipe.recipeName.toLowerCase()
+        .replace(/ä/g, 'ae')
+        .replace(/ö/g, 'oe')
+        .replace(/ü/g, 'ue')
+        .replace(/ß/g, 'ss')
+        .replace(/\s+/g, '-');
+      const imageName = `${recipeName}.jpg`;
       newRecipe = { ...newRecipe, imageName: imageName };
       setRecipe(newRecipe);
     };
@@ -91,11 +97,9 @@ const AddRecipe = ({ recipes, setRecipes }) => {
       console.log('Antwort vom Server:', message);
       // Speichert das Bild auf dem Server im images-Ordner
       if (uploadedFile !== null) {
-        console.log('uploadedFile:', uploadedFile);
         const formData = new FormData();
-        const imageName = `${newRecipe.recipeName.toLowerCase().replace(/\s+/g, '-')}.jpg`;
+        const imageName = newRecipe.imageName;
         formData.append('image', uploadedFile, imageName);
-        console.log('formData:', formData);
         fetch(`${serverUrl}/addRecipeImage`, {
           method: 'POST',
           body: formData,

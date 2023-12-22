@@ -21,11 +21,6 @@ const AddNameAmountsAndDescriptionStep = ({
     });
   };
 
-  const handleImageUpload = (file) => {
-    const imageName = `${recipe.recipeName.toLowerCase().replace(/\s+/g, '-')}.jpg`;
-    setRecipe({ ...recipe, imageName: imageName});
-  };
-
   return (
     <div className='container primary-color'>
       <RecipeNameField
@@ -39,7 +34,7 @@ const AddNameAmountsAndDescriptionStep = ({
         onAddIngredient={handleAddIngredient}
       />
       <DescriptionField recipe={recipe} setRecipe={setRecipe} />
-      <ImageUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
+      <ImageUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} text="Klicke, um eine Bilddatei auszuwählen." />
     </div>
   );
 }

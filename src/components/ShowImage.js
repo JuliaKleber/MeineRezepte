@@ -6,7 +6,7 @@ import pestoImage from '../images/pesto.jpg';
 import homeImage from '../images/home.jpg';
 
 const ShowImage = ({ recipe }) => {
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null);
   const imagePath = `http://localhost:3001/fetchImage/${recipe.imageName}`;
 
   const defaultImage = () => {
@@ -30,7 +30,7 @@ const ShowImage = ({ recipe }) => {
     else {
       defaultImage();
     }
-  }, []);
+  }, [recipe.imageName, imagePath]);
 
   return (
     <img src={image} alt='recipe_picture' className='recipe-image'/>

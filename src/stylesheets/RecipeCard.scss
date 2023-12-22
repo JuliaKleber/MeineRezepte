@@ -8,10 +8,12 @@
 
 .recipe-card .recipe-image {
   position: absolute;
-  top: 0;
+  top: 0px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  width: 340px;
+  width: 336px;
+  height: 228px;
+  object-fit: cover;
 }
 
 .recipe-card-text {

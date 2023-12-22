@@ -90,6 +90,7 @@ app.post("/updateRecipe", (req, res) => {
 app.post("/addRecipeImage", upload.single("image"), (req, res) => {
   const uploadedFile = req.file;
   const imagePath = path.join(__dirname, "backend", "images", uploadedFile.originalname);
+  console.log(imagePath);
   fs.writeFile(imagePath, uploadedFile.buffer, (err) => {
     if (err) {
       console.error("Fehler beim Speichern des Bildes: ", err);

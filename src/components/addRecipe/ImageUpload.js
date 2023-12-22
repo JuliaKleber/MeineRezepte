@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-const ImageUpload = ({ uploadedFile, setUploadedFile }) => {
+const ImageUpload = ({ uploadedFile, setUploadedFile, text }) => {
 
   const onDrop = useCallback(acceptedFiles => {
     const file = acceptedFiles[0];
@@ -16,9 +16,9 @@ const ImageUpload = ({ uploadedFile, setUploadedFile }) => {
         <>
           <input {...getInputProps()} />
           {isDragActive ? (
-            <p>Drop the file here ...</p>
+            <p>Platziere die Datei hier ...</p>
           ) : (
-            <p>Drag 'n' drop an image here, or click to select a file</p>
+            <p>{text}</p>
           )}
         </>
       ) : (
@@ -39,10 +39,11 @@ const dropzoneStyles = {
   borderRadius: '8px',
   padding: '12px',
   margin: '20px 0px',
-  width: '304px',
-  height: '92px',
+  width: '332px',
+  height: '100px',
   textAlign: 'center',
   cursor: 'pointer',
+  color: 'royalblue',
 };
 
 export default ImageUpload;
