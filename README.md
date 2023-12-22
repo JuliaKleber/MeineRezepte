@@ -20,7 +20,7 @@ This is a React application for managing and searching recipes.
 1. Clone the repository:
 
   ```bash
-  git clone https://github.com/GoldieCrystal/MeineRezepte.git
+  git clone https://github.com/JuliaKleber/MeineRezepte.git
   ```
 
 2. Navigate to the project directory:
@@ -40,11 +40,11 @@ This is a React application for managing and searching recipes.
 To start the application, run:
 
   ```bash
-  npm start
+  node server.js
   ```
 
   ```bash
-  node server.js
+  npm start
   ```
 
 The application will be available at http://localhost:3000.
@@ -55,7 +55,7 @@ The application fetches recipes from a local API available at http://localhost:3
 
 ## Screenshot
 
-![image](https://github.com/GoldieCrystal/MeineRezepte/assets/142741980/bde0c97e-6ad4-4d4f-aee4-a2a5ddc4d6a1)
+![image](https://github.com/JuliaKleber/MeineRezepte/assets/142741980/7c368824-64d8-4fd5-89e9-af8f6bf602dd)
 
 ## Author
 
