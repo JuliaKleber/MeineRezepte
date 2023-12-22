@@ -5,7 +5,7 @@ const multer = require("multer");
 const app = express(); // Create new express "app"
 const path = require("path");
 //Pfad zur json-Datei
-const filePath = path.join(__dirname, "datenbank", "recipes.json");
+const filePath = path.join(__dirname, "backend", "recipes.json");
 
 app.use(
   cors({
@@ -40,6 +40,12 @@ app.get("/loadRecipes", (req, res) => {
     }
   });
 });
+
+app.get('/fetchImage/:file(*)', (req, res) => {
+  const file = req.params.file;
+  const fileLocation = path.join(__dirname, 'backend', 'images', file);
+  res.sendFile(fileLocation)
+})
 
 app.post("/addRecipe", (req, res) => {
   const newData = req.body;
@@ -83,7 +89,7 @@ app.post("/updateRecipe", (req, res) => {
 
 app.post("/addRecipeImage", upload.single("image"), (req, res) => {
   const uploadedFile = req.file;
-  const imagePath = path.join(__dirname, "datenbank", "images", uploadedFile.originalname);
+  const imagePath = path.join(__dirname, "backend", "images", uploadedFile.originalname);
   fs.writeFile(imagePath, uploadedFile.buffer, (err) => {
     if (err) {
       console.error("Fehler beim Speichern des Bildes: ", err);
