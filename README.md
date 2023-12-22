@@ -20,7 +20,7 @@ This is a React application for managing and searching recipes.
 1. Clone the repository:
 
   ```bash
-  git clone https://github.com/GoldieCrystal/MeineRezepte.git
+  git clone https://github.com/JuliaKleber/MeineRezepte.git
   ```
 
 2. Navigate to the project directory:
