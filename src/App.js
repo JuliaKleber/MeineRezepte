@@ -24,7 +24,7 @@ const App = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:3001/loadRecipes');
+        const response = await fetch('/loadRecipes');
         if (response.status === 200) {
           const data = await response.json();
           setRecipes(data);
@@ -32,17 +32,7 @@ const App = () => {
           console.error('Fehler beim Abrufen der Daten');
         }
       } catch (error) {
-        try {
-          const response = await fetch('https://meine-rezepte-f4bd3ffb1898.herokuapp.com/loadRecipes');
-          if (response.status === 200) {
-            const data = await response.json();
-            setRecipes(data);
-          } else {
-            console.error('Fehler beim Abrufen der Daten');
-          }
-        } catch (error) {
           console.error('Fehler beim Senden der Anfrage:', error);
-        }
       }
     }
     fetchData();

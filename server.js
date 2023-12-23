@@ -11,6 +11,7 @@ const corsOptions = {
   origin: ['https://meine-rezepte-f4bd3ffb1898.herokuapp.com', 'http://localhost:3000'],
   methods: 'GET, POST',
   credentials: true,
+  optionsSuccessStatus: 204,
 };
 
 app.use(cors(corsOptions));
