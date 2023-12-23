@@ -4,8 +4,8 @@ const cors = require("cors");
 const multer = require("multer");
 const app = express(); // Create new express "app"
 const path = require("path");
-//Pfad zur json-Datei
 const filePath = path.join(__dirname, "backend", "recipes.json");
+const PORT = process.env.PORT || 3001;
 
 app.use(
   cors({
@@ -100,4 +100,6 @@ app.post("/addRecipeImage", upload.single("image"), (req, res) => {
   });
 });
 
-app.listen(3001);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
