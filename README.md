@@ -49,10 +49,6 @@ To start the application, run:
 
 The application will be available at http://localhost:3000.
 
-## API
-
-The application fetches recipes from a local API available at http://localhost:3001/getRecipes.
-
 ## Screenshot
 
 ![image](https://github.com/JuliaKleber/MeineRezepte/assets/142741980/7c368824-64d8-4fd5-89e9-af8f6bf602dd)
