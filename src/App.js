@@ -32,7 +32,17 @@ const App = () => {
           console.error('Fehler beim Abrufen der Daten');
         }
       } catch (error) {
-        console.error('Fehler beim Senden der Anfrage:', error);
+        try {
+          const response = await fetch('https://meine-rezepte-f4bd3ffb1898.herokuapp.com/loadRecipes');
+          if (response.status === 200) {
+            const data = await response.json();
+            setRecipes(data);
+          } else {
+            console.error('Fehler beim Abrufen der Daten');
+          }
+        } catch (error) {
+          console.error('Fehler beim Senden der Anfrage:', error);
+        }
       }
     }
     fetchData();
