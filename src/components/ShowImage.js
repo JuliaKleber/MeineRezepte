@@ -8,6 +8,7 @@ import homeImage from '../images/home.jpg';
 const ShowImage = ({ recipe }) => {
   const [image, setImage] = useState(null);
   const imagePath = `http://localhost:3001/fetchImage/${recipe.imageName}`;
+  const alternateImagePath = `https://meine-rezepte-f4bd3ffb1898.herokuapp.com/fetchImage/${recipe.imageName}`;
 
   const defaultImage = () => {
     if (recipe.keywords.includes('Lasagne')) {
@@ -25,7 +26,15 @@ const ShowImage = ({ recipe }) => {
 
   useEffect(() => {
     if (recipe.imageName !== null) {
-      setImage(imagePath);
+      try {
+        setImage(imagePath);
+      } catch (error) {
+        try {
+          setImage(alternateImagePath);
+        } catch (error) {
+          defaultImage();
+        }
+      }
     }
     else {
       defaultImage();

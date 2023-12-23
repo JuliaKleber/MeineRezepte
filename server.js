@@ -7,13 +7,13 @@ const path = require("path");
 const filePath = path.join(__dirname, "backend", "recipes.json");
 const PORT = process.env.PORT || 3001;
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    methods: "GET,POST",
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: ['https://meine-rezepte-f4bd3ffb1898.herokuapp.com', 'http://localhost:3000'],
+  methods: 'GET, POST',
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
