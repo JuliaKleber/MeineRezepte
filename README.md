@@ -11,9 +11,9 @@ This is a React application for managing and searching recipes.
 ## Built with
 
 - React.js
-- SCSS
 - React Router
 - Express.js
+- SCSS
 
 ## Installation
 
