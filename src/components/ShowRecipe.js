@@ -9,34 +9,22 @@ import { faHandPointRight } from '@fortawesome/free-solid-svg-icons';
 import { faHandPointLeft } from '@fortawesome/free-solid-svg-icons';
 
 const ShowRecipe = ({ recipe, setRecipe, recipes, setRecipes, searchTerm, onBackToSearch }) => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState('recipeIsShown');
   const [output, setOutput] = useState('');
-  const navigate = useNavigate();
 
-  const handleRecipeEditingOn = () => {
-    setCurrentStep('recipeIsEdited');
-  };
-
-  // Die Frage, ob das Rezept wirklich gelöscht werden soll,
-  // wird nicht mehr angezeigt
+  // Recipe is shown again after recipe update has been (un)successfully performed
   const handleRecipeChangeOff = (output, editedRecipe) => {
     setOutput(output);
     setRecipe(editedRecipe);
     setCurrentStep('recipeIsShown');
   };
 
-  // Die Frage, ob das Rezept wirklich gelöscht werden soll,
-  // wird angezeigt
-  const handleRecipeDeletionOn = () => {
-    setCurrentStep('deletionInitiated');
-  };
-
-  // Die Frage, ob das Rezept wirklich gelöscht werden soll,
-  // wird nicht mehr angezeigt
+  // Next step initiated after recipe deletion has been (un)successfully performed
   const handleRecipeDeletionOff = (wasRemoved, newOutput) => {
-    wasRemoved && setCurrentStep('recipeWasRemoved');
     setOutput(newOutput);
-    !wasRemoved && setCurrentStep('recipeIsShown');
+    if (wasRemoved) {setCurrentStep('recipeWasRemoved')};
+    if (!wasRemoved) {setCurrentStep('recipeIsShown')};
   };
 
   return (
@@ -48,10 +36,10 @@ const ShowRecipe = ({ recipe, setRecipe, recipes, setRecipes, searchTerm, onBack
           <ShowIngredients recipe={recipe} setRecipe={setRecipe} />
           <ShowRecipeDescription recipeDescription={recipe.description} />
           <span>
-            <button className='show-recipe-button white' onClick={handleRecipeEditingOn}>
+            <button className='show-recipe-button white' onClick={() => setCurrentStep('recipeIsEdited')}>
               Rezept ändern
             </button>
-            <button className='show-recipe-button white' onClick={handleRecipeDeletionOn}>
+            <button className='show-recipe-button white' onClick={() => setCurrentStep('deletionInitiated')}>
               Rezept löschen
             </button>
           </span>

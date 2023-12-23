@@ -24,7 +24,7 @@ const App = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('/loadRecipes');
+        const response = await fetch('http://localhost:3001/loadRecipes');
         if (response.status === 200) {
           const data = await response.json();
           setRecipes(data);
