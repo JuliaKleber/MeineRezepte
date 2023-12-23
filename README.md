@@ -11,9 +11,9 @@ This is a React application for managing and searching recipes.
 ## Built with
 
 - React.js
-- SCSS
 - React Router
 - Express.js
+- SCSS
 
 ## Installation
 
@@ -48,10 +48,6 @@ To start the application, run:
   ```
 
 The application will be available at http://localhost:3000.
-
-## API
-
-The application fetches recipes from a local API available at http://localhost:3001/getRecipes.
 
 ## Screenshot
 
