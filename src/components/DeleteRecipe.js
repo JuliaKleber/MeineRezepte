@@ -19,10 +19,19 @@ const DeleteRecipe = ({ recipes, setRecipes, recipe, onReturn }) => {
       .then((message) => {
         console.log('Antwort vom Server:', message);
         setRecipes(updatedRecipes);
+        fetch(`${serverUrl}/deleteFile/${recipe.imageName}`, {
+          method: 'DELETE',
+        })
+          .then((response) => response.text())
+          .then((message) => {
+            console.log('Antwort vom Server:', message);
+          })
+          .catch((error) => {
+            console.error('Fehler beim Senden der Daten:', error);
+          });
         onReturn(true, 'Das Rezept wurde aus der Datenbank entfernt');
       })
       .catch((error) => {
-        // Fehlerbehandlung
         console.error('Fehler beim Senden der Daten:', error);
         onReturn(false, 'Das Rezept konnte nicht gelöscht werden.');
       });
