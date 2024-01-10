@@ -16,6 +16,13 @@
   object-fit: cover;
 }
 
+.recipe-card .recipe-image-placeholder {
+  background-color: lightgray;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  margin: 12px;
+}
+
 .recipe-card-text {
   position: absolute;
   top: 250px;

@@ -6,9 +6,17 @@ import pestoImage from '../images/pesto.jpg';
 import homeImage from '../images/home.jpg';
 
 const ShowImage = ({ recipe }) => {
+  const [loaded, setLoaded] = useState(false);
   const [image, setImage] = useState(null);
   const imagePath = `http://localhost:3001/fetchImage/${recipe.imageName}`;
   const alternateImagePath = `https://meine-rezepte-f4bd3ffb1898.herokuapp.com/fetchImage/${recipe.imageName}`;
+
+  const ImagePlaceholder = () => {
+    return (
+      <div className='recipe-image recipe-image-placeholder'>
+      </div>
+    );
+  }
 
   const defaultImage = () => {
     if (recipe.keywords.includes('Lasagne')) {
@@ -42,7 +50,10 @@ const ShowImage = ({ recipe }) => {
   }, [recipe.imageName, imagePath]);
 
   return (
-    <img src={image} alt='recipe_picture' className='recipe-image'/>
+    <>
+      {!loaded && <ImagePlaceholder />}
+      <img src={image} alt={loaded && 'recipe_picture'} className='recipe-image' onLoad={() => setLoaded(true)}/>
+    </>
   );
 };
 
