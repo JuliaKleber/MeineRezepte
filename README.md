@@ -4,8 +4,8 @@ This is a React application for managing and searching recipes.
 
 ## Features
 
-- Search for recipes by keywords
 - Add new recipes
+- Search for recipes by keywords
 - View selected recipes
 - Update and delete recipes
 
