@@ -6,7 +6,7 @@ This is a React application for managing and searching recipes.
 
 - Add new recipes
 - Search for recipes by keywords
-- View selected recipe
+- View selected recipes
 - Update and delete recipes
 
 ## Built with
