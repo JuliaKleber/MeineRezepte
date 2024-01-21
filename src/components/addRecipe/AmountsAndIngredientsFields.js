@@ -26,7 +26,7 @@ const AmountsAndIngredientsFields = ({ recipe, setRecipe }) => {
         <input
           type='text'
           value={recipe.numberOfPersons}
-          onChange={(e) => setRecipe({ ...recipe, amountOfPeople: e.target.value })}
+          onChange={(e) => setRecipe({ ...recipe, numberOfPersons: e.target.value })}
           className='number-persons-field'
         />
       </p>
