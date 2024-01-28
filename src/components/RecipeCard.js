@@ -1,12 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ShowImage from './ShowImage';
 
-const RecipeCard = ({ recipe, onRecipeSelection }) => {
+const RecipeCard = ({ recipe }) => {
   return (
-    <div className='container card recipe-card align-center' onClick={() => onRecipeSelection(recipe)}>
+    <Link to={`/show/${recipe.name}`} className='container card recipe-card align-center'>
       <ShowImage recipe={recipe} />
       <span className="recipe-card-text">{recipe.recipeName}</span>
-    </div>
+    </Link>
   );
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,15 +8,15 @@ const Navbar = () => {
   return (
     <nav className='navbar'>
       <ul>
-        <li><NavLink to='/' className={({ isActive }) => isActive ? "active" : "not-active" }>
+        <li><Link to='/home' className={({ isActive }) => isActive ? "active" : "not-active" }>
           <FontAwesomeIcon icon={faHouse} />
-        </NavLink></li>
-        <li><NavLink to='/search' className={({ isActive }) => isActive ? "active" : "not-active" }>
+        </Link></li>
+        <li><Link to='/search' className={({ isActive }) => isActive ? "active" : "not-active" }>
           <FontAwesomeIcon icon={faMagnifyingGlass} />
-        </NavLink></li>
-        <li><NavLink to='/add' className={({ isActive }) => isActive ? "active" : "not-active" }>
+        </Link></li>
+        <li><Link to='/add' className={({ isActive }) => isActive ? "active" : "not-active" }>
           <FontAwesomeIcon icon={faPlus} />
-        </NavLink></li>
+        </Link></li>
       </ul>
     </nav>
   );

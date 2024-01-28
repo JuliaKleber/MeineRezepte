@@ -1,23 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import RecipeCard from './RecipeCard';
+import React, { useState, useEffect } from "react";
+import RecipeCard from "../components/RecipeCard";
 
-const KeywordSearch = ({ onRecipeSelection, searchTerm, recipes }) => {
+export const loader = async () => {
+  try {
+    const response = await fetch("http://localhost:3001/loadRecipes");
+    if (response.status === 200) {
+      const data = await response.json();
+      return { recipes: data }
+    } else {
+      console.error("Fehler beim Abrufen der Daten");
+    }
+  } catch (error) {
+    console.error("Fehler beim Senden der Anfrage:", error);
+  }
+}
+
+const Search = ({ onRecipeSelection, searchTerm, recipes }) => {
   const [contentSearchField, setContentSearchField] = useState(searchTerm);
   const [recipesFound, setRecipesFound] = useState([]);
-  const [output, setOutput] = useState('');
+  const [output, setOutput] = useState("");
   const [searchResultsAreShown, setSearchResultsAreShown] = useState(false);
 
   // Wenn die Komponente montiert wird,
   // wird automatisch die Suche mit 'searchTerm' durchgeführt,
   // falls dieser nicht leer ist. Ansonsten werden alle Rezepte angezeigt.
   useEffect(() => {
-    if (searchTerm === 'fromHome') {
-      setContentSearchField('');
-    }
-    else if (searchTerm !== '') {
+    if (searchTerm === "fromHome") {
+      setContentSearchField("");
+    } else if (searchTerm !== "") {
       handleSearch();
-    }
-    else if (searchTerm === '') {
+    } else if (searchTerm === "") {
       handleSearch();
     }
   }, []);
@@ -30,28 +42,28 @@ const KeywordSearch = ({ onRecipeSelection, searchTerm, recipes }) => {
   // Die Schlagwörter und der Rezeptname werden auf
   // Übereinstimmungen mit den Suchbegriffen untersucht
   const handleSearch = () => {
-    setOutput('Keine Rezepte gefunden');
+    setOutput("Keine Rezepte gefunden");
     // Fehlermeldung, wenn ',', '+', '&' enthalten sind.
     if (
-      contentSearchField.includes(',') ||
-      contentSearchField.includes('+') ||
-      contentSearchField.includes('&')
+      contentSearchField.includes(",") ||
+      contentSearchField.includes("+") ||
+      contentSearchField.includes("&")
     ) {
       setOutput('Als Verknüpfungen sind nur "und" oder "oder" erlaubt.');
       // Die Suche kann durch die Eingabe löschen gelöscht werden.
-    } else if (contentSearchField === 'löschen') {
+    } else if (contentSearchField === "löschen") {
       setRecipesFound([]);
-      setContentSearchField('');
-      setOutput('');
+      setContentSearchField("");
+      setOutput("");
       // Zeigt alle Rezepte an.
-    } else if (contentSearchField === '' || contentSearchField === '*') {
+    } else if (contentSearchField === "" || contentSearchField === "*") {
       setRecipesFound([...recipes]);
     }
     // Zeigt alle Rezepte an, in deren Schlagwörtern
     // mindestens eins der eingegebenen Wörter enthalten ist.
-    else if (contentSearchField.includes('oder')) {
+    else if (contentSearchField.includes("oder")) {
       const searchWords = contentSearchField
-        .split('oder')
+        .split("oder")
         .map((word) => word.trim());
       const newRecipesFound = [];
       searchWords.forEach((word) => {
@@ -69,9 +81,9 @@ const KeywordSearch = ({ onRecipeSelection, searchTerm, recipes }) => {
     }
     // Zeigt nur Rezepte an, wenn alle Wörter aus der Suche
     // in den Schlagwörtern enthalten sind.
-    else if (contentSearchField.includes('und')) {
+    else if (contentSearchField.includes("und")) {
       const searchWords = contentSearchField
-        .split('und')
+        .split("und")
         .map((word) => word.trim());
       const newRecipesFound = [];
       recipes.forEach((recipe) => {
@@ -81,16 +93,20 @@ const KeywordSearch = ({ onRecipeSelection, searchTerm, recipes }) => {
             recipeSelected = false;
           }
         });
-        if (recipeSelected) {newRecipesFound.push(recipe)};
+        if (recipeSelected) {
+          newRecipesFound.push(recipe);
+        }
       });
       setRecipesFound(newRecipesFound);
     } else {
       const newRecipesFound = [];
       recipes.forEach((recipe) => {
-        if (recipe.keywords.includes(contentSearchField))
-          {newRecipesFound.push(recipe)};
-        if (recipe.recipeName.toLowerCase().includes(contentSearchField))
-          {newRecipesFound.push(recipe)};
+        if (recipe.keywords.includes(contentSearchField)) {
+          newRecipesFound.push(recipe);
+        }
+        if (recipe.recipeName.toLowerCase().includes(contentSearchField)) {
+          newRecipesFound.push(recipe);
+        }
       });
       const recipesSet = new Set(newRecipesFound);
       setRecipesFound([...recipesSet]);
@@ -104,32 +120,36 @@ const KeywordSearch = ({ onRecipeSelection, searchTerm, recipes }) => {
   };
 
   return (
-    <div className='container keyword-search'>
+    <div className="container keyword-search">
       <span>
         <input
-          type='text'
+          type="text"
           onChange={handleSearchFieldInput}
           value={contentSearchField}
-          id='search-field'
+          id="search-field"
         />
         <button onClick={handleSearch}>Suchen</button>
       </span>
 
-      <div className='container-flex-wrap'>
+      <div className="container-flex-wrap">
         {searchResultsAreShown &&
           recipesFound &&
           recipesFound.map((recipe, index) => (
-            <RecipeCard recipe={recipe} key={index} onRecipeSelection={handleRecipeSelection}/>
+            <RecipeCard
+              recipe={recipe}
+              key={index}
+              onRecipeSelection={handleRecipeSelection}
+            />
           ))}
       </div>
 
       {searchResultsAreShown && recipesFound.length === 0 && (
         <div>
-          <p className='center'>{output}</p>
+          <p className="center">{output}</p>
         </div>
       )}
     </div>
   );
-}
+};
 
-export default KeywordSearch;
+export default Search;

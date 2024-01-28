@@ -1,19 +1,19 @@
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import AddIngredientsStep from './AddIngredientsStep';
-import AddNameAmountsAndDescriptionStep from './AddNameAmountsAndDescriptionStep';
-import AddKeywordsStep from './AddKeywordsStep';
-import RecipeAdded from './RecipeAdded';
-import RecipeNotAdded from './RecipeNotAdded';
-import Navigation from './Navigation';
+import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import AddIngredientsStep from "../components/addRecipe/AddIngredientsStep";
+import AddNameAmountsAndDescriptionStep from "../components/addRecipe/AddNameAmountsAndDescriptionStep";
+import AddKeywordsStep from "../components/addRecipe/AddKeywordsStep";
+import RecipeAdded from "../components/addRecipe/RecipeAdded";
+import RecipeNotAdded from "../components/addRecipe/RecipeNotAdded";
+import Navigation from "../components/addRecipe/Navigation";
 
 const steps = {
-  homeStep: 'homeStep',
-  addIngredientsStep: 'addIngredientsStep',
-  addNameAmountsDescriptionStep: 'addNameAmountsDecriptionStep',
-  addKeywordsStep: 'addKeywordsStep',
-  recipeAddedStep: 'recipeAddedStep',
-  recipeNotAddedStep: 'recipeNotAddedStep',
+  homeStep: "homeStep",
+  addIngredientsStep: "addIngredientsStep",
+  addNameAmountsDescriptionStep: "addNameAmountsDecriptionStep",
+  addKeywordsStep: "addKeywordsStep",
+  recipeAddedStep: "recipeAddedStep",
+  recipeNotAddedStep: "recipeNotAddedStep",
 };
 
 const stepsArray = [
@@ -29,27 +29,24 @@ const AddRecipe = ({ recipes, setRecipes }) => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(steps.addIngredientsStep);
   const [recipe, setRecipe] = useState({
-    recipeName: '',
+    recipeName: "",
     numberOfPersons: 1,
     amounts: [],
     ingredients: [],
-    description: '',
+    description: "",
     keywords: [],
     imageName: null,
   });
   const [uploadedFile, setUploadedFile] = useState(null);
   const recipeNameFieldRef = useRef(null);
-  const serverUrl = 'http://localhost:3001';
+  const serverUrl = "http://localhost:3001";
 
   const handleCurrentStep = (nextStep) => {
     if (nextStep === steps.homeStep) {
-      navigate('/');
-    } else if (
-      recipe.recipeName === '' &&
-      nextStep === steps.addKeywordsStep
-    ) {
+      navigate("/");
+    } else if (recipe.recipeName === "" && nextStep === steps.addKeywordsStep) {
       recipeNameFieldRef.current.focus();
-      recipeNameFieldRef.current.style.borderColor = 'mediumorchid';
+      recipeNameFieldRef.current.style.borderColor = "mediumorchid";
     } else if (nextStep === steps.recipeAddedStep) {
       handleSaveRecipe();
     } else setCurrentStep(nextStep);
@@ -59,12 +56,12 @@ const AddRecipe = ({ recipes, setRecipes }) => {
     let newRecipe = { ...recipe };
     if (recipe.amounts.length === 0) {
       recipe.ingredients.forEach(() => {
-        newRecipe.amounts.push('');
+        newRecipe.amounts.push("");
       });
     }
     newRecipe.amounts.forEach((amount) => {
       if (amount === null || amount === undefined) {
-        amount = '';
+        amount = "";
       }
     });
     setRecipe(newRecipe);
@@ -74,59 +71,62 @@ const AddRecipe = ({ recipes, setRecipes }) => {
   const handleSaveRecipe = () => {
     let newRecipe = cleanUpRecipe();
     if (uploadedFile !== null) {
-      const recipeName = newRecipe.recipeName.toLowerCase()
-        .replace(/ä/g, 'ae')
-        .replace(/ö/g, 'oe')
-        .replace(/ü/g, 'ue')
-        .replace(/ß/g, 'ss')
-        .replace(/\s+/g, '-');
+      const recipeName = newRecipe.recipeName
+        .toLowerCase()
+        .replace(/ä/g, "ae")
+        .replace(/ö/g, "oe")
+        .replace(/ü/g, "ue")
+        .replace(/ß/g, "ss")
+        .replace(/\s+/g, "-");
       const imageName = `${recipeName}.jpg`;
       newRecipe = { ...newRecipe, imageName: imageName };
       setRecipe(newRecipe);
-    };
+    }
     // const imagePath = `${serverUrl}/images/${imageName}`;
     fetch(`${serverUrl}/addRecipe`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(newRecipe),
     })
-    .then((response) => response.text())
-    .then((message) => {
-      console.log('Antwort vom Server:', message);
-      // Speichert das Bild auf dem Server im images-Ordner
-      if (uploadedFile !== null) {
-        const formData = new FormData();
-        const imageName = newRecipe.imageName;
-        formData.append('image', uploadedFile, imageName);
-        fetch(`${serverUrl}/addRecipeImage`, {
-          method: 'POST',
-          body: formData,
-        })
-          .then((response) => response.text())
-          .then((imageMessage) => {
-            console.log('Bild hochgeladen:', imageMessage);
+      .then((response) => response.text())
+      .then((message) => {
+        console.log("Antwort vom Server:", message);
+        // Speichert das Bild auf dem Server im images-Ordner
+        if (uploadedFile !== null) {
+          const formData = new FormData();
+          const imageName = newRecipe.imageName;
+          formData.append("image", uploadedFile, imageName);
+          fetch(`${serverUrl}/addRecipeImage`, {
+            method: "POST",
+            body: formData,
           })
-          .catch((imageError) => {
-            console.error('Fehler beim Hochladen des Bildes:', imageError);
-          });
-      }
-      setRecipes([...recipes, newRecipe]);
-      setCurrentStep(steps.recipeAddedStep);
+            .then((response) => response.text())
+            .then((imageMessage) => {
+              console.log("Bild hochgeladen:", imageMessage);
+            })
+            .catch((imageError) => {
+              console.error("Fehler beim Hochladen des Bildes:", imageError);
+            });
+        }
+        setRecipes([...recipes, newRecipe]);
+        setCurrentStep(steps.recipeAddedStep);
       })
       .catch((error) => {
-        console.error('Fehler beim Senden der Daten:', error);
+        console.error("Fehler beim Senden der Daten:", error);
         setCurrentStep(steps.recipeNotAddedStep);
       });
   };
 
-  const stepsBeforeSave = [steps.addIngredientsStep, steps.addNameAmountsDescriptionStep, steps.addKeywordsStep].includes(
-    currentStep
-  );
+  const stepsBeforeSave = [
+    steps.addIngredientsStep,
+    steps.addNameAmountsDescriptionStep,
+    steps.addKeywordsStep,
+  ].includes(currentStep);
 
   return (
-    <div className='align-center'>
+    <div className="align-center">
       {currentStep === steps.addIngredientsStep && (
         <AddIngredientsStep recipe={recipe} setRecipe={setRecipe} />
       )}
@@ -143,7 +143,7 @@ const AddRecipe = ({ recipes, setRecipes }) => {
         <AddKeywordsStep recipe={recipe} setRecipe={setRecipe} />
       )}
       {currentStep === steps.recipeAddedStep && (
-        <RecipeAdded onChangeStep={handleCurrentStep} setRecipe={setRecipe}/>
+        <RecipeAdded onChangeStep={handleCurrentStep} setRecipe={setRecipe} />
       )}
       {currentStep === steps.recipeNotAddedStep && (
         <RecipeNotAdded onChangeStep={handleCurrentStep} />
@@ -158,6 +158,6 @@ const AddRecipe = ({ recipes, setRecipes }) => {
       )}
     </div>
   );
-}
+};
 
 export default AddRecipe;
