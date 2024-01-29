@@ -1,48 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useLoaderData } from "react-router-dom";
+import { getRecipes } from "../fetchData/apiCalls";
 import RecipeCard from "../components/RecipeCard";
 
+// The recipes are loaded and filtered,
+// so that only the recipes with ingredients which are in season are shown
 export const loader = async () => {
-  try {
-    const response = await fetch("http://localhost:3001/loadRecipes");
-    if (response.status === 200) {
-      const data = await response.json();
-      return { recipes: data };
-    } else {
-      console.error("Fehler beim Abrufen der Daten");
-    }
-  } catch (error) {
-    console.error("Fehler beim Senden der Anfrage:", error);
+  const currentMonth =
+    new Intl.DateTimeFormat("de-DE", { month: "long" }).format(new Date()) ||
+    "undefined";
+  let recipes = await getRecipes();
+  if (currentMonth !== "undefined") {
+    recipes = recipes.filter((recipe) => {
+      return recipe.keywords.includes(currentMonth);
+    });
   }
+  return { recipes };
 };
 
 // Die Rezepte des aktuellen Monats werden angezeigt.
 const RecipesOfMonth = () => {
   const { recipes, isLoading } = useLoaderData();
-  const [recipesOfMonth, setRecipesOfMonth] = useState([]);
-  const [header, setHeader] = useState("");
   const currentMonth =
     new Intl.DateTimeFormat("de-DE", { month: "long" }).format(new Date()) ||
     "undefined";
-
-  // Die Rezepte des aktuellen Monats werden gefiltert.
-  const filterRecipesByMonth = () => {
-    if (currentMonth === "undefined") {
-      setRecipesOfMonth([recipes]);
-      setHeader("Meine Rezepte");
-    } else {
-      const recipesOfMonth = recipes.filter((recipe) => {
-        return recipe.keywords.includes(currentMonth);
-      });
-      setRecipesOfMonth(recipesOfMonth);
-      setHeader("Rezepte des Monats");
-    }
-  };
-
-  // Die Rezepte des aktuellen Monats werden gefiltert, sobald die Rezepte geladen wurden.
-  useEffect(() => {
-    filterRecipesByMonth();
-  }, [recipes]);
+  const header =
+    currentMonth !== "undefined" ? "Rezepte des Monats" : "Meine Rezepte";
 
   return (
     <div className="container">
@@ -52,7 +35,7 @@ const RecipesOfMonth = () => {
         <>
           <h2>{header}</h2>
           <div className="container-flex-wrap">
-            {recipesOfMonth.map((recipe, index) => (
+            {recipes.map((recipe, index) => (
               <RecipeCard recipe={recipe} key={index} />
             ))}
           </div>

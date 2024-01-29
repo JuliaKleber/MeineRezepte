@@ -3,13 +3,13 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.scss";
 import Root from "./routes/Root";
-import ErrorPage from "./ErrorPage";
+import ErrorPage from "./components/ErrorPage";
 import RecipesOfMonth, {
   loader as recipesOfMonthLoader,
 } from "./routes/RecipesOfMonth";
 import Search, { loader as searchLoader } from "./routes/Search";
-import AddRecipe from "./routes/AddRecipe";
-import ShowRecipe from "./routes/ShowRecipe";
+import AddRecipe, { loader as addLoader } from "./routes/AddRecipe";
+import ShowRecipe, { loader as showLoader } from "./routes/ShowRecipe";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -32,10 +32,12 @@ const router = createBrowserRouter([
       {
         path: "/add",
         element: <AddRecipe />,
+        loader: addLoader,
       },
       {
-        path: "/show/:recipe",
+        path: "/recipes/:recipeName",
         element: <ShowRecipe />,
+        loader: ({ params }) => showLoader(params.recipeName),
       },
     ],
   },

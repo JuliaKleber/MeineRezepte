@@ -6,7 +6,7 @@ const RecipeAdded = ({ onChangeStep, setRecipe }) => {
 
   const enterNewRecipe = () => {
     setRecipe({
-      recipeName: '',
+      name: '',
       amounts: [],
       ingredients: [],
       description: '',

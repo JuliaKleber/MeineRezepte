@@ -2,7 +2,7 @@ import React from 'react';
 
 const RecipeNameField = ({ recipe, setRecipe, recipeNameFieldRef }) => {
   const handleRecipeNameChange = (updatedRecipeName) => {
-    setRecipe({ ...recipe, recipeName: updatedRecipeName });
+    setRecipe({ ...recipe, name: updatedRecipeName });
   };
 
   const recipeNameField = (
@@ -11,7 +11,7 @@ const RecipeNameField = ({ recipe, setRecipe, recipeNameFieldRef }) => {
       <br />
       <input
         type='text'
-        value={recipe.recipeName}
+        value={recipe.name}
         ref={recipeNameFieldRef}
         onChange={(e) => handleRecipeNameChange(e.target.value)}
       />

@@ -1,11 +1,17 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLoaderData } from "react-router-dom";
 import AddIngredientsStep from "../components/addRecipe/AddIngredientsStep";
 import AddNameAmountsAndDescriptionStep from "../components/addRecipe/AddNameAmountsAndDescriptionStep";
 import AddKeywordsStep from "../components/addRecipe/AddKeywordsStep";
 import RecipeAdded from "../components/addRecipe/RecipeAdded";
 import RecipeNotAdded from "../components/addRecipe/RecipeNotAdded";
 import Navigation from "../components/addRecipe/Navigation";
+import { getRecipes } from '../fetchData/apiCalls';
+
+export const loader = async () => {
+  const recipes = await getRecipes();
+  return recipes;
+}
 
 const steps = {
   homeStep: "homeStep",
@@ -25,11 +31,12 @@ const stepsArray = [
   steps.recipeNotAddedStep,
 ];
 
-const AddRecipe = ({ recipes, setRecipes }) => {
+const AddRecipe = () => {
+  const [recipes, setRecipes] = useState(useLoaderData());
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(steps.addIngredientsStep);
   const [recipe, setRecipe] = useState({
-    recipeName: "",
+    name: "",
     numberOfPersons: 1,
     amounts: [],
     ingredients: [],
@@ -44,7 +51,7 @@ const AddRecipe = ({ recipes, setRecipes }) => {
   const handleCurrentStep = (nextStep) => {
     if (nextStep === steps.homeStep) {
       navigate("/");
-    } else if (recipe.recipeName === "" && nextStep === steps.addKeywordsStep) {
+    } else if (recipe.name === "" && nextStep === steps.addKeywordsStep) {
       recipeNameFieldRef.current.focus();
       recipeNameFieldRef.current.style.borderColor = "mediumorchid";
     } else if (nextStep === steps.recipeAddedStep) {
@@ -71,7 +78,7 @@ const AddRecipe = ({ recipes, setRecipes }) => {
   const handleSaveRecipe = () => {
     let newRecipe = cleanUpRecipe();
     if (uploadedFile !== null) {
-      const recipeName = newRecipe.recipeName
+      const recipeName = newRecipe.name
         .toLowerCase()
         .replace(/ä/g, "ae")
         .replace(/ö/g, "oe")

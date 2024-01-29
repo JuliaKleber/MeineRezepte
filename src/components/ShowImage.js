@@ -52,7 +52,7 @@ const ShowImage = ({ recipe }) => {
   return (
     <>
       {!loaded && <ImagePlaceholder />}
-      <img src={image} alt={loaded && 'recipe_picture'} className='recipe-image' onLoad={() => setLoaded(true)}/>
+      <img src={image} alt={loaded && 'recipe picture'} className='recipe-image' onLoad={() => setLoaded(true)}/>
     </>
   );
 };
