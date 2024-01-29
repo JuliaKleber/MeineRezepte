@@ -1,52 +1,6 @@
 [
   {
-    "recipeName": "Spaghetti mit Grünkohlpesto",
-    "numberOfPersons": 1,
-    "amounts": [
-      "125 g",
-      "",
-      "0,5",
-      "",
-      "",
-      "",
-      ""
-    ],
-    "ingredients": [
-      "Spaghetti",
-      "Olivenöl",
-      "Knoblauchzehen",
-      "Grünkohl",
-      "Sonnenblumenkerne",
-      "Salz",
-      "schwarzer Pfeffer"
-    ],
-    "description": "Grünkohl in Salzwasser kochen. Spaghetti in Salzwasser kochen. Grünkohl mit Knoblauch, gerösteten Sonnenblumenkernen und Nudelwasser pürieren. Mit Olivenöl und Pfeffer vermengen.",
-    "keywords": [
-      "Spaghetti",
-      "Olivenöl",
-      "Knoblauchzehen",
-      "Grünkohl",
-      "Sonnenblumenkerne",
-      "Salz",
-      "schwarzer Pfeffer",
-      "Pesto",
-      "November",
-      "Dezember",
-      "Januar",
-      "Februar",
-      "März",
-      "Nudeln",
-      "deutsch",
-      "italienisch",
-      "Herbst",
-      "Winter",
-      "vegan",
-      "mittel"
-    ],
-    "imageName": null
-  },
-  {
-    "recipeName": "Ofenkartoffeln",
+    "name": "Ofenkartoffeln",
     "numberOfPersons": 1,
     "amounts": [
       "300 g",
@@ -93,7 +47,7 @@
     "imageName": null
   },
   {
-    "recipeName": "Nudeln mit Schwarzkohl",
+    "name": "Nudeln mit Schwarzkohl",
     "numberOfPersons": 1,
     "amounts": [
       "1 Bund",
@@ -140,7 +94,7 @@
     "imageName": null
   },
   {
-    "recipeName": "Lasagne",
+    "name": "Lasagne",
     "numberOfPersons": "4",
     "amounts": [
       "",
@@ -221,7 +175,7 @@
     "imageName": null
   },
   {
-    "recipeName": "Spaghetti mit Rahmspinat",
+    "name": "Spaghetti mit Rahmspinat",
     "numberOfPersons": 1,
     "amounts": [
       "125 g",
@@ -267,7 +221,7 @@
     "imageName": "spaghetti-mit-rahmspinat.jpg"
   },
   {
-    "recipeName": "Spinat-Feta-Nudeln",
+    "name": "Spinat-Feta-Nudeln",
     "numberOfPersons": "2",
     "amounts": [
       "250 g",
@@ -329,7 +283,7 @@
     "imageName": "spinat-feta-nudeln.jpg"
   },
   {
-    "recipeName": "Bandnudeln mit Zucchini und Safran",
+    "name": "Bandnudeln mit Zucchini und Safran",
     "numberOfPersons": 1,
     "amounts": [
       "125 g",
@@ -379,7 +333,7 @@
     "imageName": "bandnudeln-mit-zucchini-und-safran.jpg"
   },
   {
-    "recipeName": "Nudeln mit Tomaten-Oliven-Sauce",
+    "name": "Nudeln mit Tomaten-Oliven-Sauce",
     "numberOfPersons": "2",
     "amounts": [
       "250 g",
@@ -443,7 +397,7 @@
     "imageName": "nudeln-mit-tomaten-oliven-sauce.jpg"
   },
   {
-    "recipeName": "Spaghetti Aglio e Olio",
+    "name": "Spaghetti Aglio e Olio",
     "numberOfPersons": 1,
     "amounts": [
       "150 g",
@@ -488,7 +442,7 @@
     "imageName": "spaghetti-aglio-e-olio.jpg"
   },
   {
-    "recipeName": "Spaghetti Bolognese (vegan)",
+    "name": "Spaghetti Bolognese (vegan)",
     "numberOfPersons": "2",
     "amounts": [
       "250 g",
@@ -559,7 +513,7 @@
     "imageName": "spaghetti-bolognese-(vegan).jpg"
   },
   {
-    "recipeName": "Brokkoli-Nudelpfanne",
+    "name": "Brokkoli-Nudelpfanne",
     "numberOfPersons": "2",
     "amounts": [
       "250 g",
@@ -607,7 +561,7 @@
     "imageName": "brokkoli-nudelpfanne.jpg"
   },
   {
-    "recipeName": "Nudeln mit Avocado",
+    "name": "Nudeln mit Avocado",
     "numberOfPersons": 1,
     "amounts": [
       "125 g",
@@ -658,7 +612,7 @@
     "imageName": "nudeln-mit-avocado.jpg"
   },
   {
-    "recipeName": "Spaghetti mit Suppengrün-Tomatensoße",
+    "name": "Spaghetti mit Suppengrün-Tomatensoße",
     "numberOfPersons": 4,
     "amounts": [
       "500 g",
@@ -719,18 +673,109 @@
     "imageName": "spaghetti-mit-suppengruen-tomatensosse.jpg"
   },
   {
-    "recipeName": "Nudel-Fenchel-Gratin",
-    "numberOfPersons": 1,
+    "name": "Spaghetti mit Pistazienpesto",
+    "numberOfPersons": "4",
     "amounts": [
-      "125 g",
+      "500 g",
+      "",
+      "1 Packung"
+    ],
+    "ingredients": [
+      "Spaghetti",
+      "Olivenöl",
+      "Pistazien",
+      "Pfeffer",
+      "Salz"
+    ],
+    "description": "Spaghetti in Salzwasser kochen. Etwas von dem Kochwasser aufbewahren.\n\nPistazien zermörsern und mit Nudelwasser, Olivenöl, Salz und Pfeffer verrühren.",
+    "keywords": [
+      "Spaghetti",
+      "Olivenöl",
+      "schwarzer Pfeffer",
+      "Salz",
+      "Pistazien",
+      "vegan",
+      "vegetarisch",
+      "mittel",
+      "Winter",
+      "Januar",
+      "Mai",
+      "September",
+      "Oktober",
+      "Juni",
+      "Februar",
+      "Frühling",
+      "März",
+      "Juli",
+      "November",
+      "Dezember",
+      "August",
+      "April",
+      "italienisch",
+      "Pesto",
+      "Nudeln"
+    ],
+    "imageName": null
+  },
+  {
+    "name": "Spaghetti mit Grünkohlpesto",
+    "numberOfPersons": "2",
+    "amounts": [
+      "250 g",
+      "",
+      "1",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "ingredients": [
+      "Spaghetti",
+      "Olivenöl",
+      "Knoblauchzehen",
+      "Grünkohl",
+      "Sonnenblumenkerne",
+      "Salz",
+      "schwarzer Pfeffer"
+    ],
+    "description": "Grünkohl in Salzwasser kochen. Spaghetti in Salzwasser kochen. Grünkohl mit Knoblauch, gerösteten Sonnenblumenkernen und Nudelwasser pürieren. Mit Olivenöl und Pfeffer vermengen.",
+    "keywords": [
+      "Spaghetti",
+      "Olivenöl",
+      "Knoblauchzehen",
+      "Grünkohl",
+      "Sonnenblumenkerne",
+      "Salz",
+      "schwarzer Pfeffer",
+      "Pesto",
+      "November",
+      "Dezember",
+      "Januar",
+      "Februar",
+      "März",
+      "Nudeln",
+      "deutsch",
+      "italienisch",
+      "Herbst",
+      "Winter",
+      "vegan",
+      "mittel"
+    ],
+    "imageName": null
+  },
+  {
+    "name": "Nudel-Fenchel-Gratin",
+    "numberOfPersons": "2",
+    "amounts": [
+      "250 g",
       null,
-      "0.5",
-      "0.5",
-      "0.5",
+      "1",
+      "1",
+      "1",
       null,
-      "1 EL",
+      "2 EL",
       null,
-      "0.25 Pk",
+      "0,5 Pk",
       ""
     ],
     "ingredients": [
@@ -776,53 +821,6 @@
       "italienisch",
       "Nudeln"
     ],
-    "imageName": null,
-    "amountOfPeople": "2"
-  },
-  {
-    "recipeName": "Spaghetti mit Pistazienpesto",
-    "numberOfPersons": "4",
-    "amounts": [
-      "500 g",
-      "",
-      "1 Packung"
-    ],
-    "ingredients": [
-      "Spaghetti",
-      "Olivenöl",
-      "Pistazien",
-      "Pfeffer",
-      "Salz"
-    ],
-    "description": "Spaghetti in Salzwasser kochen. Etwas von dem Kochwasser aufbewahren.\n\nPistazien zermörsern und mit Nudelwasser, Olivenöl, Salz und Pfeffer verrühren.",
-    "keywords": [
-      "Spaghetti",
-      "Olivenöl",
-      "schwarzer Pfeffer",
-      "Salz",
-      "Pistazien",
-      "vegan",
-      "vegetarisch",
-      "mittel",
-      "Winter",
-      "Januar",
-      "Mai",
-      "September",
-      "Oktober",
-      "Juni",
-      "Februar",
-      "Frühling",
-      "März",
-      "Juli",
-      "November",
-      "Dezember",
-      "August",
-      "April",
-      "italienisch",
-      "Pesto",
-      "Nudeln"
-    ],
-    "imageName": null,
-    "amountOfPeople": "12"
+    "imageName": null
   }
 ]

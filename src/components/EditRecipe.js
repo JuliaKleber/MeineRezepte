@@ -68,7 +68,7 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
 
   // The image name is set
   const setImageName = () => {
-    const recipeName = updatedRecipe.recipeName.toLowerCase()
+    const recipeName = updatedRecipe.name.toLowerCase()
       .replace(/ä/g, 'ae')
       .replace(/ö/g, 'oe')
       .replace(/ü/g, 'ue')
@@ -92,7 +92,7 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
   // The original recipe is exchanged with the updated one in the json file
   const replaceRecipe = () => {
     let savedRecipe = updatedRecipe;
-    if (uploadedFile !== null & updatedRecipe.recipeName !== null) {
+    if (uploadedFile !== null & updatedRecipe.name !== null) {
       savedRecipe = setImageName();
     };
     // savedRecipe = cleanUpRecipe(savedRecipe);
@@ -140,7 +140,7 @@ const EditRecipe = ({ recipe, setRecipe, recipes, setRecipes, onReturn }) => {
           <ShowImage recipe={recipe} className='card' />
           <ImageUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} text="Klicke, um das aktuelle Bild zu ersetzen." />
           <input
-            value={updatedRecipe.recipeName}
+            value={updatedRecipe.name}
             onChange={(event) => setUpdatedRecipe({...updatedRecipe, recipeName: event.target.value})}
             className='card'
             id='recipe-name'

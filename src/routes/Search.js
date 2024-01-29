@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLoaderData } from 'react-router-dom';
 import RecipeCard from "../components/RecipeCard";
 
 export const loader = async () => {
@@ -6,7 +7,7 @@ export const loader = async () => {
     const response = await fetch("http://localhost:3001/loadRecipes");
     if (response.status === 200) {
       const data = await response.json();
-      return { recipes: data }
+      return data;
     } else {
       console.error("Fehler beim Abrufen der Daten");
     }
@@ -15,7 +16,9 @@ export const loader = async () => {
   }
 }
 
-const Search = ({ onRecipeSelection, searchTerm, recipes }) => {
+const Search = ({ onRecipeSelection, searchTerm = '' }) => {
+  const recipes = useLoaderData();
+  console.log(recipes);
   const [contentSearchField, setContentSearchField] = useState(searchTerm);
   const [recipesFound, setRecipesFound] = useState([]);
   const [output, setOutput] = useState("");
@@ -71,7 +74,7 @@ const Search = ({ onRecipeSelection, searchTerm, recipes }) => {
           if (recipe.keywords.includes(word)) {
             newRecipesFound.push(recipe);
           }
-          if (recipe.recipeName.toLowerCase().includes(contentSearchField)) {
+          if (recipe.name.toLowerCase().includes(contentSearchField)) {
             newRecipesFound.push(recipe);
           }
         });
@@ -104,7 +107,7 @@ const Search = ({ onRecipeSelection, searchTerm, recipes }) => {
         if (recipe.keywords.includes(contentSearchField)) {
           newRecipesFound.push(recipe);
         }
-        if (recipe.recipeName.toLowerCase().includes(contentSearchField)) {
+        if (recipe.name.toLowerCase().includes(contentSearchField)) {
           newRecipesFound.push(recipe);
         }
       });

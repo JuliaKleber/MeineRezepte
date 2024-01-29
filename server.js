@@ -5,10 +5,10 @@ const multer = require('multer');
 const app = express(); // Create new express 'app'
 const path = require('path');
 const filePath = path.join(__dirname, 'backend', 'recipes.json');
-const PORT = process.env.PORT || 3001;
+const PORT = 3001;
 
 const corsOptions = {
-  origin: ['https://meine-rezepte-f4bd3ffb1898.herokuapp.com', 'http://localhost:3000'],
+  origin: ['http://localhost:3000'],
   methods: 'GET, POST, DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
@@ -26,9 +26,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/loadRecipes', (req, res) => {
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      console.error('Fehler beim Lesen der Datei: ', err);
+  fs.readFile(filePath, (error, data) => {
+    if (error) {
+      console.error('Fehler beim Lesen der Datei: ', error);
       return res.status(500).send('Interner Serverfehler');
     }
     try {
@@ -50,9 +50,9 @@ app.get('/fetchImage/:file(*)', (req, res) => {
 
 app.post('/addRecipe', (req, res) => {
   const newData = req.body;
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      console.error('Fehler beim Lesen der Datei: ', err);
+  fs.readFile(filePath, (error, data) => {
+    if (error) {
+      console.error('Fehler beim Lesen der Datei: ', error);
       return res.status(500).send('Interner Serverfehler');
     }
     let jsonData = [];
@@ -65,9 +65,9 @@ app.post('/addRecipe', (req, res) => {
       }
     }
     jsonData.push({ ...newData });
-    fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), (err) => {
-      if (err) {
-        console.error('Fehler beim Schreiben der Datei: ', err);
+    fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), (error) => {
+      if (error) {
+        console.error('Fehler beim Schreiben der Datei: ', error);
         return res.status(500).send('Interner Serverfehler');
       }
       res.status(200).send('Daten erfolgreich gespeichert');
@@ -79,9 +79,9 @@ app.post('/updateRecipe', (req, res) => {
   // Daten, die vom Client gesendet werden
   const newData = req.body;
   // Schreibe die neuen Daten zurück in die JSON-Datei (komplett ersetzen)
-  fs.writeFile(filePath, JSON.stringify(newData, null, 2), (err) => {
-    if (err) {
-      console.error('Fehler beim Schreiben der Datei: ', err);
+  fs.writeFile(filePath, JSON.stringify(newData, null, 2), (error) => {
+    if (error) {
+      console.error('Fehler beim Schreiben der Datei: ', error);
       return res.status(500).send('Interner Serverfehler');
     }
     res.status(200).send('Daten erfolgreich aktualisiert');
@@ -91,9 +91,9 @@ app.post('/updateRecipe', (req, res) => {
 app.post('/addRecipeImage', upload.single('image'), (req, res) => {
   const uploadedFile = req.file;
   const imagePath = path.join(__dirname, 'backend', 'images', uploadedFile.originalname);
-  fs.writeFile(imagePath, uploadedFile.buffer, (err) => {
-    if (err) {
-      console.error('Fehler beim Speichern des Bildes: ', err);
+  fs.writeFile(imagePath, uploadedFile.buffer, (error) => {
+    if (error) {
+      console.error('Fehler beim Speichern des Bildes: ', error);
       return res.status(500).send('Interner Serverfehler');
     }
     res.status(200).send('Bild erfolgreich gespeichert');
@@ -103,9 +103,9 @@ app.post('/addRecipeImage', upload.single('image'), (req, res) => {
 app.delete('/deleteFile/:file(*)', (req, res) => {
   const fileName = req.params.file;
   const imagePath = path.join(__dirname, 'backend', 'images', fileName);
-  fs.unlink(imagePath, (err) => {
-    if (err) {
-      console.error('Fehler beim Löschen des Bildes: ', err);
+  fs.unlink(imagePath, (error) => {
+    if (error) {
+      console.error('Fehler beim Löschen des Bildes: ', error);
       return res.status(500).send('Interner Serverfehler');
     }
     return res.status(200).send('Bild erfolgreich gelöscht');
