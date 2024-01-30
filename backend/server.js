@@ -4,7 +4,7 @@ const cors = require('cors');
 const multer = require('multer');
 const app = express(); // Create new express 'app'
 const path = require('path');
-const filePath = path.join(__dirname, 'backend', 'recipes.json');
+const filePath = path.join(__dirname, 'recipes.json');
 const PORT = 3001;
 
 const corsOptions = {
@@ -42,40 +42,7 @@ app.get('/loadRecipes', (req, res) => {
   });
 });
 
-app.get('/fetchImage/:file(*)', (req, res) => {
-  const file = req.params.file;
-  const fileLocation = path.join(__dirname, 'backend', 'images', file);
-  res.sendFile(fileLocation)
-})
-
-app.post('/addRecipe', (req, res) => {
-  const newData = req.body;
-  fs.readFile(filePath, (error, data) => {
-    if (error) {
-      console.error('Fehler beim Lesen der Datei: ', error);
-      return res.status(500).send('Interner Serverfehler');
-    }
-    let jsonData = [];
-    if (data.length > 0) {
-      try {
-        jsonData = JSON.parse(data);
-      } catch (error) {
-        console.error('Fehler beim Parsen der JSON-Datei: ', error);
-        return res.status(500).send('Interner Serverfehler');
-      }
-    }
-    jsonData.push({ ...newData });
-    fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), (error) => {
-      if (error) {
-        console.error('Fehler beim Schreiben der Datei: ', error);
-        return res.status(500).send('Interner Serverfehler');
-      }
-      res.status(200).send('Daten erfolgreich gespeichert');
-    });
-  });
-});
-
-app.post('/updateRecipe', (req, res) => {
+app.post('/saveRecipes', (req, res) => {
   // Daten, die vom Client gesendet werden
   const newData = req.body;
   // Schreibe die neuen Daten zurück in die JSON-Datei (komplett ersetzen)
@@ -88,9 +55,15 @@ app.post('/updateRecipe', (req, res) => {
   });
 });
 
-app.post('/addRecipeImage', upload.single('image'), (req, res) => {
+app.get('/getFile/:file(*)', (req, res) => {
+  const file = req.params.file;
+  const fileLocation = path.join(__dirname, 'images', file);
+  res.sendFile(fileLocation)
+})
+
+app.post('/saveFile', upload.single('image'), (req, res) => {
   const uploadedFile = req.file;
-  const imagePath = path.join(__dirname, 'backend', 'images', uploadedFile.originalname);
+  const imagePath = path.join(__dirname, 'images', uploadedFile.originalname);
   fs.writeFile(imagePath, uploadedFile.buffer, (error) => {
     if (error) {
       console.error('Fehler beim Speichern des Bildes: ', error);
@@ -102,7 +75,7 @@ app.post('/addRecipeImage', upload.single('image'), (req, res) => {
 
 app.delete('/deleteFile/:file(*)', (req, res) => {
   const fileName = req.params.file;
-  const imagePath = path.join(__dirname, 'backend', 'images', fileName);
+  const imagePath = path.join(__dirname, 'images', fileName);
   fs.unlink(imagePath, (error) => {
     if (error) {
       console.error('Fehler beim Löschen des Bildes: ', error);

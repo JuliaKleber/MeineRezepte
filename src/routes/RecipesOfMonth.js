@@ -1,6 +1,6 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
-import { getRecipes } from "../fetchData/apiCalls";
+import { getRecipes } from "../AJAX/apiCalls";
 import RecipeCard from "../components/RecipeCard";
 
 // The recipes are loaded and filtered,

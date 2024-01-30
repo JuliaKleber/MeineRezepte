@@ -1,31 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import pastaImage from '../images/pasta.jpg';
-import potatoeImage from '../images/potatoe.jpg';
-import lasagneImage from '../images/lasagne.jpg';
-import pestoImage from '../images/pesto.jpg';
-import homeImage from '../images/home.jpg';
+import React, { useState, useEffect } from "react";
+import pastaImage from "../images/pasta.jpg";
+import potatoeImage from "../images/potatoe.jpg";
+import lasagneImage from "../images/lasagne.jpg";
+import pestoImage from "../images/pesto.jpg";
+import homeImage from "../images/home.jpg";
 
 const ShowImage = ({ recipe }) => {
   const [loaded, setLoaded] = useState(false);
   const [image, setImage] = useState(null);
-  const imagePath = `http://localhost:3001/fetchImage/${recipe.imageName}`;
-  const alternateImagePath = `https://meine-rezepte-f4bd3ffb1898.herokuapp.com/fetchImage/${recipe.imageName}`;
+  const imagePath = `http://localhost:3001/getFile/${recipe.imageName}`;
 
   const ImagePlaceholder = () => {
-    return (
-      <div className='recipe-image recipe-image-placeholder'>
-      </div>
-    );
-  }
+    return <div className="recipe-image recipe-image-placeholder"></div>;
+  };
 
   const defaultImage = () => {
-    if (recipe.keywords.includes('Lasagne')) {
+    if (recipe.keywords.includes("Lasagne")) {
       setImage(lasagneImage);
-    } else if (recipe.keywords.includes('Pesto')) {
+    } else if (recipe.keywords.includes("Pesto")) {
       setImage(pestoImage);
-    } else if (recipe.keywords.includes('Nudeln')) {
+    } else if (recipe.keywords.includes("Nudeln")) {
       setImage(pastaImage);
-    } else if (recipe.keywords.includes('Kartoffeln')) {
+    } else if (recipe.keywords.includes("Kartoffeln")) {
       setImage(potatoeImage);
     } else {
       setImage(homeImage);
@@ -37,22 +33,22 @@ const ShowImage = ({ recipe }) => {
       try {
         setImage(imagePath);
       } catch (error) {
-        try {
-          setImage(alternateImagePath);
-        } catch (error) {
-          defaultImage();
-        }
+        defaultImage();
       }
-    }
-    else {
+    } else {
       defaultImage();
     }
-  }, [recipe.imageName, imagePath]);
+  }, [recipe.imageName, imagePath, defaultImage]);
 
   return (
     <>
       {!loaded && <ImagePlaceholder />}
-      <img src={image} alt={loaded && 'recipe picture'} className='recipe-image' onLoad={() => setLoaded(true)}/>
+      <img
+        src={image}
+        alt={loaded && "recipe picture"}
+        className="recipe-image"
+        onLoad={() => setLoaded(true)}
+      />
     </>
   );
 };

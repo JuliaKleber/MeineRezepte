@@ -6,17 +6,17 @@ import AddKeywordsStep from "../components/addRecipe/AddKeywordsStep";
 import RecipeAdded from "../components/addRecipe/RecipeAdded";
 import RecipeNotAdded from "../components/addRecipe/RecipeNotAdded";
 import Navigation from "../components/addRecipe/Navigation";
-import { getRecipes } from '../fetchData/apiCalls';
+import { getRecipes, saveRecipes, saveImage } from "../AJAX/apiCalls";
 
 export const loader = async () => {
   const recipes = await getRecipes();
   return recipes;
-}
+};
 
 const steps = {
   homeStep: "homeStep",
   addIngredientsStep: "addIngredientsStep",
-  addNameAmountsDescriptionStep: "addNameAmountsDecriptionStep",
+  addNameAmountsDescriptionStep: "addNameAmountsDescriptionStep",
   addKeywordsStep: "addKeywordsStep",
   recipeAddedStep: "recipeAddedStep",
   recipeNotAddedStep: "recipeNotAddedStep",
@@ -32,9 +32,9 @@ const stepsArray = [
 ];
 
 const AddRecipe = () => {
-  const [recipes, setRecipes] = useState(useLoaderData());
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(steps.addIngredientsStep);
+  const [recipes, setRecipes] = useState(useLoaderData());
   const [recipe, setRecipe] = useState({
     name: "",
     numberOfPersons: 1,
@@ -45,26 +45,51 @@ const AddRecipe = () => {
     imageName: null,
   });
   const [uploadedFile, setUploadedFile] = useState(null);
+  const [recipeNameFieldStyle, setRecipeNameFieldStyle] = useState({});
   const recipeNameFieldRef = useRef(null);
-  const serverUrl = "http://localhost:3001";
+  let isNameUnique = true;
+  const [output, setOutput] = useState('');
+
+  const stepsBeforeSave = [
+    steps.addIngredientsStep,
+    steps.addNameAmountsDescriptionStep,
+    steps.addKeywordsStep,
+  ].includes(currentStep);
+
+  const checkNameforUniqueness = () => {
+    const recipesWithSameName = recipes.filter((savedRecipe) => {
+      return recipe.name === savedRecipe.name
+    });
+    if (recipesWithSameName.length !== 0) {
+      isNameUnique = false;
+    }
+  };
 
   const handleCurrentStep = (nextStep) => {
+    checkNameforUniqueness();
     if (nextStep === steps.homeStep) {
       navigate("/");
-    } else if (recipe.name === "" && nextStep === steps.addKeywordsStep) {
+    } else if ((recipe.name === "" || !isNameUnique) && nextStep === steps.addKeywordsStep) {
+      if (!isNameUnique) {
+        setOutput("Der Rezeptname ist schon vergeben");
+        isNameUnique = true;
+      } else {
+        setOutput('Bitte gib einen Namen für das Rezept ein');
+      }
       recipeNameFieldRef.current.focus();
-      recipeNameFieldRef.current.style.borderColor = "mediumorchid";
+      setRecipeNameFieldStyle({ backgroundColor: 'lightblue' });
+    } else if (nextStep === steps.addKeywordsStep) {
+      setRecipeNameFieldStyle({});
+      setCurrentStep(nextStep);
     } else if (nextStep === steps.recipeAddedStep) {
-      handleSaveRecipe();
+      saveRecipe();
     } else setCurrentStep(nextStep);
   };
 
   const cleanUpRecipe = () => {
     let newRecipe = { ...recipe };
     if (recipe.amounts.length === 0) {
-      recipe.ingredients.forEach(() => {
-        newRecipe.amounts.push("");
-      });
+      newRecipe.amounts = recipe.ingredients.map(() => '');
     }
     newRecipe.amounts.forEach((amount) => {
       if (amount === null || amount === undefined) {
@@ -75,9 +100,9 @@ const AddRecipe = () => {
     return newRecipe;
   };
 
-  const handleSaveRecipe = () => {
+  const saveRecipe = () => {
     let newRecipe = cleanUpRecipe();
-    if (uploadedFile !== null) {
+    if (uploadedFile) {
       const recipeName = newRecipe.name
         .toLowerCase()
         .replace(/ä/g, "ae")
@@ -89,48 +114,17 @@ const AddRecipe = () => {
       newRecipe = { ...newRecipe, imageName: imageName };
       setRecipe(newRecipe);
     }
-    // const imagePath = `${serverUrl}/images/${imageName}`;
-    fetch(`${serverUrl}/addRecipe`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newRecipe),
-    })
-      .then((response) => response.text())
-      .then((message) => {
-        console.log("Antwort vom Server:", message);
-        // Speichert das Bild auf dem Server im images-Ordner
-        if (uploadedFile !== null) {
-          const formData = new FormData();
-          const imageName = newRecipe.imageName;
-          formData.append("image", uploadedFile, imageName);
-          fetch(`${serverUrl}/addRecipeImage`, {
-            method: "POST",
-            body: formData,
-          })
-            .then((response) => response.text())
-            .then((imageMessage) => {
-              console.log("Bild hochgeladen:", imageMessage);
-            })
-            .catch((imageError) => {
-              console.error("Fehler beim Hochladen des Bildes:", imageError);
-            });
-        }
-        setRecipes([...recipes, newRecipe]);
-        setCurrentStep(steps.recipeAddedStep);
-      })
-      .catch((error) => {
-        console.error("Fehler beim Senden der Daten:", error);
-        setCurrentStep(steps.recipeNotAddedStep);
-      });
+    const success = saveRecipes([...recipes, newRecipe]);
+    if (success) {
+      setRecipes([...recipes, newRecipe]);
+      setCurrentStep(steps.recipeAddedStep);
+      if (uploadedFile) {
+        saveImage(uploadedFile, newRecipe.imageName);
+      }
+    } else {
+      setCurrentStep(steps.recipeNotAddedStep);
+    }
   };
-
-  const stepsBeforeSave = [
-    steps.addIngredientsStep,
-    steps.addNameAmountsDescriptionStep,
-    steps.addKeywordsStep,
-  ].includes(currentStep);
 
   return (
     <div className="align-center">
@@ -144,6 +138,8 @@ const AddRecipe = () => {
           recipeNameFieldRef={recipeNameFieldRef}
           uploadedFile={uploadedFile}
           setUploadedFile={setUploadedFile}
+          recipeNameFieldStyle={recipeNameFieldStyle}
+          output={output}
         />
       )}
       {currentStep === steps.addKeywordsStep && (

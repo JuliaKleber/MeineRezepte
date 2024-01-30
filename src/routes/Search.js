@@ -1,24 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useLoaderData } from 'react-router-dom';
 import RecipeCard from "../components/RecipeCard";
+import { getRecipes } from '../AJAX/apiCalls';
 
 export const loader = async () => {
-  try {
-    const response = await fetch("http://localhost:3001/loadRecipes");
-    if (response.status === 200) {
-      const data = await response.json();
-      return data;
-    } else {
-      console.error("Fehler beim Abrufen der Daten");
-    }
-  } catch (error) {
-    console.error("Fehler beim Senden der Anfrage:", error);
-  }
+  const recipes = await getRecipes();
+  return recipes;
 }
 
 const Search = ({ onRecipeSelection, searchTerm = '' }) => {
   const recipes = useLoaderData();
-  console.log(recipes);
   const [contentSearchField, setContentSearchField] = useState(searchTerm);
   const [recipesFound, setRecipesFound] = useState([]);
   const [output, setOutput] = useState("");
