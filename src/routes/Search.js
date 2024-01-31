@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import useRecipeStore from "../store/recipeStore";
+import useRecipeStore from "../stores/recipeStore";
 import RecipeCard from "../components/RecipeCard";
 
 

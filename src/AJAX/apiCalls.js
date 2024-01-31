@@ -1,3 +1,5 @@
+import useRecipeStore from '../stores/recipeStore';
+
 // The recipes are loaded from the json file
 export const getRecipes = async () => {
   try {
@@ -6,10 +8,10 @@ export const getRecipes = async () => {
       const data = await response.json();
       return data;
     } else {
-      console.error("Fehler beim Abrufen der Daten");
+      console.error("Fehler beim Abrufen der Rezepte");
     }
   } catch (error) {
-    console.error("Fehler beim Senden der Anfrage:", error);
+    console.error("Fehler beim Abrufen der Rezepte:", error);
   }
 };
 
@@ -25,11 +27,11 @@ export const saveRecipes = async (recipes) => {
     .then((response) => response.text())
     .then((message) => {
       console.log("Antwort vom Server:", message);
-      return true;
+      useRecipeStore.setState({ recipes: recipes, message: 'Die Rezeptdaten wurden aktualisiert.' });
     })
     .catch((error) => {
-      console.error("Fehler beim Senden der Daten:", error);
-      return false;
+      console.error("Fehler beim Speichern der Rezepte:", error);
+      useRecipeStore.setState({ message: 'Die Rezeptdaten konnten nicht aktualisiert werden.' });
     });
 };
 
@@ -46,7 +48,7 @@ export const saveImage = async (file, name) => {
       console.log("Bild hochgeladen:", imageMessage);
     })
     .catch((imageError) => {
-      console.error("Fehler beim Hochladen des Bildes:", imageError);
+      console.error("Fehler beim Speichern des Bildes:", imageError);
     });
 };
 
@@ -60,6 +62,6 @@ export const deleteImage = async (name) => {
       console.log("Antwort vom Server:", message);
     })
     .catch((error) => {
-      console.error("Fehler beim Senden der Daten:", error);
+      console.error("Fehler beim Löschen des Bildes:", error);
     });
 };

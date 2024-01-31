@@ -1,5 +1,5 @@
 import React from "react";
-import useRecipeStore from "../store/recipeStore";
+import useRecipeStore from "../stores/recipeStore";
 import RecipeCard from "../components/RecipeCard";
 
 // Die Rezepte des aktuellen Monats werden angezeigt.

@@ -1,14 +1,23 @@
 import React, { useEffect } from "react";
 import { Outlet } from 'react-router-dom';
-import useRecipeStore from '../store/recipeStore';
+import useRecipeStore from '../stores/recipeStore';
 import Navbar from "../components/Navbar";
+import { getRecipes } from '../AJAX/apiCalls';
 
 const Root = () => {
-  const { loadRecipes } = useRecipeStore();
 
+  // The recipes are loaded when the app is startet.
   useEffect(() => {
-    loadRecipes();
-  }, [loadRecipes]);
+    const fetchRecipes = async () => {
+      try {
+        const recipes = await getRecipes();
+        useRecipeStore.setState({ recipes: recipes });
+      } catch (error) {
+        console.error('Fehler beim Laden der Rezepte', error);
+      }
+    }
+    fetchRecipes();
+  }, []);
 
   return (
     <div>

@@ -1,12 +1,13 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import useRecipeStore from "../store/recipeStore";
+import useRecipeStore from "../stores/recipeStore";
 import AddIngredientsStep from "../components/addRecipe/AddIngredientsStep";
 import AddNameAmountsAndDescriptionStep from "../components/addRecipe/AddNameAmountsAndDescriptionStep";
 import AddKeywordsStep from "../components/addRecipe/AddKeywordsStep";
 import RecipeAdded from "../components/addRecipe/RecipeAdded";
 import RecipeNotAdded from "../components/addRecipe/RecipeNotAdded";
 import Navigation from "../components/addRecipe/Navigation";
+import { saveRecipes, saveImage } from "../AJAX/apiCalls";
 
 const steps = {
   homeStep: "homeStep",
@@ -29,7 +30,7 @@ const stepsArray = [
 const AddRecipe = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(steps.addIngredientsStep);
-  const { recipes, addRecipe } = useRecipeStore();
+  const { recipes } = useRecipeStore();
   const [recipe, setRecipe] = useState({
     name: "",
     numberOfPersons: 1,
@@ -43,7 +44,7 @@ const AddRecipe = () => {
   const [recipeNameFieldStyle, setRecipeNameFieldStyle] = useState({});
   const recipeNameFieldRef = useRef(null);
   let isNameUnique = true;
-  const [output, setOutput] = useState('');
+  const [output, setOutput] = useState("");
 
   const stepsBeforeSave = [
     steps.addIngredientsStep,
@@ -53,7 +54,7 @@ const AddRecipe = () => {
 
   const checkNameforUniqueness = () => {
     const recipesWithSameName = recipes.filter((savedRecipe) => {
-      return recipe.name === savedRecipe.name
+      return recipe.name === savedRecipe.name;
     });
     if (recipesWithSameName.length !== 0) {
       isNameUnique = false;
@@ -64,15 +65,18 @@ const AddRecipe = () => {
     checkNameforUniqueness();
     if (nextStep === steps.homeStep) {
       navigate("/");
-    } else if ((recipe.name === "" || !isNameUnique) && nextStep === steps.addKeywordsStep) {
+    } else if (
+      (recipe.name === "" || !isNameUnique) &&
+      nextStep === steps.addKeywordsStep
+    ) {
       if (!isNameUnique) {
         setOutput("Der Rezeptname ist schon vergeben");
         isNameUnique = true;
       } else {
-        setOutput('Bitte gib einen Namen für das Rezept ein');
+        setOutput("Bitte gib einen Namen für das Rezept ein");
       }
       recipeNameFieldRef.current.focus();
-      setRecipeNameFieldStyle({ backgroundColor: 'lightblue' });
+      setRecipeNameFieldStyle({ backgroundColor: "lightblue" });
     } else if (nextStep === steps.addKeywordsStep) {
       setRecipeNameFieldStyle({});
       setCurrentStep(nextStep);
@@ -84,7 +88,7 @@ const AddRecipe = () => {
   const cleanUpRecipe = () => {
     let newRecipe = { ...recipe };
     if (recipe.amounts.length === 0) {
-      newRecipe.amounts = recipe.ingredients.map(() => '');
+      newRecipe.amounts = recipe.ingredients.map(() => "");
     }
     newRecipe.amounts.forEach((amount) => {
       if (amount === null || amount === undefined) {
@@ -107,12 +111,19 @@ const AddRecipe = () => {
         .replace(/\s+/g, "-");
       const imageName = `${recipeName}.jpg`;
       newRecipe = { ...newRecipe, imageName: imageName };
-      setRecipe(newRecipe);
     }
-    await addRecipe(newRecipe, uploadedFile);
-    setCurrentStep(steps.recipeAddedStep);
-    const success = useRecipeStore.getState().saved;
-    success ? setCurrentStep(steps.recipeAddedStep) : setCurrentStep(steps.recipeNotAddedStep);
+    try {
+      const updatedRecipes = [...recipes, newRecipe];
+      saveRecipes(updatedRecipes);
+      if (uploadedFile) {
+        saveImage(uploadedFile, newRecipe.imageName);
+      }
+      useRecipeStore.setState({ recipes: updatedRecipes });
+      setCurrentStep(steps.recipeAddedStep);
+    } catch (error) {
+      setCurrentStep(steps.recipeNotAddedStep);
+      console.error("Fehler beim Speichern des Rezepts", error);
+    }
   };
 
   return (
