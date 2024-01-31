@@ -41,7 +41,7 @@ This is a React application for managing and searching recipes.
 To start the application, run:
 
   ```bash
-  node server.js
+  node backend/server.js
   ```
 
   ```bash
