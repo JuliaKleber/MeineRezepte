@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useLoaderData } from 'react-router-dom';
+import useRecipeStore from "../store/recipeStore";
 import RecipeCard from "../components/RecipeCard";
-import { getRecipes } from '../AJAX/apiCalls';
 
-export const loader = async () => {
-  const recipes = await getRecipes();
-  return recipes;
-}
 
 const Search = ({ onRecipeSelection, searchTerm = '' }) => {
-  const recipes = useLoaderData();
+  const { recipes } = useRecipeStore();
   const [contentSearchField, setContentSearchField] = useState(searchTerm);
   const [recipesFound, setRecipesFound] = useState([]);
   const [output, setOutput] = useState("");

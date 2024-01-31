@@ -1,17 +1,12 @@
 import React, { useState, useRef } from "react";
-import { useNavigate, useLoaderData } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import useRecipeStore from "../store/recipeStore";
 import AddIngredientsStep from "../components/addRecipe/AddIngredientsStep";
 import AddNameAmountsAndDescriptionStep from "../components/addRecipe/AddNameAmountsAndDescriptionStep";
 import AddKeywordsStep from "../components/addRecipe/AddKeywordsStep";
 import RecipeAdded from "../components/addRecipe/RecipeAdded";
 import RecipeNotAdded from "../components/addRecipe/RecipeNotAdded";
 import Navigation from "../components/addRecipe/Navigation";
-import { getRecipes, saveRecipes, saveImage } from "../AJAX/apiCalls";
-
-export const loader = async () => {
-  const recipes = await getRecipes();
-  return recipes;
-};
 
 const steps = {
   homeStep: "homeStep",
@@ -34,7 +29,7 @@ const stepsArray = [
 const AddRecipe = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(steps.addIngredientsStep);
-  const [recipes, setRecipes] = useState(useLoaderData());
+  const { recipes, addRecipe } = useRecipeStore();
   const [recipe, setRecipe] = useState({
     name: "",
     numberOfPersons: 1,
@@ -100,7 +95,7 @@ const AddRecipe = () => {
     return newRecipe;
   };
 
-  const saveRecipe = () => {
+  const saveRecipe = async () => {
     let newRecipe = cleanUpRecipe();
     if (uploadedFile) {
       const recipeName = newRecipe.name
@@ -114,16 +109,10 @@ const AddRecipe = () => {
       newRecipe = { ...newRecipe, imageName: imageName };
       setRecipe(newRecipe);
     }
-    const success = saveRecipes([...recipes, newRecipe]);
-    if (success) {
-      setRecipes([...recipes, newRecipe]);
-      setCurrentStep(steps.recipeAddedStep);
-      if (uploadedFile) {
-        saveImage(uploadedFile, newRecipe.imageName);
-      }
-    } else {
-      setCurrentStep(steps.recipeNotAddedStep);
-    }
+    await addRecipe(newRecipe, uploadedFile);
+    setCurrentStep(steps.recipeAddedStep);
+    const success = useRecipeStore.getState().saved;
+    success ? setCurrentStep(steps.recipeAddedStep) : setCurrentStep(steps.recipeNotAddedStep);
   };
 
   return (

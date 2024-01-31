@@ -1,20 +1,12 @@
 import React, { useState } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import useRecipeStore from "../store/recipeStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { AiFillDelete } from "react-icons/ai";
 import ShowImage from "../components/ShowImage";
 import ImageUpload from "../components/addRecipe/ImageUpload";
 import AddKeywordsStep from "../components/addRecipe/AddKeywordsStep";
-import { getRecipes, saveRecipes, saveImage } from "../AJAX/apiCalls";
-
-export const loader = async (recipeName) => {
-  const recipes = await getRecipes();
-  const selectedRecipe = recipes.filter((recipe) => {
-    return recipe.name.replaceAll(" ", "-").toLowerCase() === recipeName;
-  });
-  return [recipes, selectedRecipe[0]];
-};
 
 const steps = {
   editRecipeStep: "editRecipeStep",
@@ -22,12 +14,16 @@ const steps = {
 };
 
 const EditRecipe = () => {
-  const recipes = useLoaderData()[0];
-  const recipe = useLoaderData()[1];
+  const { recipes } = useRecipeStore();
+  const recipeName = useParams().recipeName;
+  const recipe = recipes.filter(
+    (rec) => rec.name.replaceAll(" ", "-").toLowerCase() === recipeName
+  )[0];
   const [updatedRecipe, setUpdatedRecipe] = useState(recipe);
   const [currentStep, setCurrentStep] = useState(steps.editRecipeStep);
   const [uploadedFile, setUploadedFile] = useState(null);
   let output = "";
+  const { updateRecipe } = useRecipeStore();
 
   // An amount is updated
   const handleAmountUpdate = (event, index) => {
@@ -94,36 +90,25 @@ const EditRecipe = () => {
     return { ...updatedRecipe, imageName: imageName };
   };
 
-  // The original recipe is exchanged with the updated one in the recipes array
-  const exchangeRecipes = (savedRecipe) => {
-    const updatedRecipes = [...recipes];
-    const index = updatedRecipes.indexOf(recipe);
-    updatedRecipes.splice(index, 1);
-    updatedRecipes.push(savedRecipe);
-    return updatedRecipes;
-  };
-
   // The original recipe is exchanged with the updated one in the json file
   const replaceRecipeInDatabase = () => {
     let savedRecipe = updatedRecipe;
     if ((uploadedFile !== null) & (updatedRecipe.name !== null)) {
       savedRecipe = setImageName();
     }
-    const updatedRecipes = exchangeRecipes(savedRecipe);
-    const success = saveRecipes(updatedRecipes);
+    const index = recipes.indexOf(recipe);
+    updateRecipe(index, savedRecipe, uploadedFile);
+    const success = useRecipeStore.getState().updated;
     success
       ? (output = "Das Rezept wurde geändert.")
       : (output = "Das Rezept konnte nicht geändert werden.");
-    if (uploadedFile !== null && output === "Das Rezept wurde geändert") {
-      saveImage(uploadedFile, savedRecipe.imageName);
-    }
   };
 
   return (
     <div className="edit-recipe">
       {currentStep === steps.editRecipeStep && (
         <div className="container">
-          <ShowImage recipe={recipe} className="card" />
+          {recipe && <ShowImage recipe={recipe} className="card" />}
           <ImageUpload
             uploadedFile={uploadedFile}
             setUploadedFile={setUploadedFile}
@@ -219,9 +204,15 @@ const EditRecipe = () => {
               Schlagwörter ändern
             </button>
             <span>
-              <Link to={`/recipes/${recipe.name.replaceAll(' ', '-').toLowerCase()}`}>
-                <button>zurück</button>
-              </Link>
+              {recipe && (
+                <Link
+                  to={`/recipes/${recipe.name
+                    .replaceAll(" ", "-")
+                    .toLowerCase()}`}
+                >
+                  <button>zurück</button>
+                </Link>
+              )}
               <Link
                 to={`/recipes/${updatedRecipe.name
                   .replaceAll(" ", "-")

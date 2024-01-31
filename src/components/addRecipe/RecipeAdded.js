@@ -1,29 +1,31 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const RecipeAdded = ({ onChangeStep, setRecipe }) => {
-  const navigate = useNavigate()
-
   const enterNewRecipe = () => {
     setRecipe({
-      name: '',
+      name: "",
       amounts: [],
       ingredients: [],
-      description: '',
+      description: "",
       keywords: [],
     });
-    onChangeStep('addIngredientsStep');
-  }
+    onChangeStep("addIngredientsStep");
+  };
 
   return (
-    <div className='container'>
-      <p className='align-center'>
+    <div className="container">
+      <p className="align-center">
         Das Rezept wurde der Datenbank hinzugefügt.
       </p>
-      <button onClick={() => enterNewRecipe()}>weiteres Rezept hinzufügen</button>
-      <button onClick={() => navigate('/')}>zum Startmenü</button>
+      <button onClick={() => enterNewRecipe()}>
+        weiteres Rezept hinzufügen
+      </button>
+      <Link to='/'>
+        <button>zum Startmenü</button>
+      </Link>
     </div>
   );
-}
+};
 
 export default RecipeAdded;

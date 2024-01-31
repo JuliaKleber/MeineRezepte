@@ -1,27 +1,13 @@
 import React from "react";
-import { Link, useLoaderData } from "react-router-dom";
-import { getRecipes, saveRecipes, deleteImage } from "../AJAX/apiCalls";
-
-export const loader = async (recipeName) => {
-  const recipes = await getRecipes();
-  const filteredRecipe = recipes.filter((recipe) => {
-    return recipe.name === recipeName;
-  });
-  return [recipes, filteredRecipe[0]];
-};
+import { Link, useParams } from "react-router-dom";
+import useRecipeStore from "../store/recipeStore";
 
 const DeleteRecipe = () => {
-  const recipes = useLoaderData()[0];
-  const recipe = useLoaderData()[1];
+  const recipe = useParams;
+  const { deleteRecipe } = useRecipeStore();
 
-  // The recipe is removed from the json file
-  const handleRecipeDeletion = () => {
-    const index = recipes.indexOf(recipe);
-    recipes.splice(index, 1);
-    const success = saveRecipes(recipes);
-    if (success && recipe.imageName !== null) {
-      deleteImage(recipe.imageName);
-    }
+  const handleDelete = async () => {
+    await deleteRecipe(recipe);
   };
 
   return (
@@ -31,7 +17,7 @@ const DeleteRecipe = () => {
       </span>
       <span>
         <Link to="/">
-          <button className="y-n" onClick={handleRecipeDeletion}>
+          <button className="y-n" onClick={handleDelete}>
             ja
           </button>
         </Link>
