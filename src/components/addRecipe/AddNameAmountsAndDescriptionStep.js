@@ -11,6 +11,8 @@ const AddNameAmountsAndDescriptionStep = ({
   recipeNameFieldRef,
   uploadedFile,
   setUploadedFile,
+  recipeNameFieldStyle,
+  output
 }) => {
 
   const handleAddIngredient = () => {
@@ -27,6 +29,8 @@ const AddNameAmountsAndDescriptionStep = ({
         recipe={recipe}
         setRecipe={setRecipe}
         recipeNameFieldRef={recipeNameFieldRef}
+        recipeNameFieldStyle={recipeNameFieldStyle}
+        output={output}
       />
       <AmountsAndIngredientsFields recipe={recipe} setRecipe={setRecipe} />
       <AddIngredientButton

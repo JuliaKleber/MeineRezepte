@@ -1,14 +1,14 @@
 import React from './RecipeAdded';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const RecipeNotAdded = () => {
 
   return (
     <div className='container'>
       <p>Das Rezept konnte nicht gespeichert werden.</p>
-      <NavLink exact to='/'>
+      <Link exact to='/'>
         <button>zum Startmenü</button>
-      </NavLink>
+      </Link>
     </div>
   );
 }

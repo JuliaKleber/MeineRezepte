@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <nav className='navbar'>
       <ul>
-        <li><NavLink to='/home' className={({ isActive }) => isActive ? "active" : "not-active" }>
+        <li><NavLink to='/' className={({ isActive }) => isActive ? "active" : "not-active" }>
           <FontAwesomeIcon icon={faHouse} />
         </NavLink></li>
         <li><NavLink to='/search' className={({ isActive }) => isActive ? "active" : "not-active" }>

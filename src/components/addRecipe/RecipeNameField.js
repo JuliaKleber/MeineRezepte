@@ -1,24 +1,32 @@
-import React from 'react';
+import React from "react";
 
-const RecipeNameField = ({ recipe, setRecipe, recipeNameFieldRef }) => {
+const RecipeNameField = ({
+  recipe,
+  setRecipe,
+  recipeNameFieldRef,
+  recipeNameFieldStyle,
+  output,
+}) => {
   const handleRecipeNameChange = (updatedRecipeName) => {
     setRecipe({ ...recipe, name: updatedRecipeName });
   };
 
   const recipeNameField = (
-    <div className='container'>
+    <div className="container recipe-name-field">
       Name des Rezepts
       <br />
       <input
-        type='text'
+        type="text"
         value={recipe.name}
         ref={recipeNameFieldRef}
         onChange={(e) => handleRecipeNameChange(e.target.value)}
+        style={recipeNameFieldStyle}
       />
+      <div className="output">{output}</div>
     </div>
   );
 
   return recipeNameField;
-}
+};
 
 export default RecipeNameField;
