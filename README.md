@@ -13,6 +13,7 @@ This is a React application for managing and searching recipes.
 
 - React.js
 - React Router
+- Zustand
 - Express.js
 - SCSS
 
