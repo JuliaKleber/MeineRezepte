@@ -87,7 +87,7 @@ const EditRecipe = () => {
 
   // The original recipe is exchanged with the updated one in the json file
   const replaceRecipeInDatabase = async () => {
-    let savedRecipe = updatedRecipe;
+    let savedRecipe = {...updatedRecipe};
     if (uploadedFile !== null) {
       savedRecipe = setImageName();
       setUpdatedRecipe(savedRecipe);
@@ -95,6 +95,9 @@ const EditRecipe = () => {
     const index = recipes.indexOf(currentRecipe);
     const updatedRecipes = [...recipes, savedRecipe];
     updatedRecipes.splice(index, 1);
+    console.log('old recipe:', currentRecipe.imageName);
+    console.log('new recipe:', savedRecipe.imageName);
+    console.log(uploadedFile);
     await updateRecipe(
       updatedRecipes,
       savedRecipe,
