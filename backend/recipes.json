@@ -822,24 +822,5 @@
       "Nudeln"
     ],
     "imageName": null
-  },
-  {
-    "name": "ccccccccccc",
-    "numberOfPersons": 1,
-    "amounts": [
-      "",
-      ""
-    ],
-    "ingredients": [
-      "Brot",
-      "Kartoffeln"
-    ],
-    "description": "aaaaaa",
-    "keywords": [
-      "Brot",
-      "Kartoffeln",
-      "Februar"
-    ],
-    "imageName": "aaaaaaaaaaaaa.jpg"
   }
 ]
