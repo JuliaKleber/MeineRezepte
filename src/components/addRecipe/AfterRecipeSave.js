@@ -2,9 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useRecipeStore from "../../stores/recipeStore";
 
-const AfterRecipeSave = ({ onChangeStep, setRecipe, setUploadedFile }) => {
+const AfterRecipeSave = ({ onChangeStep, setRecipe, setUploadedFile, isNameUnique }) => {
   const { currentRecipe, message } = useRecipeStore();
-
+  console.log(currentRecipe);
+  
   const enterNewRecipe = () => {
     setRecipe({
       name: "",
@@ -16,6 +17,7 @@ const AfterRecipeSave = ({ onChangeStep, setRecipe, setUploadedFile }) => {
       imageName: null,
     });
     setUploadedFile(null);
+    isNameUnique = true;
     onChangeStep("addIngredientsStep");
   };
 

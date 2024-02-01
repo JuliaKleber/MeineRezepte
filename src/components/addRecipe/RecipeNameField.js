@@ -5,7 +5,7 @@ const RecipeNameField = ({
   setRecipe,
   recipeNameFieldRef,
   recipeNameFieldStyle,
-  output,
+  validationOutput,
 }) => {
   const handleRecipeNameChange = (updatedRecipeName) => {
     setRecipe({ ...recipe, name: updatedRecipeName });
@@ -22,7 +22,7 @@ const RecipeNameField = ({
         onChange={(e) => handleRecipeNameChange(e.target.value)}
         style={recipeNameFieldStyle}
       />
-      <div className="output">{output}</div>
+      <div className="output">{validationOutput}</div>
     </div>
   );
 

@@ -17,8 +17,7 @@ const DeleteRecipe = () => {
         Möchtest du das Rezept wirklich unwiderbringlich löschen?
       </span>
       <span>
-        <Link to="/">
-        {/* <Link to={recipes.includes(recipe) ? `/recipes/${recipeName}` : "/"}> */}
+        <Link to={currentRecipe ? `/recipes/${currentRecipe.name.replaceAll(' ', '-').toLowerCase()}` : "/"}>
           <button className="y-n" onClick={destroyRecipe}>
             ja
           </button>

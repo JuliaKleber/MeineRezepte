@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useRecipeStore from "../stores/recipeStore";
 import AddIngredientsStep from "../components/addRecipe/AddIngredientsStep";
 import AddNameAmountsAndDescriptionStep from "../components/addRecipe/AddNameAmountsAndDescriptionStep";
-import AddKeywordsStep from "../components/addRecipe/AddKeywordsStep";
+import AddKeywordsStep from "../components/shared/AddKeywordsStep";
 import AfterRecipeSave from "../components/addRecipe/AfterRecipeSave";
 import Navigation from "../components/addRecipe/Navigation";
 
@@ -39,24 +39,41 @@ const AddRecipe = () => {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [recipeNameFieldStyle, setRecipeNameFieldStyle] = useState({});
   const recipeNameFieldRef = useRef(null);
+  const [validationOutput, setValidationOutput] = useState("");
   let isNameUnique = true;
-  const [output, setOutput] = useState("");
 
-  const stepsBeforeSave = [
+  const withinStepsBeforeSave = [
     steps.addIngredientsStep,
     steps.addNameAmountsDescriptionStep,
     steps.addKeywordsStep,
   ].includes(currentStep);
 
+  // Checks if the name of the new recipe is already in use.
   const checkNameforUniqueness = () => {
     const recipesWithSameName = recipes.filter((savedRecipe) => {
-      return recipe.name === savedRecipe.name;
+      return (
+        recipe.name.replaceAll(" ", "-").toLowerCase() ===
+        savedRecipe.name.replaceAll(" ", "-").toLowerCase()
+      );
     });
     if (recipesWithSameName.length !== 0) {
       isNameUnique = false;
     }
   };
 
+  // Validation output for the recipe name field.
+  const outputValidationMessages = () => {
+    if (!isNameUnique) {
+      setValidationOutput("Der Rezeptname ist schon vergeben");
+      isNameUnique = true;
+    } else {
+      setValidationOutput("Bitte gib einen Namen für das Rezept ein");
+    }
+    recipeNameFieldRef.current.focus();
+    setRecipeNameFieldStyle({ backgroundColor: "lightblue" });
+  };
+
+  // Handles the navigaton in the add recipe component.
   const handleCurrentStep = (nextStep) => {
     checkNameforUniqueness();
     if (nextStep === steps.homeStep) {
@@ -65,14 +82,7 @@ const AddRecipe = () => {
       (recipe.name === "" || !isNameUnique) &&
       nextStep === steps.addKeywordsStep
     ) {
-      if (!isNameUnique) {
-        setOutput("Der Rezeptname ist schon vergeben");
-        isNameUnique = true;
-      } else {
-        setOutput("Bitte gib einen Namen für das Rezept ein");
-      }
-      recipeNameFieldRef.current.focus();
-      setRecipeNameFieldStyle({ backgroundColor: "lightblue" });
+      outputValidationMessages();
     } else if (nextStep === steps.addKeywordsStep) {
       setRecipeNameFieldStyle({});
       setCurrentStep(nextStep);
@@ -81,7 +91,8 @@ const AddRecipe = () => {
     } else setCurrentStep(nextStep);
   };
 
-  const cleanUpRecipe = () => {
+  // The amounts array is cleaned up.
+  const cleanUpAmountsArray = () => {
     let newRecipe = { ...recipe };
     if (recipe.amounts.length === 0) {
       newRecipe.amounts = recipe.ingredients.map(() => "");
@@ -91,22 +102,33 @@ const AddRecipe = () => {
         amount = "";
       }
     });
+    const lengthDifference =
+      newRecipe.ingredients.length - newRecipe.amounts.length;
+    if (lengthDifference > 0)
+      for (let i = 0; i < lengthDifference; i++) {
+        newRecipe.amounts.push("");
+      }
     setRecipe(newRecipe);
     return newRecipe;
   };
 
+  // If an image was provided, the image name is created.
+  const createImageName = (newRecipe) => {
+    const recipeName = newRecipe.name
+      .toLowerCase()
+      .replace(/ä/g, "ae")
+      .replace(/ö/g, "oe")
+      .replace(/ü/g, "ue")
+      .replace(/ß/g, "ss")
+      .replace(/\s+/g, "-");
+    return `${recipeName}.jpg`;
+  };
+
+  // The recipe is saved to the database.
   const saveRecipe = async () => {
-    let newRecipe = cleanUpRecipe();
+    let newRecipe = cleanUpAmountsArray();
     if (uploadedFile) {
-      const recipeName = newRecipe.name
-        .toLowerCase()
-        .replace(/ä/g, "ae")
-        .replace(/ö/g, "oe")
-        .replace(/ü/g, "ue")
-        .replace(/ß/g, "ss")
-        .replace(/\s+/g, "-");
-      const imageName = `${recipeName}.jpg`;
-      newRecipe = { ...newRecipe, imageName: imageName };
+      newRecipe = { ...newRecipe, imageName: createImageName(newRecipe) };
     }
     addRecipe(recipes, newRecipe, uploadedFile);
     setCurrentStep(steps.recipeAddedStep);
@@ -125,7 +147,7 @@ const AddRecipe = () => {
           uploadedFile={uploadedFile}
           setUploadedFile={setUploadedFile}
           recipeNameFieldStyle={recipeNameFieldStyle}
-          output={output}
+          validationOutput={validationOutput}
         />
       )}
       {currentStep === steps.addKeywordsStep && (
@@ -136,9 +158,10 @@ const AddRecipe = () => {
           onChangeStep={handleCurrentStep}
           setRecipe={setRecipe}
           setUploadedFile={setUploadedFile}
+          isNameUnique={isNameUnique}
         />
       )}
-      {stepsBeforeSave && (
+      {withinStepsBeforeSave && (
         <Navigation
           onChangeStep={handleCurrentStep}
           steps={stepsArray}

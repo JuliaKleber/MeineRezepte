@@ -1,5 +1,6 @@
 import { create } from "zustand";
 
+// The recipes are loaded from the json file in the store
 const getRecipes = async () => {
   try {
     const response = await fetch("http://localhost:3001/loadRecipes");
@@ -15,6 +16,42 @@ const getRecipes = async () => {
   }
 };
 
+// The recipe store is updated after the recipes are written to the json file
+const updateRecipeStore = (action, recipes, recipe) => {
+  useRecipeStore.setState({
+    recipes: recipes,
+  });
+  if (action === "add")
+    useRecipeStore.setState({
+      currentRecipe: recipe,
+      message: "Das Rezept wurde der Datenbank hinzugefügt.",
+    });
+  if (action === "update")
+    useRecipeStore.setState({
+      currentRecipe: recipe,
+      message: "Das Rezept wurde erfolgreich geändert.",
+    });
+  if (action === "delete")
+    useRecipeStore.setState({
+      currentRecipe: null,
+      message: "",
+    });
+};
+
+// The images are updated.
+const updateImages = async (action, file, recipe, oldFileName) => {
+  if (action === "add" && file) {
+    saveImage(file, recipe.imageName);
+  }
+  if (action === "update" && file) {
+    if (recipe.imageName) await deleteImage(oldFileName);
+    saveImage(file, recipe.imageName);
+  }
+  if (action === "delete" && recipe.imageName !== null) {
+    deleteImage(recipe.imageName);
+  }
+};
+
 // The recipes are saved to the json file
 const saveRecipes = async (recipes, action, recipe, file, oldFileName) => {
   try {
@@ -27,51 +64,16 @@ const saveRecipes = async (recipes, action, recipe, file, oldFileName) => {
     });
     const message = await response.text();
     console.log("Antwort vom Server:", message);
-    useRecipeStore.setState({
-      recipes: recipes,
-    });
-    if (action === "add")
-      useRecipeStore.setState({
-        currentRecipe: recipe,
-        message: "Das Rezept wurde der Datenbank hinzugefügt.",
-      });
-    if (action === "add" && file) {
-      saveImage(file, recipe.imageName);
-    }
-    if (action === "update")
-    useRecipeStore.setState({
-      currentRecipe: recipe,
-      message: "Das Rezept wurde erfolgreich geändert.",
-    });
-    if (action === "update" && file !== null) {
-      if (recipe.imageName) await deleteImage(oldFileName);
-      saveImage(file, recipe.imageName);
-    }
-    if (action === "delete")
-      useRecipeStore.setState({
-        currentRecipe: {},
-        message: "Das Rezept wurde gelöscht",
-      });
-    if (action === "delete" && recipe.imageName !== null) {
-      deleteImage(recipe.imageName);
-    }
+    updateRecipeStore(action, recipes, recipe);
+    updateImages(action, file, recipe, oldFileName);
   } catch (error) {
     console.error("Fehler beim Speichern der Rezepte:", error);
-    if (action === "add") {
-      useRecipeStore.setState({
-        message: "Das Rezept konnte nicht gespeichert werden.",
-      });
-    }
-    if (action === "update") {
-      useRecipeStore.setState({
-        message: "Das geänderte Rezept konnte nicht gespeichert werden.",
-      });
-    }
-    if (action === "delete") {
-      useRecipeStore.setState({
-        message: "Das Rezept konnte nicht gelöscht werden.",
-      });
-    }
+    useRecipeStore.setState({
+      message:
+        action === "delete"
+          ? "Das Rezept konnte nicht gelöscht werden."
+          : "Das Rezept konnte nicht gespeichert werden",
+    });
   }
 };
 
@@ -109,7 +111,7 @@ const deleteImage = async (name) => {
 const useRecipeStore = create((get, set) => ({
   recipes: [],
   message: "",
-  currentRecipe: {},
+  currentRecipe: null,
   loadRecipes: async () => {
     getRecipes();
   },

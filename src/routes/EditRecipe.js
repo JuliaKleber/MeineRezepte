@@ -6,7 +6,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { AiFillDelete } from "react-icons/ai";
 import ShowImage from "../components/ShowImage";
 import ImageUpload from "../components/addRecipe/ImageUpload";
-import AddKeywordsStep from "../components/addRecipe/AddKeywordsStep";
+import AddKeywordsStep from "../components/shared/AddKeywordsStep";
 
 const steps = {
   editRecipeStep: "editRecipeStep",
@@ -81,23 +81,18 @@ const EditRecipe = () => {
       .replace(/é/g, "e")
       .replace(/è/g, "e")
       .replace(/\s+/g, "-");
-    const imageName = `${recipeName}.jpg`;
-    return { ...updatedRecipe, imageName: imageName };
+    return `${recipeName}.jpg`;
   };
 
   // The original recipe is exchanged with the updated one in the json file
   const replaceRecipeInDatabase = async () => {
-    let savedRecipe = {...updatedRecipe};
+    let savedRecipe = { ...updatedRecipe };
     if (uploadedFile !== null) {
-      savedRecipe = setImageName();
-      setUpdatedRecipe(savedRecipe);
+      savedRecipe = { ...updatedRecipe, imageName: setImageName() };
     }
     const index = recipes.indexOf(currentRecipe);
     const updatedRecipes = [...recipes, savedRecipe];
     updatedRecipes.splice(index, 1);
-    console.log('old recipe:', currentRecipe.imageName);
-    console.log('new recipe:', savedRecipe.imageName);
-    console.log(uploadedFile);
     await updateRecipe(
       updatedRecipes,
       savedRecipe,
@@ -105,6 +100,135 @@ const EditRecipe = () => {
       currentRecipe.imageName
     );
   };
+
+  const recipeNameField = (
+    <input
+      value={updatedRecipe.name}
+      onChange={(event) =>
+        setUpdatedRecipe({
+          ...updatedRecipe,
+          name: event.target.value,
+        })
+      }
+      className="card"
+      id="recipe-name"
+    />
+  );
+
+  const numberOfPersonsEntry = (
+    <div className="align-center primary-color">
+      Zutaten für
+      <input
+        id="number-of-persons"
+        value={updatedRecipe.numberOfPersons}
+        onChange={(e) =>
+          setUpdatedRecipe({
+            ...updatedRecipe,
+            numberOfPersons: e.target.value,
+          })
+        }
+      />
+      {updatedRecipe.numberOfPersons === 1 ||
+      updatedRecipe.numberOfPersons === "1"
+        ? "Person"
+        : "Personen"}
+    </div>
+  );
+
+  const amountsAndIngredientsTable = (
+    <table>
+      <tbody>
+        {updatedRecipe.ingredients.map((ingredient, index) => (
+          <tr key={index}>
+            <td className="align-right">
+              <input
+                className="amounts-fields"
+                value={updatedRecipe.amounts[index]}
+                onChange={(event) => handleAmountUpdate(event, index)}
+              ></input>
+            </td>
+            <td>
+              <input
+                className="ingredients-fields"
+                value={ingredient}
+                onChange={(event) => handleIngredientUpdate(event, index)}
+              ></input>
+            </td>
+            <td>
+              <AiFillDelete
+                className="delete-button primary-color"
+                onClick={(e) => handleDeleteIngredient(index)}
+              />
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+
+  const addIngredientButton = (
+    <div className="align-center">
+      <button
+        className="reverse-colored-button"
+        id="add-ingredient-button"
+        onClick={handleAddIngredient}
+      >
+        <FontAwesomeIcon icon={faPlus} /> Zutat
+      </button>
+    </div>
+  );
+
+  const recipeDescriptionField = (
+    <textarea
+      className="card"
+      id="description"
+      value={updatedRecipe.description}
+      onChange={(event) =>
+        setUpdatedRecipe({
+          ...updatedRecipe,
+          description: event.target.value,
+        })
+      }
+    ></textarea>
+  );
+
+  const navigationButtonsPageOne = (
+    <div className="container">
+      <button onClick={() => setCurrentStep(steps.editKeywordsStep)}>
+        Schlagwörter ändern
+      </button>
+      <span>
+        <Link
+          to={`/recipes/${currentRecipe.name
+            .replaceAll(" ", "-")
+            .toLowerCase()}`}
+        >
+          <button>zurück</button>
+        </Link>
+        <Link
+          to={`/recipes/${currentRecipe.name
+            .replaceAll(" ", "-")
+            .toLowerCase()}`}
+          onClick={() => replaceRecipeInDatabase()}
+        >
+          <button>speichern</button>
+        </Link>
+      </span>
+    </div>
+  );
+
+  const navigationButtonsPageTwo = (
+    <div className="container-vertical-alignment margin-top">
+      <button onClick={() => setCurrentStep(steps.editRecipeStep)}>
+        zurück
+      </button>
+      <Link
+        to={`/recipes/${currentRecipe.name.replaceAll(" ", "-").toLowerCase()}`}
+      >
+        <button onClick={() => replaceRecipeInDatabase()}>speichern</button>
+      </Link>
+    </div>
+  );
 
   return (
     <div className="edit-recipe">
@@ -116,112 +240,16 @@ const EditRecipe = () => {
             setUploadedFile={setUploadedFile}
             text="Klicke, um das aktuelle Bild zu ersetzen."
           />
-          <input
-            value={updatedRecipe.name}
-            onChange={(event) =>
-              setUpdatedRecipe({
-                ...updatedRecipe,
-                name: event.target.value,
-              })
-            }
-            className="card"
-            id="recipe-name"
-          />
+          {recipeNameField}
 
           <div className="card">
-            <div className="align-center primary-color">
-              Zutaten für
-              <input
-                id="number-of-persons"
-                value={updatedRecipe.numberOfPersons}
-                onChange={(e) =>
-                  setUpdatedRecipe({
-                    ...updatedRecipe,
-                    numberOfPersons: e.target.value,
-                  })
-                }
-              />
-              {updatedRecipe.numberOfPersons === 1 ||
-              updatedRecipe.numberOfPersons === "1"
-                ? "Person"
-                : "Personen"}
-            </div>
-
-            <table>
-              <tbody>
-                {updatedRecipe.ingredients.map((ingredient, index) => (
-                  <tr key={index}>
-                    <td className="align-right">
-                      <input
-                        className="amounts-fields"
-                        value={updatedRecipe.amounts[index]}
-                        onChange={(event) => handleAmountUpdate(event, index)}
-                      ></input>
-                    </td>
-                    <td>
-                      <input
-                        className="ingredients-fields"
-                        value={ingredient}
-                        onChange={(event) =>
-                          handleIngredientUpdate(event, index)
-                        }
-                      ></input>
-                    </td>
-                    <td>
-                      <AiFillDelete
-                        className="delete-button primary-color"
-                        onClick={(e) => handleDeleteIngredient(index)}
-                      />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            <div className="align-center">
-              <button
-                className="reverse-colored-button"
-                id="add-ingredient-button"
-                onClick={handleAddIngredient}
-              >
-                <FontAwesomeIcon icon={faPlus} /> Zutat
-              </button>
-            </div>
+            {numberOfPersonsEntry}
+            {amountsAndIngredientsTable}
+            {addIngredientButton}
           </div>
 
-          <textarea
-            className="card"
-            id="description"
-            value={updatedRecipe.description}
-            onChange={(event) =>
-              setUpdatedRecipe({
-                ...updatedRecipe,
-                description: event.target.value,
-              })
-            }
-          ></textarea>
-
-          <div className="container">
-            <button onClick={() => setCurrentStep(steps.editKeywordsStep)}>
-              Schlagwörter ändern
-            </button>
-            <span>
-              {currentRecipe && (
-                <Link to={`/recipes/${currentRecipe.name
-                  .replaceAll(" ", "-")
-                  .toLowerCase()}`}>
-                  <button>zurück</button>
-                </Link>
-              )}
-              <Link to={`/recipes/${currentRecipe.name
-                  .replaceAll(" ", "-")
-                  .toLowerCase()}`}
-                onClick={() => replaceRecipeInDatabase()}
-              >
-                <button>speichern</button>
-              </Link>
-            </span>
-          </div>
+          {recipeDescriptionField}
+          {navigationButtonsPageOne}
         </div>
       )}
 
@@ -231,20 +259,7 @@ const EditRecipe = () => {
             recipe={updatedRecipe}
             setRecipe={setUpdatedRecipe}
           />
-          <div className="container-vertical-alignment margin-top">
-            <button onClick={() => setCurrentStep(steps.editRecipeStep)}>
-              zurück
-            </button>
-            <Link
-              to={`/recipes/${currentRecipe.name
-                .replaceAll(" ", "-")
-                .toLowerCase()}`}
-            >
-              <button onClick={() => replaceRecipeInDatabase()}>
-                speichern
-              </button>
-            </Link>
-          </div>
+          {navigationButtonsPageTwo}
         </div>
       )}
     </div>

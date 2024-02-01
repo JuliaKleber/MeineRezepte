@@ -2,7 +2,7 @@ import React from "react";
 import useRecipeStore from "../stores/recipeStore";
 import RecipeCard from "../components/RecipeCard";
 
-// Die Rezepte des aktuellen Monats werden angezeigt.
+// The recipes that are in season are shown.
 const RecipesOfMonth = () => {
   const { recipes } = useRecipeStore();
   const currentMonth =

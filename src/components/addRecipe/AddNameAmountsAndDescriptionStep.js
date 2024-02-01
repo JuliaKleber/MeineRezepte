@@ -12,7 +12,7 @@ const AddNameAmountsAndDescriptionStep = ({
   uploadedFile,
   setUploadedFile,
   recipeNameFieldStyle,
-  output
+  validationOutput
 }) => {
 
   const handleAddIngredient = () => {
@@ -30,7 +30,7 @@ const AddNameAmountsAndDescriptionStep = ({
         setRecipe={setRecipe}
         recipeNameFieldRef={recipeNameFieldRef}
         recipeNameFieldStyle={recipeNameFieldStyle}
-        output={output}
+        validationOutput={validationOutput}
       />
       <AmountsAndIngredientsFields recipe={recipe} setRecipe={setRecipe} />
       <AddIngredientButton
