@@ -39,6 +39,11 @@ const saveRecipes = async (recipes, action, recipe, file, oldFileName) => {
       if (recipe.imageName) await deleteImage(oldFileName);
       saveImage(file, recipe.imageName);
     }
+    if (action === "delete")
+      useRecipeStore.setState({
+        currentRecipe: {},
+        message: "Das Rezept wurde gelöscht",
+      });
     if (action === "delete" && recipe.imageName !== null) {
       deleteImage(recipe.imageName);
     }
@@ -71,8 +76,8 @@ const saveImage = async (file, name) => {
     body: formData,
   })
     .then((response) => response.text())
-    .then((imageMessage) => {
-      console.log("Bild hochgeladen:", imageMessage);
+    .then((message) => {
+      console.log(message);
     })
     .catch((imageError) => {
       console.error("Fehler beim Speichern des Bildes:", imageError);
@@ -86,7 +91,7 @@ const deleteImage = async (name) => {
   })
     .then((response) => response.text())
     .then((message) => {
-      console.log("Bild gelöscht:", message);
+      console.log(message);
     })
     .catch((error) => {
       console.error("Fehler beim Löschen des Bildes:", error);

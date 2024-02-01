@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useRecipeStore from "../stores/recipeStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -15,11 +15,7 @@ const steps = {
 
 const EditRecipe = () => {
   const { recipes, currentRecipe, updateRecipe } = useRecipeStore();
-  const recipeName = useParams().recipeName;
-  const recipe = recipes.filter(
-    (rec) => rec.name.replaceAll(" ", "-").toLowerCase() === recipeName
-  )[0];
-  const [updatedRecipe, setUpdatedRecipe] = useState(recipe);
+  const [updatedRecipe, setUpdatedRecipe] = useState(currentRecipe);
   const [currentStep, setCurrentStep] = useState(steps.editRecipeStep);
   const [uploadedFile, setUploadedFile] = useState(null);
 
@@ -30,7 +26,8 @@ const EditRecipe = () => {
     setUpdatedRecipe({ ...updatedRecipe, amounts: [...amounts] });
   };
 
-  // An ingredient is updated, the corresponding keyword is removed and a new keyword which equals the ingredient is added
+  // An ingredient is updated, the corresponding keyword is removed
+  // and a new keyword which equals the ingredient is added
   const handleIngredientUpdate = (event, index) => {
     const ingredients = [...updatedRecipe.ingredients];
     const keywords = updatedRecipe.keywords.filter(
@@ -95,14 +92,14 @@ const EditRecipe = () => {
       savedRecipe = setImageName();
       setUpdatedRecipe(savedRecipe);
     }
-    const index = recipes.indexOf(recipe);
+    const index = recipes.indexOf(currentRecipe);
     const updatedRecipes = [...recipes, savedRecipe];
     updatedRecipes.splice(index, 1);
     await updateRecipe(
       updatedRecipes,
       savedRecipe,
       uploadedFile,
-      recipe.imageName
+      currentRecipe.imageName
     );
   };
 
@@ -110,7 +107,7 @@ const EditRecipe = () => {
     <div className="edit-recipe">
       {currentStep === steps.editRecipeStep && (
         <div className="container">
-          <ShowImage recipe={recipe} className="card" />
+          <ShowImage recipe={currentRecipe} className="card" />
           <ImageUpload
             uploadedFile={uploadedFile}
             setUploadedFile={setUploadedFile}
@@ -206,21 +203,16 @@ const EditRecipe = () => {
               Schlagwörter ändern
             </button>
             <span>
-              {recipe && (
-                <Link to={`/recipes/${recipeName}`}>
+              {currentRecipe && (
+                <Link to={`/recipes/${currentRecipe.name
+                  .replaceAll(" ", "-")
+                  .toLowerCase()}`}>
                   <button>zurück</button>
                 </Link>
               )}
-              <Link
-                to={
-                  recipes.includes(updatedRecipe)
-                    ? `/recipes/${updatedRecipe.name
-                        .replaceAll(" ", "-")
-                        .toLowerCase()}`
-                    : `/recipes/${updatedRecipe.name
-                        .replaceAll(" ", "-")
-                        .toLowerCase()}`
-                }
+              <Link to={`/recipes/${currentRecipe.name
+                  .replaceAll(" ", "-")
+                  .toLowerCase()}`}
                 onClick={() => replaceRecipeInDatabase()}
               >
                 <button>speichern</button>
