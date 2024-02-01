@@ -4,8 +4,7 @@ import useRecipeStore from "../stores/recipeStore";
 import AddIngredientsStep from "../components/addRecipe/AddIngredientsStep";
 import AddNameAmountsAndDescriptionStep from "../components/addRecipe/AddNameAmountsAndDescriptionStep";
 import AddKeywordsStep from "../components/addRecipe/AddKeywordsStep";
-import RecipeAdded from "../components/addRecipe/RecipeAdded";
-import RecipeNotAdded from "../components/addRecipe/RecipeNotAdded";
+import AfterRecipeSave from "../components/addRecipe/AfterRecipeSave";
 import Navigation from "../components/addRecipe/Navigation";
 
 const steps = {
@@ -14,7 +13,6 @@ const steps = {
   addNameAmountsDescriptionStep: "addNameAmountsDescriptionStep",
   addKeywordsStep: "addKeywordsStep",
   recipeAddedStep: "recipeAddedStep",
-  recipeNotAddedStep: "recipeNotAddedStep",
 };
 
 const stepsArray = [
@@ -23,7 +21,6 @@ const stepsArray = [
   steps.addNameAmountsDescriptionStep,
   steps.addKeywordsStep,
   steps.recipeAddedStep,
-  steps.recipeNotAddedStep,
 ];
 
 const AddRecipe = () => {
@@ -135,10 +132,7 @@ const AddRecipe = () => {
         <AddKeywordsStep recipe={recipe} setRecipe={setRecipe} />
       )}
       {currentStep === steps.recipeAddedStep && (
-        <RecipeAdded onChangeStep={handleCurrentStep} setRecipe={setRecipe} />
-      )}
-      {currentStep === steps.recipeNotAddedStep && (
-        <RecipeNotAdded onChangeStep={handleCurrentStep} />
+        <AfterRecipeSave onChangeStep={handleCurrentStep} setRecipe={setRecipe} setUploadedFile={setUploadedFile} />
       )}
       {stepsBeforeSave && (
         <Navigation

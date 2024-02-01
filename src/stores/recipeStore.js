@@ -29,12 +29,20 @@ const saveRecipes = async (recipes, action, recipe, file, oldFileName) => {
     console.log("Antwort vom Server:", message);
     useRecipeStore.setState({
       recipes: recipes,
-      message: "Die Rezeptdaten wurden aktualisiert.",
-      currentRecipe: recipe,
     });
+    if (action === "add")
+      useRecipeStore.setState({
+        currentRecipe: recipe,
+        message: "Das Rezept wurde der Datenbank hinzugefügt.",
+      });
     if (action === "add" && file) {
       saveImage(file, recipe.imageName);
     }
+    if (action === "update")
+    useRecipeStore.setState({
+      currentRecipe: recipe,
+      message: "Das Rezept wurde erfolgreich geändert.",
+    });
     if (action === "update" && file !== null) {
       if (recipe.imageName) await deleteImage(oldFileName);
       saveImage(file, recipe.imageName);
