@@ -2,7 +2,7 @@
 
 This is a React application for managing and searching recipes.
 
-Given that this app is intended for my personal use only, user authentication has been omitted for simplicity. Instead of using a regular database, I store the recipes in a simple JSON file. This means the recipes don't have unique IDs.
+Since this app is intended for my personal use only, user authentication has been omitted for simplicity. Instead of using a regular database, I store the recipes in a simple JSON file. This means the recipes don't have unique IDs.
 
 ## Features
 
