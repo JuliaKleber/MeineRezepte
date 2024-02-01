@@ -132,7 +132,11 @@ const AddRecipe = () => {
         <AddKeywordsStep recipe={recipe} setRecipe={setRecipe} />
       )}
       {currentStep === steps.recipeAddedStep && (
-        <AfterRecipeSave onChangeStep={handleCurrentStep} setRecipe={setRecipe} setUploadedFile={setUploadedFile} />
+        <AfterRecipeSave
+          onChangeStep={handleCurrentStep}
+          setRecipe={setRecipe}
+          setUploadedFile={setUploadedFile}
+        />
       )}
       {stepsBeforeSave && (
         <Navigation

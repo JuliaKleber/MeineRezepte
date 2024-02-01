@@ -4,6 +4,7 @@ import useRecipeStore from "../../stores/recipeStore";
 
 const AfterRecipeSave = ({ onChangeStep, setRecipe, setUploadedFile }) => {
   const { currentRecipe, message } = useRecipeStore();
+
   const enterNewRecipe = () => {
     setRecipe({
       name: "",
@@ -19,7 +20,7 @@ const AfterRecipeSave = ({ onChangeStep, setRecipe, setUploadedFile }) => {
   };
 
   const resetMessage = () => {
-    useRecipeStore.setState({ message: '' });
+    useRecipeStore.setState({ message: "" });
   };
 
   return (

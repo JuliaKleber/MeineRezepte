@@ -45,7 +45,7 @@ const ShowImage = ({ recipe }) => {
       {!loaded && <ImagePlaceholder />}
       <img
         src={image}
-        alt={loaded && "recipe picture"}
+        alt={loaded ? "recipe picture": undefined}
         className="recipe-image"
         onLoad={() => setLoaded(true)}
       />
