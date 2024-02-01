@@ -2,12 +2,15 @@
 
 This is a React application for managing and searching recipes.
 
+Given that this app is intended for my personal use only, user authentication has been omitted for simplicity. Instead of using a regular database, I store the recipes in a simple JSON file. This means the recipes don't have unique IDs.
+
 ## Features
 
 - Add new recipes
 - Search for recipes by keywords
 - View selected recipes
 - Update and delete recipes
+- Upon login, the recipes of the month, i.e. recipes where the ingredients are in season, are shown
 
 ## Built with
 
