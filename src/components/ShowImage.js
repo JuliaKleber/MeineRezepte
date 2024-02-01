@@ -3,6 +3,8 @@ import pastaImage from "../images/pasta.jpg";
 import potatoeImage from "../images/potatoe.jpg";
 import lasagneImage from "../images/lasagne.jpg";
 import pestoImage from "../images/pesto.jpg";
+import curryImage from '../images/curry.jpg';
+import riceImage from '../images/rice.jpg';
 import homeImage from "../images/home.jpg";
 
 const ShowImage = ({ recipe }) => {
@@ -23,7 +25,11 @@ const ShowImage = ({ recipe }) => {
       setImage(pastaImage);
     } else if (recipe.keywords.includes("Kartoffeln")) {
       setImage(potatoeImage);
-    } else {
+    } else if (recipe.keywords.includes("Curry")) {
+      setImage(curryImage);
+    } else if (recipe.keywords.includes("Reis")) {
+      setImage(riceImage);
+    }else {
       setImage(homeImage);
     }
   };
