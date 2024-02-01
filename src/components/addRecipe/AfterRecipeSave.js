@@ -2,10 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useRecipeStore from "../../stores/recipeStore";
 
-const AfterRecipeSave = ({ onChangeStep, setRecipe, setUploadedFile, isNameUnique }) => {
+const AfterRecipeSave = ({
+  onChangeStep,
+  setRecipe,
+  setUploadedFile,
+  isNameUnique,
+}) => {
   const { currentRecipe, message } = useRecipeStore();
-  console.log(currentRecipe);
-  
+
+  // The AddRecipe component is being reset so that a new recipe can be added.
   const enterNewRecipe = () => {
     setRecipe({
       name: "",
@@ -21,13 +26,13 @@ const AfterRecipeSave = ({ onChangeStep, setRecipe, setUploadedFile, isNameUniqu
     onChangeStep("addIngredientsStep");
   };
 
+  // The message in the recipeStore is set to ''.
   const resetMessage = () => {
     useRecipeStore.setState({ message: "" });
   };
 
-  return (
-    <div className="container">
-      <p className="align-center">{message}</p>
+  const navigationButtons = (
+    <>
       {currentRecipe && (
         <button onClick={() => enterNewRecipe()}>
           weiteres Rezept hinzufügen
@@ -47,6 +52,13 @@ const AfterRecipeSave = ({ onChangeStep, setRecipe, setUploadedFile, isNameUniqu
           <button>zum Startmenü</button>
         </Link>
       </div>
+    </>
+  );
+
+  return (
+    <div className="container">
+      <p className="align-center">{message}</p>
+      {navigationButtons}
     </div>
   );
 };

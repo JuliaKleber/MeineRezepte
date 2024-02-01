@@ -15,6 +15,7 @@ const AddNameAmountsAndDescriptionStep = ({
   validationOutput
 }) => {
 
+  // A new ingredient with the name '' and the amount '' is added to the recipe.
   const handleAddIngredient = () => {
     setRecipe({
       ...recipe,

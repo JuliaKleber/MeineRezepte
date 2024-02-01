@@ -1,6 +1,6 @@
 import React from 'react';
 const DescriptionField = ({ recipe, setRecipe }) => {
-  const handleDescriptionChange = (updatedDescription) => {
+  const editDescription = (updatedDescription) => {
     setRecipe({ ...recipe, description: updatedDescription });
   };
 
@@ -9,7 +9,7 @@ const DescriptionField = ({ recipe, setRecipe }) => {
       <p>Zubereitung</p>
       <textarea
         value={recipe.description}
-        onChange={(e) => handleDescriptionChange(e.target.value)}
+        onChange={(e) => editDescription(e.target.value)}
         id='description-entry-field'
       ></textarea>
     </div>

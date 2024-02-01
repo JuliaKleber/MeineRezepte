@@ -1,6 +1,6 @@
 import React from 'react';
 
-const KeywordCategories = ({
+const CategoryKeywords = ({
   recipe,
   setRecipe,
   keywordCategory,
@@ -56,4 +56,4 @@ const KeywordCategories = ({
   );
 }
 
-export default KeywordCategories;
+export default CategoryKeywords;

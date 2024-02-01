@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const IngredientGroup = ({
   recipe,
@@ -20,14 +20,12 @@ const IngredientGroup = ({
 
   const handleIngredientClick = (index) => {
     areIngredientsSelected[index]
-      ? onRemoveIngredient(choiceOfIngredients[index])
-      : onAddIngredient(choiceOfIngredients[index]);
+      ? removeIngredient(choiceOfIngredients[index])
+      : addIngredient(choiceOfIngredients[index]);
   };
 
-  // Zutat wird der Liste der Zutaten hinzugefügt.
-  // Die Zutat wird ebenso zu der Liste der Schlagwörter hinzugefügt,
-  // damit das Rezept aufgrund der Zutaten gefunden werden kann
-  const onAddIngredient = (ingredient) => {
+  // Ingredient is added to the ingredients array and the keywords array of the recipe
+  const addIngredient = (ingredient) => {
     setRecipe({
       ...recipe,
       ingredients: [...recipe.ingredients, ingredient],
@@ -35,21 +33,29 @@ const IngredientGroup = ({
     });
   };
 
-  // Zutat wird aus der Liste der Zutaten und Keywords entfernt
-  const onRemoveIngredient = (ingredient) => {
+  // Ingredient is removed from the ingredients array.
+  // The ingredient is also removed from the keywords array.
+  // If the amounts array is not empty, the corresponding amount is also removed.
+  const removeIngredient = (ingredient) => {
+    const index = recipe.ingredients.indexOf(ingredient);
     const updatedIngredients = recipe.ingredients.filter(
       (item) => item !== ingredient
     );
     const updatedKeywords = recipe.keywords.filter(
       (item) => item !== ingredient
     );
+    const updatedAmounts = [...recipe.amounts];
+    if (recipe.amounts.length > 0) updatedAmounts.splice(index, 1);
     setRecipe({
       ...recipe,
+      amounts: updatedAmounts,
       ingredients: updatedIngredients,
       keywords: updatedKeywords,
     });
   };
 
+  // If an ingredient has been selected by the user or if all ingredients of a
+  // category are shown, the button which belongs to the the ingredient is shown
   const ingredients = choiceOfIngredients.map(
     (ingredient, index) =>
       (areIngredientsSelected[index] || isCompleteListShown) && (
@@ -57,7 +63,9 @@ const IngredientGroup = ({
           key={ingredient}
           onClick={() => handleIngredientClick(index)}
           className={
-            areIngredientsSelected[index] ? 'is-chosen' : 'is-not-chosen white-black-button'
+            areIngredientsSelected[index]
+              ? "is-chosen"
+              : "is-not-chosen white-black-button"
           }
         >
           {ingredient}
@@ -66,9 +74,9 @@ const IngredientGroup = ({
   );
 
   return (
-    <div className='ingredient-group container'>
+    <div className="ingredient-group container">
       <button
-        className='ingredient-category-button white-black-button'
+        className="ingredient-category-button white-black-button"
         onClick={handleCategoryClick}
       >
         {ingredientsCategory}
@@ -76,6 +84,6 @@ const IngredientGroup = ({
       {ingredients}
     </div>
   );
-}
+};
 
 export default IngredientGroup;

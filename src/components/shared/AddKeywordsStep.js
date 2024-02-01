@@ -1,29 +1,29 @@
 import React from "react";
-import KeywordCategories from "../addRecipe/KeywordCategories";
+import CategoryKeywords from "./CategoryKeywords";
 
 const AddKeywordsStep = ({ recipe, setRecipe }) => {
   return (
     <div className="container add-keywords-step">
       <div className="width">
-        <KeywordCategories
+        <CategoryKeywords
           keywordCategory="Ernährungsform"
           listOfKeywords={["vegan", "vegetarisch"]}
           recipe={recipe}
           setRecipe={setRecipe}
         />
-        <KeywordCategories
+        <CategoryKeywords
           keywordCategory="Zeitbedarf"
           listOfKeywords={["schnell", "mittel", "aufwändig"]}
           recipe={recipe}
           setRecipe={setRecipe}
         />
-        <KeywordCategories
+        <CategoryKeywords
           keywordCategory="Jahreszeit"
           listOfKeywords={["Frühling", "Sommer", "Herbst", "Winter"]}
           recipe={recipe}
           setRecipe={setRecipe}
         />
-        <KeywordCategories
+        <CategoryKeywords
           keywordCategory="Saison der Hauptzutaten"
           listOfKeywords={[
             "Januar",
@@ -42,13 +42,13 @@ const AddKeywordsStep = ({ recipe, setRecipe }) => {
           recipe={recipe}
           setRecipe={setRecipe}
         />
-        <KeywordCategories
+        <CategoryKeywords
           keywordCategory="Stil"
           listOfKeywords={["asiatisch", "deutsch", "italienisch", "TexMex"]}
           recipe={recipe}
           setRecipe={setRecipe}
         />
-        <KeywordCategories
+        <CategoryKeywords
           keywordCategory="Kategorie"
           listOfKeywords={["Curry", "Pesto", "Lasagne", "Nudeln", "Reis"]}
           recipe={recipe}

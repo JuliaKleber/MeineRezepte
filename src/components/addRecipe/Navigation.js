@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const Navigation = ({
   onChangeStep,
@@ -6,8 +6,9 @@ const Navigation = ({
   indexOfPreviousStep,
   indexOfNextStep,
 }) => {
+  // Handles the back and forth navigation within the AddRecipe component.
   const navigation = (
-    <span className='container-vertical-alignment'>
+    <span className="container-vertical-alignment">
       <button onClick={() => onChangeStep(steps[indexOfPreviousStep])}>
         zurück
       </button>
@@ -22,6 +23,6 @@ const Navigation = ({
   );
 
   return navigation;
-}
+};
 
 export default Navigation;
