@@ -10,7 +10,7 @@ Since this app is intended for my personal use only, user authentication has bee
 - Search for recipes by keywords
 - View selected recipes
 - Update and delete recipes
-- Upon login, the recipes of the month, i.e. recipes where the ingredients are in season, are shown
+- Upon start of the app, the recipes of the month, i.e. recipes where the ingredients are in season, are shown
 
 ## Built with
 
