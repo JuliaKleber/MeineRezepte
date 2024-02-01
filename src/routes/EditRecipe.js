@@ -7,7 +7,6 @@ import { AiFillDelete } from "react-icons/ai";
 import ShowImage from "../components/ShowImage";
 import ImageUpload from "../components/addRecipe/ImageUpload";
 import AddKeywordsStep from "../components/addRecipe/AddKeywordsStep";
-import { saveRecipes, deleteImage, saveImage } from "../AJAX/apiCalls";
 
 const steps = {
   editRecipeStep: "editRecipeStep",
@@ -15,11 +14,11 @@ const steps = {
 };
 
 const EditRecipe = () => {
-  const { recipes } = useRecipeStore();
+  const { recipes, currentRecipe, updateRecipe } = useRecipeStore();
   const recipeName = useParams().recipeName;
   const recipe = recipes.filter(
     (rec) => rec.name.replaceAll(" ", "-").toLowerCase() === recipeName
-    )[0];
+  )[0];
   const [updatedRecipe, setUpdatedRecipe] = useState(recipe);
   const [currentStep, setCurrentStep] = useState(steps.editRecipeStep);
   const [uploadedFile, setUploadedFile] = useState(null);
@@ -91,29 +90,27 @@ const EditRecipe = () => {
 
   // The original recipe is exchanged with the updated one in the json file
   const replaceRecipeInDatabase = async () => {
-    try {
-      let savedRecipe = updatedRecipe;
-      if (uploadedFile !== null) {
-        savedRecipe = setImageName();
-      }
-      const index = recipes.indexOf(recipe);
-      const updatedRecipes = [...recipes, savedRecipe];
-      updatedRecipes.splice(index, 1);
-      await saveRecipes(updatedRecipes);
-      if (uploadedFile !== null) {
-        if (recipe.imageName) await deleteImage(recipe.imageName);
-        saveImage(uploadedFile, savedRecipe.imageName);
-      }
-    } catch (error) {
-      console.error("Fehler beim Aktualisieren des Rezepts", error);
+    let savedRecipe = updatedRecipe;
+    if (uploadedFile !== null) {
+      savedRecipe = setImageName();
+      setUpdatedRecipe(savedRecipe);
     }
+    const index = recipes.indexOf(recipe);
+    const updatedRecipes = [...recipes, savedRecipe];
+    updatedRecipes.splice(index, 1);
+    await updateRecipe(
+      updatedRecipes,
+      savedRecipe,
+      uploadedFile,
+      recipe.imageName
+    );
   };
 
   return (
     <div className="edit-recipe">
       {currentStep === steps.editRecipeStep && (
         <div className="container">
-          {recipe && <ShowImage recipe={recipe} className="card" />}
+          <ShowImage recipe={recipe} className="card" />
           <ImageUpload
             uploadedFile={uploadedFile}
             setUploadedFile={setUploadedFile}
@@ -210,9 +207,7 @@ const EditRecipe = () => {
             </button>
             <span>
               {recipe && (
-                <Link
-                  to={`/recipes/${recipeName}`}
-                >
+                <Link to={`/recipes/${recipeName}`}>
                   <button>zurück</button>
                 </Link>
               )}
@@ -222,12 +217,13 @@ const EditRecipe = () => {
                     ? `/recipes/${updatedRecipe.name
                         .replaceAll(" ", "-")
                         .toLowerCase()}`
-                    : `/recipes/${recipeName}`
+                    : `/recipes/${updatedRecipe.name
+                        .replaceAll(" ", "-")
+                        .toLowerCase()}`
                 }
+                onClick={() => replaceRecipeInDatabase()}
               >
-                <button onClick={() => replaceRecipeInDatabase()}>
-                  speichern
-                </button>
+                <button>speichern</button>
               </Link>
             </span>
           </div>
@@ -245,7 +241,7 @@ const EditRecipe = () => {
               zurück
             </button>
             <Link
-              to={`/recipes/${updatedRecipe.name
+              to={`/recipes/${currentRecipe.name
                 .replaceAll(" ", "-")
                 .toLowerCase()}`}
             >

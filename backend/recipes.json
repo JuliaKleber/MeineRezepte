@@ -824,7 +824,7 @@
     "imageName": null
   },
   {
-    "name": "aaaaaaa",
+    "name": "ccccccccccc",
     "numberOfPersons": 1,
     "amounts": [
       "",
@@ -834,11 +834,12 @@
       "Brot",
       "Kartoffeln"
     ],
-    "description": "",
+    "description": "aaaaaa",
     "keywords": [
       "Brot",
-      "Kartoffeln"
+      "Kartoffeln",
+      "Februar"
     ],
-    "imageName": null
+    "imageName": "aaaaaaaaaaaaa.jpg"
   }
 ]

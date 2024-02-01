@@ -7,7 +7,6 @@ import AddKeywordsStep from "../components/addRecipe/AddKeywordsStep";
 import RecipeAdded from "../components/addRecipe/RecipeAdded";
 import RecipeNotAdded from "../components/addRecipe/RecipeNotAdded";
 import Navigation from "../components/addRecipe/Navigation";
-import { saveRecipes, saveImage } from "../AJAX/apiCalls";
 
 const steps = {
   homeStep: "homeStep",
@@ -30,7 +29,7 @@ const stepsArray = [
 const AddRecipe = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(steps.addIngredientsStep);
-  const { recipes } = useRecipeStore();
+  const { recipes, addRecipe } = useRecipeStore();
   const [recipe, setRecipe] = useState({
     name: "",
     numberOfPersons: 1,
@@ -112,18 +111,8 @@ const AddRecipe = () => {
       const imageName = `${recipeName}.jpg`;
       newRecipe = { ...newRecipe, imageName: imageName };
     }
-    try {
-      const updatedRecipes = [...recipes, newRecipe];
-      saveRecipes(updatedRecipes);
-      if (uploadedFile) {
-        saveImage(uploadedFile, newRecipe.imageName);
-      }
-      useRecipeStore.setState({ recipes: updatedRecipes });
-      setCurrentStep(steps.recipeAddedStep);
-    } catch (error) {
-      setCurrentStep(steps.recipeNotAddedStep);
-      console.error("Fehler beim Speichern des Rezepts", error);
-    }
+    addRecipe(recipes, newRecipe, uploadedFile);
+    setCurrentStep(steps.recipeAddedStep);
   };
 
   return (

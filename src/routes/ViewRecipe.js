@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useRecipeStore from "../stores/recipeStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -7,8 +7,8 @@ import ShowIngredients from "../components/ShowIngredients";
 import ShowRecipeDescription from "../components/ShowRecipeDescription";
 
 const ViewRecipe = () => {
-  const { recipes } = useRecipeStore();
-  const recipeName = useParams().recipeName;
+  const { recipes, currentRecipe } = useRecipeStore();
+  const recipeName = currentRecipe.name
   const recipe = recipes.filter(
     (rec) => rec.name.replaceAll(" ", "-").toLowerCase() === recipeName
   )[0];
