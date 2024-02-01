@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { AiFillDelete } from "react-icons/ai";
 import ShowImage from "../components/ShowImage";
-import ImageUpload from "../components/addRecipe/ImageUpload";
+import ImageUpload from "../components/shared/ImageUpload";
 import AddKeywordsStep from "../components/shared/AddKeywordsStep";
 
 const steps = {

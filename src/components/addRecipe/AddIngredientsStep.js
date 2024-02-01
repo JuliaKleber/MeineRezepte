@@ -18,8 +18,9 @@ const AddIngredientsStep = ({ recipe, setRecipe }) => {
           "Lasagneplatten",
           "Spaghetti",
           "Nudeln",
-          "Reis",
+          "Spätzle",
           "Dinkelreis",
+          "Reis",
           "Risottoreis",
         ]}
       />

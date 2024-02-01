@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import useRecipeStore from "../stores/recipeStore";
 import RecipeCard from "../components/RecipeCard";
 
-
-const Search = ({ onRecipeSelection, searchTerm = '' }) => {
+const Search = ({ onRecipeSelection, searchTerm = "" }) => {
   const { recipes } = useRecipeStore();
   const [contentSearchField, setContentSearchField] = useState(searchTerm);
   const [recipesFound, setRecipesFound] = useState([]);

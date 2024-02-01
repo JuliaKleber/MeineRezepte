@@ -49,7 +49,7 @@ const AfterRecipeSave = ({
           </Link>
         )}
         <Link to="/">
-          <button>zum Startmenü</button>
+          <button onClick={() => resetMessage()}>zum Startmenü</button>
         </Link>
       </div>
     </>
@@ -57,7 +57,7 @@ const AfterRecipeSave = ({
 
   return (
     <div className="container">
-      <p className="align-center">{message}</p>
+      <p className="align-center message">{message}</p>
       {navigationButtons}
     </div>
   );

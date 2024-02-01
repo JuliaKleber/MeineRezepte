@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Outlet } from 'react-router-dom';
-import useRecipeStore from '../stores/recipeStore';
+import { Outlet } from "react-router-dom";
+import useRecipeStore from "../stores/recipeStore";
 import Navbar from "../components/Navbar";
 
 const Root = () => {

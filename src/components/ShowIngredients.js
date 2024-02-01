@@ -13,18 +13,17 @@ const ShowIngredients = ({ recipe }) => {
       ? (multiplier = parseFloat(multiplier))
       : (multiplier = parseInt(multiplier));
     return multiplier;
-  }
+  };
 
   // The amounts needed are calculated based on the number of persons.
   const calculateAmounts = (multiplier) => {
     setNumberOfPersons(multiplier);
     multiplier = parseMultiplier(multiplier);
     if (!isNaN(multiplier)) {
-      const newAmounts = [];
-      for (let i = 0; i < recipe.amounts.length; i++) {
+      const newAmounts = recipe.amounts.map((amount) => {
         let jointAmounts = "";
-        if (recipe.amounts[i] !== "") {
-          const splitAmounts = recipe.amounts[i].split(" ");
+        if (amount !== "") {
+          const splitAmounts = amount.split(" ");
           if (splitAmounts[0].includes(",")) {
             const amountValue = parseFloat(splitAmounts[0].replace(",", "."));
             const newAmountValue =
@@ -47,13 +46,14 @@ const ShowIngredients = ({ recipe }) => {
             }
           } else if (isNaN(Number(splitAmounts[0]))) {
           } else {
-            splitAmounts[0] =
-              (parseInt(splitAmounts[0]) * multiplier) / recipe.numberOfPersons;
+            splitAmounts[0] = String(
+              (parseInt(splitAmounts[0]) * multiplier) / recipe.numberOfPersons
+            ).replace(".", ",");
           }
           jointAmounts = splitAmounts.join(" ");
         }
-        newAmounts.push(jointAmounts);
-      }
+        return jointAmounts;
+      });
       setScaledAmounts(newAmounts);
     }
   };

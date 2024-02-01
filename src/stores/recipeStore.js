@@ -6,8 +6,7 @@ const getRecipes = async () => {
     const response = await fetch("http://localhost:3001/loadRecipes");
     if (response.status === 200) {
       const data = await response.json();
-      useRecipeStore.setState({ recipes: data });
-      return data;
+      useRecipeStore.setState({ recipes: data.recipes });
     } else {
       console.error("Fehler beim Abrufen der Rezepte.");
     }
@@ -17,7 +16,7 @@ const getRecipes = async () => {
 };
 
 // The recipe store is updated after the recipes are written to the json file
-const updateRecipeStore = (action, recipes, recipe) => {
+const updateRecipeStoreSuccess = (action, recipes, recipe) => {
   useRecipeStore.setState({
     recipes: recipes,
   });
@@ -34,8 +33,20 @@ const updateRecipeStore = (action, recipes, recipe) => {
   if (action === "delete")
     useRecipeStore.setState({
       currentRecipe: null,
-      message: "",
+      message: "Das Rezept wurde erfolgreich gelöscht.",
     });
+};
+
+// The recipe store is updated when the recipes could not be written to the json file
+const updateRecipeStoreFailure = (action) => {
+  useRecipeStore.setState({
+    message:
+      action === "delete"
+        ? "Das Rezept konnte nicht gelöscht werden."
+        : "Das Rezept konnte nicht gespeichert werden",
+  });
+  if (action === "add" || action === "delete")
+    useRecipeStore.setState({ currentRecipe: null });
 };
 
 // The images are updated.
@@ -60,20 +71,15 @@ const saveRecipes = async (recipes, action, recipe, file, oldFileName) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(recipes),
+      body: JSON.stringify({ recipes: recipes }),
     });
     const message = await response.text();
     console.log("Antwort vom Server:", message);
-    updateRecipeStore(action, recipes, recipe);
+    updateRecipeStoreSuccess(action, recipes, recipe);
     updateImages(action, file, recipe, oldFileName);
   } catch (error) {
     console.error("Fehler beim Speichern der Rezepte:", error);
-    useRecipeStore.setState({
-      message:
-        action === "delete"
-          ? "Das Rezept konnte nicht gelöscht werden."
-          : "Das Rezept konnte nicht gespeichert werden",
-    });
+    updateRecipeStoreFailure(action);
   }
 };
 

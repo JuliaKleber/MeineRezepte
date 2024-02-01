@@ -10,6 +10,7 @@ const RecipeCard = ({ recipe }) => {
       onClick={() =>
         useRecipeStore.setState({
           currentRecipe: recipe,
+          message: null,
         })
       }
       to={`/recipes/${recipe.name.replaceAll(" ", "-").toLowerCase()}`}

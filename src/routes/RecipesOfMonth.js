@@ -4,7 +4,7 @@ import RecipeCard from "../components/RecipeCard";
 
 // The recipes that are in season are shown.
 const RecipesOfMonth = () => {
-  const { recipes } = useRecipeStore();
+  const { recipes, message } = useRecipeStore();
   const currentMonth =
     new Intl.DateTimeFormat("de-DE", { month: "long" }).format(new Date()) ||
     "undefined";
@@ -20,6 +20,7 @@ const RecipesOfMonth = () => {
 
   return (
     <div className="container">
+      <div className="message">{message}</div>
       <h2>{header}</h2>
       <div className="container-flex-wrap">
         {recipesOfMonth.map((recipe, index) => (
