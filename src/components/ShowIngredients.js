@@ -9,50 +9,30 @@ const ShowIngredients = ({ recipe }) => {
   // The number of persons, i.e. the multiplier is parsed to a number.
   const parseMultiplier = (multiplier) => {
     multiplier = String(multiplier).replace(",", ".");
-    multiplier.includes(".")
-      ? (multiplier = parseFloat(multiplier))
-      : (multiplier = parseInt(multiplier));
-    return multiplier;
+    return multiplier.includes(".")
+      ? parseFloat(multiplier)
+      : parseInt(multiplier);
+  };
+
+  // The number part of the amount is converted to the new number
+  const convertNumber = (amount, multiplier) => {
+    return String(
+      (parseFloat(amount) * multiplier) / recipe.numberOfPersons
+    ).replace(".", ",");
   };
 
   // The amounts needed are calculated based on the number of persons.
-  const calculateAmounts = (multiplier) => {
-    setNumberOfPersons(multiplier);
-    multiplier = parseMultiplier(multiplier);
+  const calculateAmounts = (multiplierString) => {
+    setNumberOfPersons(multiplierString);
+    const multiplier = parseMultiplier(multiplierString);
     if (!isNaN(multiplier)) {
       const newAmounts = recipe.amounts.map((amount) => {
-        let jointAmounts = "";
-        if (amount !== "") {
-          const splitAmounts = amount.split(" ");
-          if (splitAmounts[0].includes(",")) {
-            const amountValue = parseFloat(splitAmounts[0].replace(",", "."));
-            const newAmountValue =
-              (amountValue * multiplier) / recipe.numberOfPersons;
-            splitAmounts[0] = newAmountValue.toFixed(1).replace(".", ",");
-            if (splitAmounts[0].includes(",0")) {
-              const index = splitAmounts[0].indexOf(",");
-              splitAmounts[0] = splitAmounts[0].slice(0, index);
-            }
-          } else if (multiplier % 1 !== 0) {
-            splitAmounts[0] = String(
-              (
-                (parseInt(splitAmounts[0]) * multiplier) /
-                recipe.numberOfPersons
-              ).toFixed(1)
-            ).replace(".", ",");
-            if (splitAmounts[0].includes(",0")) {
-              const index = splitAmounts[0].indexOf(",");
-              splitAmounts[0] = splitAmounts[0].slice(0, index);
-            }
-          } else if (isNaN(Number(splitAmounts[0]))) {
-          } else {
-            splitAmounts[0] = String(
-              (parseInt(splitAmounts[0]) * multiplier) / recipe.numberOfPersons
-            ).replace(".", ",");
-          }
-          jointAmounts = splitAmounts.join(" ");
-        }
-        return jointAmounts;
+        if (amount === "") return "";
+        const [number, ...rest] = amount.split(" ");
+        const parsedNumber = number.replace(',', '.');
+        const convertedNumber = isNaN(Number(parsedNumber)) ? number :
+          convertNumber(parsedNumber, multiplier);
+        return `${convertedNumber} ${rest.join(" ")}`;
       });
       setScaledAmounts(newAmounts);
     }
