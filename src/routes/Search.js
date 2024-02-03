@@ -1,110 +1,32 @@
 import React, { useState, useEffect } from "react";
 import useRecipeStore from "../stores/recipeStore";
+import Fuse from "fuse.js";
 import RecipeCard from "../components/RecipeCard";
 
-const Search = ({ onRecipeSelection, searchTerm = "" }) => {
-  const { recipes } = useRecipeStore();
+const Search = () => {
+  const { recipes, searchTerm } = useRecipeStore();
   const [contentSearchField, setContentSearchField] = useState(searchTerm);
   const [recipesFound, setRecipesFound] = useState([]);
-  const [output, setOutput] = useState("");
-  const [searchResultsAreShown, setSearchResultsAreShown] = useState(false);
+  const fuseOptions = {
+    isCaseSentitive: false,
+    threshold: 0.2,
+    keys: ["keywords", "name"],
+  };
+  const searcher = new Fuse(recipes, fuseOptions);
 
-  // Wenn die Komponente montiert wird,
-  // wird automatisch die Suche mit 'searchTerm' durchgeführt,
-  // falls dieser nicht leer ist. Ansonsten werden alle Rezepte angezeigt.
+  // When the component is mounted, the search is performed with the searchTerm.
+  // If the searchTerm is empty, all recipes are shown.
   useEffect(() => {
-    if (searchTerm === "fromHome") {
-      setContentSearchField("");
-    } else if (searchTerm !== "") {
-      handleSearch();
-    } else if (searchTerm === "") {
-      handleSearch();
-    }
+    setRecipesFound(searcher.search(searchTerm).map((e) => e.item));
+    if (searchTerm === "") setRecipesFound(recipes);
   }, []);
 
-  // Die Benutzereingabe im Suchfeld wird ausgelesen.
-  const handleSearchFieldInput = (event) => {
-    setContentSearchField(event.target.value);
-  };
-
-  // Die Schlagwörter und der Rezeptname werden auf
-  // Übereinstimmungen mit den Suchbegriffen untersucht
-  const handleSearch = () => {
-    setOutput("Keine Rezepte gefunden");
-    // Fehlermeldung, wenn ',', '+', '&' enthalten sind.
-    if (
-      contentSearchField.includes(",") ||
-      contentSearchField.includes("+") ||
-      contentSearchField.includes("&")
-    ) {
-      setOutput('Als Verknüpfungen sind nur "und" oder "oder" erlaubt.');
-      // Die Suche kann durch die Eingabe löschen gelöscht werden.
-    } else if (contentSearchField === "löschen") {
-      setRecipesFound([]);
-      setContentSearchField("");
-      setOutput("");
-      // Zeigt alle Rezepte an.
-    } else if (contentSearchField === "" || contentSearchField === "*") {
-      setRecipesFound([...recipes]);
-    }
-    // Zeigt alle Rezepte an, in deren Schlagwörtern
-    // mindestens eins der eingegebenen Wörter enthalten ist.
-    else if (contentSearchField.includes("oder")) {
-      const searchWords = contentSearchField
-        .split("oder")
-        .map((word) => word.trim());
-      const newRecipesFound = [];
-      searchWords.forEach((word) => {
-        recipes.forEach((recipe) => {
-          if (recipe.keywords.includes(word)) {
-            newRecipesFound.push(recipe);
-          }
-          if (recipe.name.toLowerCase().includes(contentSearchField)) {
-            newRecipesFound.push(recipe);
-          }
-        });
-      });
-      const setOfRecipes = new Set(newRecipesFound);
-      setRecipesFound([...setOfRecipes]);
-    }
-    // Zeigt nur Rezepte an, wenn alle Wörter aus der Suche
-    // in den Schlagwörtern enthalten sind.
-    else if (contentSearchField.includes("und")) {
-      const searchWords = contentSearchField
-        .split("und")
-        .map((word) => word.trim());
-      const newRecipesFound = [];
-      recipes.forEach((recipe) => {
-        let recipeSelected = true;
-        searchWords.forEach((word) => {
-          if (!recipe.keywords.includes(word)) {
-            recipeSelected = false;
-          }
-        });
-        if (recipeSelected) {
-          newRecipesFound.push(recipe);
-        }
-      });
-      setRecipesFound(newRecipesFound);
-    } else {
-      const newRecipesFound = [];
-      recipes.forEach((recipe) => {
-        if (recipe.keywords.includes(contentSearchField)) {
-          newRecipesFound.push(recipe);
-        }
-        if (recipe.name.toLowerCase().includes(contentSearchField)) {
-          newRecipesFound.push(recipe);
-        }
-      });
-      const recipesSet = new Set(newRecipesFound);
-      setRecipesFound([...recipesSet]);
-    }
-    setSearchResultsAreShown(true);
-  };
-
-  // Die Anzeige des ausgewählten Rezepts wird vorbereitet.
-  const handleRecipeSelection = (recipe) => {
-    onRecipeSelection(recipe, contentSearchField);
+  // When the search button is clicked, the search is performed and the searchTerm
+  // is saved in the store so that when the component is mounted again, the last search
+  // is automatically shown.
+  const search = () => {
+    setRecipesFound(searcher.search(contentSearchField).map((e) => e.item));
+    useRecipeStore.setState({ searchTerm: contentSearchField });
   };
 
   return (
@@ -112,28 +34,27 @@ const Search = ({ onRecipeSelection, searchTerm = "" }) => {
       <span>
         <input
           type="text"
-          onChange={handleSearchFieldInput}
+          onChange={(event) => setContentSearchField(event.target.value)}
           value={contentSearchField}
           id="search-field"
         />
-        <button onClick={handleSearch}>Suchen</button>
+        <button onClick={() => search()}>Suchen</button>
       </span>
 
       <div className="container-flex-wrap">
-        {searchResultsAreShown &&
-          recipesFound &&
+        {recipesFound &&
           recipesFound.map((recipe, index) => (
             <RecipeCard
               recipe={recipe}
               key={index}
-              onRecipeSelection={handleRecipeSelection}
+              onClick={() => useRecipeStore.setState({ currentRecipe: recipe })}
             />
           ))}
       </div>
 
-      {searchResultsAreShown && recipesFound.length === 0 && (
+      {recipesFound.length === 0 && (
         <div>
-          <p className="center">{output}</p>
+          <p className="center">Keine Rezepte gefunden</p>
         </div>
       )}
     </div>

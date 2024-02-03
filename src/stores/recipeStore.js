@@ -116,8 +116,9 @@ const deleteImage = async (name) => {
 
 const useRecipeStore = create((get, set) => ({
   recipes: [],
-  message: "",
   currentRecipe: null,
+  message: "",
+  searchTerm: "",
   loadRecipes: async () => {
     getRecipes();
   },
