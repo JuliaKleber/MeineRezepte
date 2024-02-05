@@ -17,7 +17,7 @@ const RecipesOfMonth = () => {
       return recipe.keywords.includes(currentMonth);
     });
   }
-
+  
   return (
     <div className="container">
       <div className="message">{message}</div>

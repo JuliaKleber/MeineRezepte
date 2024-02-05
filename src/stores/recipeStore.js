@@ -119,6 +119,7 @@ const useRecipeStore = create((get, set) => ({
   currentRecipe: null,
   message: "",
   searchTerm: "",
+  lastLocation: "/",
   loadRecipes: async () => {
     getRecipes();
   },

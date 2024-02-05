@@ -16,7 +16,9 @@ const Navbar = () => {
           <NavLink
             to="/"
             className={({ isActive }) => (isActive ? "active" : "not-active")}
-            onClick={() => useRecipeStore.setState({ message: "" })}
+            onClick={() =>
+              useRecipeStore.setState({ message: "", lastLocation: "/" })
+            }
           >
             <FontAwesomeIcon icon={faHouse} />
           </NavLink>
@@ -25,7 +27,9 @@ const Navbar = () => {
           <NavLink
             to="/search"
             className={({ isActive }) => (isActive ? "active" : "not-active")}
-            onClick={() => useRecipeStore.setState({ message: "" })}
+            onClick={() =>
+              useRecipeStore.setState({ message: "", lastLocation: "/search" })
+            }
           >
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </NavLink>

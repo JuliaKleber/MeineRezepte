@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import useRecipeStore from "../stores/recipeStore";
 import AddIngredientsStep from "../components/addRecipe/AddIngredientsStep";
@@ -26,7 +26,7 @@ const stepsArray = [
 const AddRecipe = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(steps.addIngredientsStep);
-  const { recipes, addRecipe } = useRecipeStore();
+  const { recipes, addRecipe, lastLocation } = useRecipeStore();
   const [recipe, setRecipe] = useState({
     name: "",
     numberOfPersons: 1,
@@ -77,7 +77,7 @@ const AddRecipe = () => {
   const handleCurrentStep = (nextStep) => {
     checkNameforUniqueness();
     if (nextStep === steps.homeStep) {
-      navigate("/");
+      navigate(lastLocation);
     } else if (
       (recipe.name === "" || !isNameUnique) &&
       nextStep === steps.addKeywordsStep

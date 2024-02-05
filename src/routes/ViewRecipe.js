@@ -5,7 +5,7 @@ import ShowIngredients from "../components/ShowIngredients";
 import ShowRecipeDescription from "../components/ShowRecipeDescription";
 
 const ViewRecipe = () => {
-  const { currentRecipe } = useRecipeStore();
+  const { currentRecipe, lastLocation } = useRecipeStore();
   const { message } = useRecipeStore();
 
   const editAndDeleteButtons = (
@@ -40,7 +40,7 @@ const ViewRecipe = () => {
         <ShowRecipeDescription recipeDescription={currentRecipe.description} />
         {editAndDeleteButtons}
       </div>
-      <Link to={"/"}>
+      <Link to={lastLocation}>
         <button onClick={() => useRecipeStore.setState({ message: "" })}>
           zurück
         </button>
