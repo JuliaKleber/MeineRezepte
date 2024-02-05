@@ -28,7 +28,7 @@ const AfterRecipeSave = ({
 
   // The message in the recipeStore is set to ''.
   const resetMessage = () => {
-    useRecipeStore.setState({ message: "" });
+    useRecipeStore.setState({ message: "", lastLocation: '/add' });
   };
 
   const navigationButtons = (
