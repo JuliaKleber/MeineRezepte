@@ -8,18 +8,21 @@ const Search = () => {
   const [contentSearchField, setContentSearchField] = useState(searchTerm);
   const [recipesFound, setRecipesFound] = useState([]);
   const fuseOptions = {
-    isCaseSentitive: false,
     threshold: 0.2,
-    keys: ["keywords", "name"],
+    useExtendedSearch: true,
+    keys: ["keywords", "name", "description"],
   };
   const searcher = new Fuse(recipes, fuseOptions);
 
   // When the component is mounted, the search is performed with the searchTerm.
   // If the searchTerm is empty, all recipes are shown.
   useEffect(() => {
-    setRecipesFound(searcher.search(searchTerm).map((e) => e.item));
-    if (searchTerm === "") setRecipesFound(recipes);
-  }, []);
+    searchTerm === ""
+      ? setRecipesFound(recipes)
+      : setRecipesFound(
+          searcher.search(searchTerm).map((result) => result.item)
+        );
+  }, [recipes]);
 
   // When the search button is clicked, the search is performed and the searchTerm
   // is saved in the store so that when the component is mounted again, the last search
