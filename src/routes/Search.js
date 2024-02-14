@@ -5,7 +5,9 @@ import RecipeCard from "../components/RecipeCard";
 
 const Search = () => {
   const recipes = useRecipeStore((state) => state.recipes);
+  const setCurrentRecipe = useRecipeStore((state) => state.setCurrentRecipe);
   const searchTerm = useRecipeStore((state) => state.searchTerm);
+  const setSearchTerm = useRecipeStore((state) => state.setSearchTerm);
   const [contentSearchField, setContentSearchField] = useState(searchTerm);
   const [recipesFound, setRecipesFound] = useState([]);
   const fuseOptions = {
@@ -30,7 +32,7 @@ const Search = () => {
   // is automatically shown.
   const search = () => {
     setRecipesFound(searcher.search(contentSearchField).map((e) => e.item));
-    useRecipeStore.setState({ searchTerm: contentSearchField });
+    setSearchTerm(contentSearchField);
   };
 
   return (
@@ -51,7 +53,7 @@ const Search = () => {
             <RecipeCard
               recipe={recipe}
               key={index}
-              onClick={() => useRecipeStore.setState({ currentRecipe: recipe })}
+              onClick={() => setCurrentRecipe(recipe)}
             />
           ))}
       </div>

@@ -11,6 +11,7 @@ const AfterRecipeSave = ({
   const currentRecipe = useRecipeStore((state) => state.currentRecipe);
   const message = useRecipeStore((state) => state.message);
   const resetMessage = useRecipeStore((state) => state.resetMessage);
+  const setLastLocation = useRecipeStore((state) => state.lastLocation);
 
   // The AddRecipe component is being reset so that a new recipe can be added.
   const enterNewRecipe = () => {
@@ -31,7 +32,7 @@ const AfterRecipeSave = ({
   // The message in the recipeStore is set to ''.
   const redirect = () => {
     resetMessage();
-    useRecipeStore.setState({ lastLocation: '/add' });
+    setLastLocation('/add');
   };
 
   const navigationButtons = (

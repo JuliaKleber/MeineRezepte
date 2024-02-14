@@ -5,9 +5,10 @@ import RecipeImage from "./RecipeImage";
 
 const RecipeCard = ({ recipe }) => {
   const resetMessage = useRecipeStore((state) => state.resetMessage);
+  const setCurrentRecipe = useRecipeStore((state) => state.setCurrentRecipe);
 
   const selectRecipe = () => {
-    useRecipeStore.setState({ currentRecipe: recipe });
+    setCurrentRecipe(recipe);
     resetMessage();
   };
 

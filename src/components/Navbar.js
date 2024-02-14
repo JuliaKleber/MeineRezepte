@@ -10,10 +10,11 @@ import {
 
 const Navbar = () => {
   const resetMessage = useRecipeStore((state) => state.resetMessage);
+  const setLastLocation = useRecipeStore((state) => state.setLastLocation);
 
   const updateRecipeStore = (location) => {
     resetMessage();
-    useRecipeStore.setState({ lastLocation: location });
+    setLastLocation(location);
   };
 
   return (
