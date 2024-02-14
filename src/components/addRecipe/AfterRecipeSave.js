@@ -8,7 +8,9 @@ const AfterRecipeSave = ({
   setUploadedFile,
   isNameUnique,
 }) => {
-  const { currentRecipe, message } = useRecipeStore();
+  const currentRecipe = useRecipeStore((state) => state.currentRecipe);
+  const message = useRecipeStore((state) => state.message);
+  const resetMessage = useRecipeStore((state) => state.resetMessage);
 
   // The AddRecipe component is being reset so that a new recipe can be added.
   const enterNewRecipe = () => {
@@ -27,8 +29,9 @@ const AfterRecipeSave = ({
   };
 
   // The message in the recipeStore is set to ''.
-  const resetMessage = () => {
-    useRecipeStore.setState({ message: "", lastLocation: '/add' });
+  const redirect = () => {
+    resetMessage();
+    useRecipeStore.setState({ lastLocation: '/add' });
   };
 
   const navigationButtons = (
@@ -45,11 +48,11 @@ const AfterRecipeSave = ({
               .replaceAll(" ", "-")
               .toLowerCase()}`}
           >
-            <button onClick={() => resetMessage()}>zum Rezept</button>
+            <button onClick={() => redirect()}>zum Rezept</button>
           </Link>
         )}
         <Link to="/">
-          <button onClick={() => resetMessage()}>zum Startmenü</button>
+          <button onClick={() => redirect()}>zum Startmenü</button>
         </Link>
       </div>
     </>

@@ -9,6 +9,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
+  const resetMessage = useRecipeStore((state) => state.resetMessage);
+
+  const updateRecipeStore = (location) => {
+    resetMessage();
+    useRecipeStore.setState({ lastLocation: location });
+  };
+
   return (
     <nav className="navbar">
       <ul>
@@ -16,9 +23,7 @@ const Navbar = () => {
           <NavLink
             to="/"
             className={({ isActive }) => (isActive ? "active" : "not-active")}
-            onClick={() =>
-              useRecipeStore.setState({ message: "", lastLocation: "/" })
-            }
+            onClick={() => updateRecipeStore("/")}
           >
             <FontAwesomeIcon icon={faHouse} />
           </NavLink>
@@ -27,9 +32,7 @@ const Navbar = () => {
           <NavLink
             to="/search"
             className={({ isActive }) => (isActive ? "active" : "not-active")}
-            onClick={() =>
-              useRecipeStore.setState({ message: "", lastLocation: "/search" })
-            }
+            onClick={() => updateRecipeStore("/search")}
           >
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </NavLink>
@@ -38,7 +41,7 @@ const Navbar = () => {
           <NavLink
             to="/add"
             className={({ isActive }) => (isActive ? "active" : "not-active")}
-            onClick={() => useRecipeStore.setState({ message: "" })}
+            onClick={() => resetMessage()}
           >
             <FontAwesomeIcon icon={faPlus} />
           </NavLink>

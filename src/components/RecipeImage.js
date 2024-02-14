@@ -7,7 +7,7 @@ import curryImage from "../images/curry.jpg";
 import riceImage from "../images/rice.jpg";
 import homeImage from "../images/home.jpg";
 
-const ShowImage = ({ recipe }) => {
+const RecipeImage = ({ recipe }) => {
   const [loaded, setLoaded] = useState(false);
   const [image, setImage] = useState(null);
   const imagePath = `http://localhost:3001/getFile/${recipe.imageName}`;
@@ -63,4 +63,4 @@ const ShowImage = ({ recipe }) => {
   );
 };
 
-export default ShowImage;
+export default RecipeImage;

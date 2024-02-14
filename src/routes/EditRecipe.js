@@ -4,7 +4,7 @@ import useRecipeStore from "../stores/recipeStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { AiFillDelete } from "react-icons/ai";
-import ShowImage from "../components/ShowImage";
+import RecipeImage from "../components/RecipeImage";
 import ImageUpload from "../components/shared/ImageUpload";
 import AddKeywordsStep from "../components/shared/AddKeywordsStep";
 
@@ -14,7 +14,9 @@ const steps = {
 };
 
 const EditRecipe = () => {
-  const { recipes, currentRecipe, updateRecipe } = useRecipeStore();
+  const recipes = useRecipeStore((state) => state.recipes);
+  const currentRecipe = useRecipeStore((state) => state.currentRecipe);
+  const updateRecipe = useRecipeStore((state) => state.updateRecipe);
   const [updatedRecipe, setUpdatedRecipe] = useState(currentRecipe);
   const [currentStep, setCurrentStep] = useState(steps.editRecipeStep);
   const [uploadedFile, setUploadedFile] = useState(null);
@@ -234,7 +236,7 @@ const EditRecipe = () => {
     <div className="edit-recipe">
       {currentStep === steps.editRecipeStep && (
         <div className="container">
-          <ShowImage recipe={currentRecipe} className="card" />
+          <RecipeImage recipe={currentRecipe} className="card" />
           <ImageUpload
             uploadedFile={uploadedFile}
             setUploadedFile={setUploadedFile}

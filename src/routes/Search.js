@@ -4,7 +4,8 @@ import Fuse from "fuse.js";
 import RecipeCard from "../components/RecipeCard";
 
 const Search = () => {
-  const { recipes, searchTerm } = useRecipeStore();
+  const recipes = useRecipeStore((state) => state.recipes);
+  const searchTerm = useRecipeStore((state) => state.searchTerm);
   const [contentSearchField, setContentSearchField] = useState(searchTerm);
   const [recipesFound, setRecipesFound] = useState([]);
   const fuseOptions = {

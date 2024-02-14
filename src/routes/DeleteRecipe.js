@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import useRecipeStore from "../stores/recipeStore";
 
 const DeleteRecipe = () => {
-  const { recipes, currentRecipe, deleteRecipe } = useRecipeStore();
+  const recipes = useRecipeStore((state) => state.recipes);
+  const currentRecipe = useRecipeStore((state) => state.currentRecipe);
+  const deleteRecipe = useRecipeStore((state) => state.deleteRecipe);
 
   // Recipe is deleted from the json file.
   // If there is a picture for the recipe, it is also deleted.

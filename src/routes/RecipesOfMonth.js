@@ -4,7 +4,8 @@ import RecipeCard from "../components/RecipeCard";
 
 // The recipes that are in season are shown.
 const RecipesOfMonth = () => {
-  const { recipes, message } = useRecipeStore();
+  const recipes = useRecipeStore((state) => state.recipes);
+  const message = useRecipeStore((state) => state.message);
   const currentMonth =
     new Intl.DateTimeFormat("de-DE", { month: "long" }).format(new Date()) ||
     "undefined";
@@ -17,7 +18,7 @@ const RecipesOfMonth = () => {
       return recipe.keywords.includes(currentMonth);
     });
   }
-  
+
   return (
     <div className="container">
       <div className="message">{message}</div>

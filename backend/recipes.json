@@ -1164,44 +1164,6 @@
         "Sonstiges"
       ],
       "imageName": null
-    },
-    {
-      "name": "hhhhhhhh",
-      "numberOfPersons": 1,
-      "amounts": [
-        "",
-        ""
-      ],
-      "ingredients": [
-        "Blumenkohl",
-        "Brokkoli"
-      ],
-      "description": "",
-      "keywords": [
-        "Blumenkohl",
-        "Brokkoli"
-      ],
-      "imageName": null
-    },
-    {
-      "name": "iiiii",
-      "numberOfPersons": 1,
-      "amounts": [
-        "",
-        ""
-      ],
-      "ingredients": [
-        "Basilikum",
-        "Chilischoten"
-      ],
-      "description": "",
-      "keywords": [
-        "Basilikum",
-        "Chilischoten",
-        "Juni",
-        "September"
-      ],
-      "imageName": null
     }
   ]
 }

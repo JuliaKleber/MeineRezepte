@@ -4,7 +4,7 @@ import useRecipeStore from "../stores/recipeStore";
 import Navbar from "../components/Navbar";
 
 const Root = () => {
-  const { loadRecipes } = useRecipeStore();
+  const loadRecipes = useRecipeStore((state) => state.loadRecipes);
 
   // The recipes are loaded when the app is startet.
   useEffect(() => {

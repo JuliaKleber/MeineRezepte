@@ -136,6 +136,9 @@ const useRecipeStore = create((get, set) => ({
     updatedRecipes.splice(index, 1);
     saveRecipes(updatedRecipes, "delete", recipe);
   },
+  resetMessage: () => {
+    set({ message: "" });
+  },
 }));
 
 export default useRecipeStore;

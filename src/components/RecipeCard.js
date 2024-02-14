@@ -1,21 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import useRecipeStore from "../stores/recipeStore";
-import ShowImage from "./ShowImage";
+import RecipeImage from "./RecipeImage";
 
 const RecipeCard = ({ recipe }) => {
+  const resetMessage = useRecipeStore((state) => state.resetMessage);
+
+  const selectRecipe = () => {
+    useRecipeStore.setState({ currentRecipe: recipe });
+    resetMessage();
+  };
+
   return (
     <Link
       className="container card recipe-card align-center"
-      onClick={() =>
-        useRecipeStore.setState({
-          currentRecipe: recipe,
-          message: null,
-        })
-      }
+      onClick={() => selectRecipe()}
       to={`/recipes/${recipe.name.replaceAll(" ", "-").toLowerCase()}`}
     >
-      <ShowImage recipe={recipe} />
+      <RecipeImage recipe={recipe} />
       <span className="recipe-card-text">{recipe.name}</span>
     </Link>
   );

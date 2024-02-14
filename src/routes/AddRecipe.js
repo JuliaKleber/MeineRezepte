@@ -26,7 +26,9 @@ const stepsArray = [
 const AddRecipe = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(steps.addIngredientsStep);
-  const { recipes, addRecipe, lastLocation } = useRecipeStore();
+  const recipes = useRecipeStore((state) => state.recipes);
+  const addRecipe = useRecipeStore((state) => state.addRecipe);
+  const lastLocation = useRecipeStore((state) => state.lastLocation);
   const [recipe, setRecipe] = useState({
     name: "",
     numberOfPersons: 1,
