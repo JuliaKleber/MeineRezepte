@@ -36,6 +36,7 @@ async function loadRecipeById(recipeId) {
 
 async function saveRecipe(recipe) {
   try {
+    console.log('Rezept im Service:', recipe);
     const recipesCollection = client.db('MeineRezepte').collection('recipes');
     await recipesCollection.insertOne(recipe);
   } catch (error) {
@@ -47,17 +48,17 @@ async function saveRecipe(recipe) {
 async function updateRecipe(recipeId, updatedRecipe) {
   try {
     const recipesCollection = client.db('MeineRezepte').collection('recipes');
-    await recipesCollection.replaceOne({ _id: mongoDB.ObjectId(recipeId) }, updatedRecipe);
+    await recipesCollection.replaceOne({ _id: new mongoDB.ObjectId(recipeId) }, updatedRecipe);
   } catch (error) {
     console.log('Fehler beim Aktualisieren des Rezepts: ', error);
     throw error;
   }
 }
 
-async function deleteRecipe(recipeId) {
+async function deleteRecipe(id) {
   try {
     const recipesCollection = client.db('MeineRezepte').collection('recipes');
-    await recipesCollection.deleteOne({ _id: mongoDB.ObjectId(recipeId) });
+    await recipesCollection.deleteOne({ _id: new mongoDB.ObjectId(id) });
   } catch (error) {
     console.log('Fehler beim Löschen des Rezepts: ', error);
     throw error;

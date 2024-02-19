@@ -13,7 +13,7 @@ const RecipesOfMonth = () => {
     currentMonth !== "undefined" ? "Rezepte des Monats" : "Meine Rezepte";
   let recipesOfMonth = recipes;
 
-  if (currentMonth !== "undefined") {
+  if (currentMonth !== "undefined" && recipes.length > 0) {
     recipesOfMonth = recipes.filter((recipe) => {
       return recipe.keywords.includes(currentMonth);
     });

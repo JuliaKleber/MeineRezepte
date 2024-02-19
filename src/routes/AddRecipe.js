@@ -132,7 +132,7 @@ const AddRecipe = () => {
     if (uploadedFile) {
       newRecipe = { ...newRecipe, imageName: createImageName(newRecipe) };
     }
-    addRecipe(recipes, newRecipe, uploadedFile);
+    addRecipe(newRecipe, uploadedFile);
     setCurrentStep(steps.recipeAddedStep);
   };
 

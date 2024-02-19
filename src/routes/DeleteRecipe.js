@@ -1,17 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import useRecipeStore from "../stores/recipeStore";
+import deleteRecipe from "../APICalls/deleteRecipe";
 
 const DeleteRecipe = () => {
-  const recipes = useRecipeStore((state) => state.recipes);
   const currentRecipe = useRecipeStore((state) => state.currentRecipe);
-  const deleteRecipe = useRecipeStore((state) => state.deleteRecipe);
   const lastLocation = useRecipeStore((state) => state.lastLocation);
 
   // Recipe is deleted from the json file.
   // If there is a picture for the recipe, it is also deleted.
   const destroyRecipe = async () => {
-    deleteRecipe(recipes, currentRecipe);
+    deleteRecipe(currentRecipe);
   };
 
   return (

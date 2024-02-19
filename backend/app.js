@@ -8,10 +8,11 @@ const PORT = 3001;
 
 const authRoutes = require('./routes/auth');
 const recipesRoutes = require('./routes/recipes');
+const recipesService = require('./services/recipesService');
 
 const corsOptions = {
   origin: ["http://localhost:3000"],
-  methods: "GET, POST, DELETE",
+  methods: "GET, POST, PATCH, DELETE",
   credentials: true,
   optionsSuccessStatus: 204,
 };
@@ -56,6 +57,13 @@ app.delete("/deleteFile/:file(*)", (req, res) => {
     }
     return res.status(200).send("Bild erfolgreich gelöscht");
   });
+});
+
+recipesService.connectToDatabase();
+
+process.on('SIGINT', () => {
+  recipesService.closeDatabaseConnection();
+  process.exit();
 });
 
 app.listen(PORT, () => {

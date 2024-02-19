@@ -7,6 +7,7 @@ import { AiFillDelete } from "react-icons/ai";
 import RecipeImage from "../components/RecipeImage";
 import ImageUpload from "../components/shared/ImageUpload";
 import AddKeywordsStep from "../components/shared/AddKeywordsStep";
+import updateRecipe from "../APICalls/updateRecipe";
 
 const steps = {
   editRecipeStep: "editRecipeStep",
@@ -16,7 +17,6 @@ const steps = {
 const EditRecipe = () => {
   const recipes = useRecipeStore((state) => state.recipes);
   const currentRecipe = useRecipeStore((state) => state.currentRecipe);
-  const updateRecipe = useRecipeStore((state) => state.updateRecipe);
   const [updatedRecipe, setUpdatedRecipe] = useState(currentRecipe);
   const [currentStep, setCurrentStep] = useState(steps.editRecipeStep);
   const [uploadedFile, setUploadedFile] = useState(null);
@@ -96,7 +96,6 @@ const EditRecipe = () => {
     const updatedRecipes = [...recipes, savedRecipe];
     updatedRecipes.splice(index, 1);
     await updateRecipe(
-      updatedRecipes,
       savedRecipe,
       uploadedFile,
       currentRecipe.imageName
