@@ -1,8 +1,8 @@
 // Image is saved
-export const saveImage = async (file, name) => {
+export const saveImage = async (file, recipeId) => {
   const formData = new FormData();
-  formData.append("image", file, name);
-  fetch(`http://localhost:3001/saveFile`, {
+  formData.append("image", file, recipeId + ".jpg");
+  fetch(`http://localhost:3001/recipeImages/saveFile`, {
     method: "POST",
     body: formData,
   })

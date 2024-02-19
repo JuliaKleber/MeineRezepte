@@ -29,7 +29,7 @@ const addRecipe = async (recipe, file) => {
       recipes: [...useRecipeStore.getState().recipes, recipe],
     });
     if (file) {
-      saveImage(file, recipe.imageName);
+      saveImage(file, recipe._id);
     }
   } catch (error) {
     console.error("Fehler beim Hinzufügen des Rezepts:", error);

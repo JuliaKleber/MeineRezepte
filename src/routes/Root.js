@@ -1,15 +1,13 @@
 import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import useRecipeStore from "../stores/recipeStore";
 import Navbar from "../components/Navbar";
+import getRecipes from "../APICalls/getRecipes";
 
 const Root = () => {
-  const loadRecipes = useRecipeStore((state) => state.loadRecipes);
-
   // The recipes are loaded when the app is startet.
   useEffect(() => {
-    loadRecipes();
-  }, [loadRecipes]);
+    getRecipes();
+  }, []);
 
   return (
     <div>

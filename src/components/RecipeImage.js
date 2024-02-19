@@ -10,7 +10,7 @@ import homeImage from "../images/home.jpg";
 const RecipeImage = ({ recipe }) => {
   const [loaded, setLoaded] = useState(false);
   const [image, setImage] = useState(null);
-  const imagePath = `http://localhost:3001/getFile/${recipe.imageName}`;
+  const imagePath = `http://localhost:3001/recipeImages/load/${recipe._id}`;
 
   // A placeholder is shown when the image has not yet been loaded.
   const ImagePlaceholder = () => {

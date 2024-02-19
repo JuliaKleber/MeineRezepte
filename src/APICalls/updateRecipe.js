@@ -3,7 +3,7 @@ import saveImage from "../APICalls/saveImage";
 import deleteImage from "../APICalls/deleteImage";
 
 // The recipes are saved to the json file
-const updateRecipe = async (recipe, file, oldFileName) => {
+const updateRecipe = async (recipe, file) => {
   try {
     const response = await fetch(
       `http://localhost:3001/recipes/updateRecipe/${recipe._id}`,
@@ -32,8 +32,8 @@ const updateRecipe = async (recipe, file, oldFileName) => {
         .getState()
         .recipes.map((r) => (r._id === recipe._id ? recipe : r)),
     });
-    if (file && recipe.imageName) await deleteImage(oldFileName);
-    if (file) saveImage(file, recipe.imageName);
+    if (file && recipe.imageName) await deleteImage(recipe._id);
+    if (file) saveImage(file, recipe._id);;
   } catch (error) {
     console.error("Fehler beim Aktualisieren des Rezepts:", error);
     useRecipeStore.setState({

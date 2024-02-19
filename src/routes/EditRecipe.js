@@ -95,11 +95,7 @@ const EditRecipe = () => {
     const index = recipes.indexOf(currentRecipe);
     const updatedRecipes = [...recipes, savedRecipe];
     updatedRecipes.splice(index, 1);
-    await updateRecipe(
-      savedRecipe,
-      uploadedFile,
-      currentRecipe.imageName
-    );
+    await updateRecipe(savedRecipe, uploadedFile);
   };
 
   const recipeNameField = (

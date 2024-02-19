@@ -23,7 +23,7 @@ const deleteRecipe = async (recipe) => {
         .getState()
         .recipes.filter((r) => r._id !== recipe._id),
     });
-    if (recipe.imageName !== null) deleteImage(recipe.imageName);
+    if (recipe.imageName !== null) deleteImage(recipe._id);
   } catch (error) {
     console.error("Fehler beim Speichern der Rezepte:", error);
     useRecipeStore.setState({
