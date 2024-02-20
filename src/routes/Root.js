@@ -1,19 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Login from "../components/Login";
 import getRecipes from "../APICalls/getRecipes";
 
 const Root = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
   // The recipes are loaded when the app is startet.
   useEffect(() => {
-    getRecipes();
-  }, []);
+    if (isLoggedIn) getRecipes();
+  }, [isLoggedIn]);
 
-  return (
-    <div>
+  return isLoggedIn ? (
+    <>
       <Navbar />
       <Outlet />
-    </div>
+    </>
+  ) : (
+    <Login />
   );
 };
 
