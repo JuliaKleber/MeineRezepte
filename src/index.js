@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/Root";
 import ErrorPage from "./components/ErrorPage";
+import Login from "./components/Login";
 import RecipesOfMonth from "./routes/RecipesOfMonth";
 import Search from "./routes/Search";
 import AddRecipe from "./routes/AddRecipe";
