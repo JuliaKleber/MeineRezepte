@@ -4,10 +4,7 @@ const loadImage = async (recipeId) => {
       `http://localhost:3001/recipeImages/load/${recipeId}`
     );
     const data = await response.json();
-    const imageBuffer = new Uint8Array(data.image);
-    const imageUrl = `data:image/png;base64,${btoa(
-      String.fromCharCode.apply(null, imageBuffer)
-    )}`;
+    const imageUrl = `data:image/png;base64,${data.image}`;
     return imageUrl;
   } catch (error) {
     console.error("Fehler beim Laden des Bildes: ", error);

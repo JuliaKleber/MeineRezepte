@@ -39,23 +39,21 @@ const RecipeImage = ({ recipe }) => {
       }
     };
 
-    // const fetchImage = async () => {
-    //   if (recipe.imageUploaded) {
-    //     try {
-    //       const loadedImage = await loadImage(recipe._id);
-    //       console.log(loadedImage);
-    //       setImage(loadedImage);
-    //     } catch (error) {
-    //       console.error('Error loading image:', error);
-    //       defaultImage();
-    //     }
-    //   } else {
-    //     defaultImage();
-    //   }
-    // };
+    const fetchImage = async () => {
+      if (recipe.imageUploaded) {
+        try {
+          const loadedImage = await loadImage(recipe._id);
+          setImage(loadedImage);
+        } catch (error) {
+          console.error('Das Bild konnte nicht aus der Datenbank geladen werden: ', error);
+          defaultImage();
+        }
+      } else {
+        defaultImage();
+      }
+    };
 
-    // fetchImage();
-    defaultImage();
+    fetchImage();
   }, [recipe.imageUploaded, recipe.keywords, recipe._id]);
 
   return (
