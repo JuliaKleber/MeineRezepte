@@ -5,7 +5,7 @@ import deleteImage from "./deleteImage";
 const deleteRecipe = async (recipe) => {
   try {
     const response = await fetch(
-      `http://localhost:3001/recipes/deleteRecipe/${recipe._id}`,
+      `http://localhost:3001/recipes/delete/${recipe._id}`,
       {
         method: "DELETE",
         headers: {
@@ -23,7 +23,7 @@ const deleteRecipe = async (recipe) => {
         .getState()
         .recipes.filter((r) => r._id !== recipe._id),
     });
-    if (recipe.imageName !== null) deleteImage(recipe._id);
+    if (recipe.imageUploaded) deleteImage(recipe._id);
   } catch (error) {
     console.error("Fehler beim Speichern der Rezepte:", error);
     useRecipeStore.setState({

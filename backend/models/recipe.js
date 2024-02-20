@@ -20,8 +20,8 @@ const recipeSchema = new mongoose.Schema({
   keywords: {
     type: [String],
   },
-  imageName: {
-    type: String,
+  imageUploaded: {
+    type: Boolean,
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,

@@ -6,7 +6,6 @@ const getRecipes = async () => {
     const response = await fetch("http://localhost:3001/recipes/loadRecipes");
     if (response.status === 200) {
       const data = await response.json();
-      console.log(data);
       useRecipeStore.setState({ recipes: data });
     } else {
       console.error("Fehler beim Abrufen der Rezepte.");

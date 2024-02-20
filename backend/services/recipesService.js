@@ -1,67 +1,71 @@
-const mongoDB = require('mongodb');
-const { ObjectId } = require('mongodb');
-const url = 'mongodb://root:example@localhost:27017/';
-const client = new mongoDB.MongoClient(url);
+const { ObjectId, MongoClient } = require("mongodb");
+const url = "mongodb://root:example@localhost:27017/";
+const client = new MongoClient(url);
 
 async function connectToDatabase() {
   try {
     await client.connect();
-    console.log('Verbunden mit der Datenbank');
+    console.log("Verbunden mit der Datenbank");
   } catch (error) {
-    console.log('Fehler beim Verbinden mit der Datenbank: ', error);
+    console.log("Fehler beim Verbinden mit der Datenbank: ", error);
     throw error;
   }
 }
 
 async function loadRecipes(userId) {
   try {
-    const recipesCollection = client.db('MeineRezepte').collection('recipes');
+    const recipesCollection = client.db("MeineRezepte").collection("recipes");
     const recipes = await recipesCollection.find({ userId: userId }).toArray();
     return recipes;
   } catch (error) {
-    console.log('Fehler beim Laden der Rezepte: ', error);
+    console.log("Fehler beim Laden der Rezepte: ", error);
     throw error;
   }
 }
 
 async function loadRecipeById(recipeId) {
   try {
-    const recipesCollection = client.db('MeineRezepte').collection('recipes');
-    const recipe = await recipesCollection.findOne({ _id: mongoDB.ObjectId(recipeId) });
+    const recipesCollection = client.db("MeineRezepte").collection("recipes");
+    const recipe = await recipesCollection.findOne({
+      _id: mongoDB.ObjectId(recipeId),
+    });
     return recipe;
   } catch (error) {
-    console.log('Fehler beim Laden des Rezepts: ', error);
+    console.log("Fehler beim Laden des Rezepts: ", error);
     throw error;
   }
 }
 
 async function saveRecipe(recipe) {
   try {
-    console.log('Rezept im Service:', recipe);
-    const recipesCollection = client.db('MeineRezepte').collection('recipes');
-    await recipesCollection.insertOne(recipe);
+    const recipesCollection = client.db("MeineRezepte").collection("recipes");
+    const savedRecipe = await recipesCollection.insertOne(recipe);
+    return savedRecipe.insertedId.toString();
   } catch (error) {
-    console.log('Fehler beim Speichern des Rezepts: ', error);
+    console.log("Fehler beim Speichern des Rezepts: ", error);
     throw error;
   }
 }
 
 async function updateRecipe(recipeId, updatedRecipe) {
   try {
-    const recipesCollection = client.db('MeineRezepte').collection('recipes');
-    await recipesCollection.replaceOne({ '_id': ObjectId(recipeId) }, updatedRecipe);
+    const recipesCollection = client.db("MeineRezepte").collection("recipes");
+    await recipesCollection.replaceOne(
+      { _id: new ObjectId(recipeId) },
+      updatedRecipe
+    );
   } catch (error) {
-    console.log('Fehler beim Aktualisieren des Rezepts: ', error);
+    console.log("Fehler beim Aktualisieren des Rezepts: ", error);
     throw error;
   }
 }
 
 async function deleteRecipe(id) {
   try {
-    const recipesCollection = client.db('MeineRezepte').collection('recipes');
-    await recipesCollection.deleteOne({ _id: ObjectId(id) });
+    const recipesCollection = client.db("MeineRezepte").collection("recipes");
+    await recipesCollection.deleteOne({ _id: new ObjectId(id) });
   } catch (error) {
-    console.log('Fehler beim Löschen des Rezepts: ', error);
+    console.log("Fehler beim Löschen des Rezepts: ", error);
     throw error;
   }
 }
@@ -69,9 +73,9 @@ async function deleteRecipe(id) {
 async function closeDatabaseConnection() {
   try {
     await client.close();
-    console.log('Datenbankverbindung geschlossen');
+    console.log("Datenbankverbindung geschlossen");
   } catch (error) {
-    console.log('Fehler beim Schließen der Datenbankverbindung: ', error);
+    console.log("Fehler beim Schließen der Datenbankverbindung: ", error);
     throw error;
   }
 }

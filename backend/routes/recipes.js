@@ -27,20 +27,17 @@ router.get("/loadRecipeById", async (req, res) => {
 
 router.post("/saveRecipe", async (req, res) => {
   const recipe = req.body;
-  console.log("Rezept in Route:", recipe);
   try {
-    await recipesService.saveRecipe(recipe);
-    res.status(200).send("Rezept erfolgreich gespeichert");
+    const recipeId = await recipesService.saveRecipe(recipe);
+    res.status(200).json(recipeId);
   } catch (error) {
     res.status(500).send("Fehler beim Speichern des Rezepts: ", error);
   }
 });
 
-router.post("/updateRecipe/:id", async (req, res) => {
+router.put("/update/:id", async (req, res) => {
   const recipe = req.body;
   const recipeId = req.params.id;
-  console.log(recipe);
-  console.log(recipeId);
   try {
     await recipesService.updateRecipe(recipeId, recipe);
     res.status(200).send("Rezept erfolgreich aktualisiert");
@@ -49,7 +46,7 @@ router.post("/updateRecipe/:id", async (req, res) => {
   }
 });
 
-router.delete("/deleteRecipe/:id", async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   const recipeId = req.params.id;
   try {
     await recipesService.deleteRecipe(recipeId);

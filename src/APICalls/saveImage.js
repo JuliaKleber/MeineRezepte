@@ -1,8 +1,9 @@
 // Image is saved
 export const saveImage = async (file, recipeId) => {
   const formData = new FormData();
-  formData.append("image", file, recipeId + ".jpg");
-  fetch(`http://localhost:3001/recipeImages/saveFile`, {
+  formData.append("image", file);
+  formData.append("recipeId", recipeId);
+  fetch(`http://localhost:3001/recipeImages/save`, {
     method: "POST",
     body: formData,
   })
@@ -10,8 +11,8 @@ export const saveImage = async (file, recipeId) => {
     .then((message) => {
       console.log(message);
     })
-    .catch((imageError) => {
-      console.error("Fehler beim Speichern des Bildes:", imageError);
+    .catch((error) => {
+      console.error("Fehler beim Speichern des Bildes: ", error);
     });
 };
 

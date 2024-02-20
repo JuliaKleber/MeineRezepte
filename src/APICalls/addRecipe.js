@@ -2,7 +2,6 @@ import useRecipeStore from "../stores/recipeStore";
 import saveImage from "./saveImage";
 
 const addRecipe = async (recipe, file) => {
-  console.log(recipe);
   try {
     const response = await fetch(`http://localhost:3001/recipes/saveRecipe`, {
       method: "POST",
@@ -16,20 +15,20 @@ const addRecipe = async (recipe, file) => {
         ingredients: recipe.ingredients,
         description: recipe.description,
         keywords: recipe.keywords,
-        imageName: recipe.imageName,
+        imageUploaded: recipe.imageUploaded,
       }),
     });
-    const message = await response.text();
-    console.log("Antwort vom Server:", message);
+    const recipeId = await response.json();
     useRecipeStore.setState({
       currentRecipe: recipe,
       message: "Das Rezept wurde der Datenbank hinzugefügt.",
     });
     useRecipeStore.setState({
-      recipes: [...useRecipeStore.getState().recipes, recipe],
+      currentRecipe: {...recipe, _id: recipeId},
+      recipes: [...useRecipeStore.getState().recipes, {...recipe, _id: recipeId}],
     });
     if (file) {
-      saveImage(file, recipe._id);
+      saveImage(file, recipeId);
     }
   } catch (error) {
     console.error("Fehler beim Hinzufügen des Rezepts:", error);

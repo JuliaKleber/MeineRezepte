@@ -22,7 +22,7 @@ const AfterRecipeSave = ({
       ingredients: [],
       description: "",
       keywords: [],
-      imageName: null,
+      imageUploaded: false,
     });
     setUploadedFile(null);
     isNameUnique = true;

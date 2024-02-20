@@ -6,11 +6,11 @@ import pestoImage from "../images/pesto.jpg";
 import curryImage from "../images/curry.jpg";
 import riceImage from "../images/rice.jpg";
 import homeImage from "../images/home.jpg";
+import loadImage from '../APICalls/loadImage';
 
 const RecipeImage = ({ recipe }) => {
   const [loaded, setLoaded] = useState(false);
   const [image, setImage] = useState(null);
-  const imagePath = `http://localhost:3001/recipeImages/load/${recipe._id}`;
 
   // A placeholder is shown when the image has not yet been loaded.
   const ImagePlaceholder = () => {
@@ -39,16 +39,24 @@ const RecipeImage = ({ recipe }) => {
       }
     };
 
-    if (recipe.imageName !== null) {
-      try {
-        setImage(imagePath);
-      } catch (error) {
-        defaultImage();
-      }
-    } else {
-      defaultImage();
-    }
-  }, [recipe.imageName, imagePath, recipe.keywords]);
+    // const fetchImage = async () => {
+    //   if (recipe.imageUploaded) {
+    //     try {
+    //       const loadedImage = await loadImage(recipe._id);
+    //       console.log(loadedImage);
+    //       setImage(loadedImage);
+    //     } catch (error) {
+    //       console.error('Error loading image:', error);
+    //       defaultImage();
+    //     }
+    //   } else {
+    //     defaultImage();
+    //   }
+    // };
+
+    // fetchImage();
+    defaultImage();
+  }, [recipe.imageUploaded, recipe.keywords, recipe._id]);
 
   return (
     <>

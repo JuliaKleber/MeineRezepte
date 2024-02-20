@@ -6,6 +6,7 @@ import AddNameAmountsAndDescriptionStep from "../components/addRecipe/AddNameAmo
 import AddKeywordsStep from "../components/shared/AddKeywordsStep";
 import AfterRecipeSave from "../components/addRecipe/AfterRecipeSave";
 import Navigation from "../components/addRecipe/Navigation";
+import addRecipe from "../APICalls/addRecipe";
 
 const steps = {
   homeStep: "homeStep",
@@ -27,7 +28,6 @@ const AddRecipe = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(steps.addIngredientsStep);
   const recipes = useRecipeStore((state) => state.recipes);
-  const addRecipe = useRecipeStore((state) => state.addRecipe);
   const lastLocation = useRecipeStore((state) => state.lastLocation);
   const [recipe, setRecipe] = useState({
     name: "",
@@ -36,7 +36,7 @@ const AddRecipe = () => {
     ingredients: [],
     description: "",
     keywords: [],
-    imageName: null,
+    imageUploaded: false,
   });
   const [uploadedFile, setUploadedFile] = useState(null);
   const [recipeNameFieldStyle, setRecipeNameFieldStyle] = useState({});
@@ -114,23 +114,11 @@ const AddRecipe = () => {
     return newRecipe;
   };
 
-  // If an image was provided, the image name is created.
-  const createImageName = (newRecipe) => {
-    const recipeName = newRecipe.name
-      .toLowerCase()
-      .replace(/ä/g, "ae")
-      .replace(/ö/g, "oe")
-      .replace(/ü/g, "ue")
-      .replace(/ß/g, "ss")
-      .replace(/\s+/g, "-");
-    return `${recipeName}.jpg`;
-  };
-
   // The recipe is saved to the database.
   const saveRecipe = async () => {
     let newRecipe = cleanUpAmountsArray();
     if (uploadedFile) {
-      newRecipe = { ...newRecipe, imageName: createImageName(newRecipe) };
+      newRecipe = { ...newRecipe, imageUploaded: true };
     }
     addRecipe(newRecipe, uploadedFile);
     setCurrentStep(steps.recipeAddedStep);

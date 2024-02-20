@@ -1,6 +1,6 @@
 // Image is deleted
 export const deleteImage = async (recipeId) => {
-  fetch(`http://localhost:3001/recipeImages/deleteFile/${recipeId}`, {
+  fetch(`http://localhost:3001/recipeImages/delete/${recipeId}`, {
     method: "DELETE",
   })
     .then((response) => response.text())

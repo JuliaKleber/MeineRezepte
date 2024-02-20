@@ -72,29 +72,12 @@ const EditRecipe = () => {
     });
   };
 
-  // The image name is set
-  const setImageName = () => {
-    const recipeName = updatedRecipe.name
-      .toLowerCase()
-      .replace(/ä/g, "ae")
-      .replace(/ö/g, "oe")
-      .replace(/ü/g, "ue")
-      .replace(/ß/g, "ss")
-      .replace(/é/g, "e")
-      .replace(/è/g, "e")
-      .replace(/\s+/g, "-");
-    return `${recipeName}.jpg`;
-  };
-
   // The original recipe is exchanged with the updated one in the json file
   const replaceRecipeInDatabase = async () => {
     let savedRecipe = { ...updatedRecipe };
-    if (uploadedFile !== null) {
-      savedRecipe = { ...updatedRecipe, imageName: setImageName() };
+    if (uploadedFile) {
+      savedRecipe = { ...updatedRecipe, imageUploaded: true };
     }
-    const index = recipes.indexOf(currentRecipe);
-    const updatedRecipes = [...recipes, savedRecipe];
-    updatedRecipes.splice(index, 1);
     await updateRecipe(savedRecipe, uploadedFile);
   };
 

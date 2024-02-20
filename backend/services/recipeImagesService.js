@@ -1,38 +1,39 @@
-const { mongoDB, GridFSBucket, ObjectId } = require('mongodb');
+const { MongoClient, Binary } = require('mongodb');
 const url = 'mongodb://root:example@localhost:27017/';
-const client = new mongoDB.MongoClient(url);
+const client = new MongoClient(url);
 
-async function uploadFileToGridFS(buffer, filename) {
-  const bucket = new GridFSBucket(client.db('MeineRezepte'), {
-    bucketName: 'recipeImages',
+const saveImageToMongoDB = async (buffer, recipeId) => {
+  const database = client.db('MeineRezepte');
+  const collection = database.collection('recipeImages');
+  const result = await collection.insertOne({
+    recipeId: recipeId,
+    image: new Binary(buffer),
   });
-  const uploadStream = bucket.openUploadStream(filename);
-  const fileId = uploadStream.id;
-  await new Promise((resolve, reject) => {
-    const stream = uploadStream.end(buffer);
-    stream.on('finish', resolve);
-    stream.on('error', reject);
-  });
-  return fileId;
+  return result;
 }
 
-async function loadFileFromGridFS(fileId) {
-  const bucket = new GridFSBucket(client.db('MeineRezepte'), {
-    bucketName: 'recipeImages',
-  });
-  const downloadStream = bucket.openDownloadStream(ObjectId(fileId));
-  return downloadStream.read();
+const loadImageFromMongoDB = async (recipeId) => {
+  const database = client.db('MeineRezepte');
+  const collection = database.collection('recipeImages');
+  try {
+    const result = await collection.findOne({
+      recipeId: recipeId
+    });
+    return result;
+  } catch (error) {
+    console.log('Fehler beim Laden der Datei: ', error);
+  }
 }
 
-async function deleteFileFromGridFS(client, fileId) {
-  const bucket = new GridFSBucket(client.db('MeineRezepte'), {
-    bucketName: 'recipeImages',
-  });
-  await bucket.delete(ObjectId(fileId));
+const deleteImageFromMongoDB = async (recipeId) => {
+  const database = client.db('MeineRezepte');
+  const collection = database.collection('recipeImages');
+  await collection.deleteOne({ recipeId: recipeId });
+  return true;
 }
 
 module.exports = {
-  uploadFileToGridFS,
-  loadFileFromGridFS,
-  deleteFileFromGridFS,
+  saveImageToMongoDB,
+  loadImageFromMongoDB,
+  deleteImageFromMongoDB,
 };

@@ -6,9 +6,9 @@ import deleteImage from "../APICalls/deleteImage";
 const updateRecipe = async (recipe, file) => {
   try {
     const response = await fetch(
-      `http://localhost:3001/recipes/updateRecipe/${recipe._id}`,
+      `http://localhost:3001/recipes/update/${recipe._id}`,
       {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -19,7 +19,7 @@ const updateRecipe = async (recipe, file) => {
           ingredients: recipe.ingredients,
           description: recipe.description,
           keywords: recipe.keywords,
-          imageName: recipe.imageName,
+          imageUploaded: recipe.imageUploaded,
         }),
       }
     );
@@ -32,7 +32,7 @@ const updateRecipe = async (recipe, file) => {
         .getState()
         .recipes.map((r) => (r._id === recipe._id ? recipe : r)),
     });
-    if (file && recipe.imageName) await deleteImage(recipe._id);
+    if (file && recipe.imageUploaded) await deleteImage(recipe._id);
     if (file) saveImage(file, recipe._id);;
   } catch (error) {
     console.error("Fehler beim Aktualisieren des Rezepts:", error);
