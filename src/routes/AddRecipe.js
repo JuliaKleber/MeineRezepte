@@ -27,7 +27,6 @@ const stepsArray = [
 const AddRecipe = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(steps.addIngredientsStep);
-  const recipes = useRecipeStore((state) => state.recipes);
   const lastLocation = useRecipeStore((state) => state.lastLocation);
   const [recipe, setRecipe] = useState({
     name: "",
@@ -50,34 +49,17 @@ const AddRecipe = () => {
     steps.addKeywordsStep,
   ].includes(currentStep);
 
-  // Checks if the name of the new recipe is already in use.
-  const checkNameforUniqueness = () => {
-    const recipesWithSameName = recipes.filter((savedRecipe) => {
-      return (
-        recipe.name.replaceAll(" ", "-").toLowerCase() ===
-        savedRecipe.name.replaceAll(" ", "-").toLowerCase()
-      );
-    });
-    if (recipesWithSameName.length !== 0) {
-      isNameUnique = false;
-    }
-  };
-
   // Validation output for the recipe name field.
   const outputValidationMessages = () => {
-    if (!isNameUnique) {
-      setValidationOutput("Der Rezeptname ist schon vergeben");
-      isNameUnique = true;
-    } else {
+    if (recipe.name === "") {
       setValidationOutput("Bitte gib einen Namen für das Rezept ein");
     }
     recipeNameFieldRef.current.focus();
-    setRecipeNameFieldStyle({ backgroundColor: "lightblue" });
+    setRecipeNameFieldStyle({ backgroundColor: "rgb(193, 193, 255)" });
   };
 
   // Handles the navigaton in the add recipe component.
   const handleCurrentStep = (nextStep) => {
-    checkNameforUniqueness();
     if (nextStep === steps.homeStep) {
       navigate(lastLocation);
     } else if (

@@ -25,8 +25,9 @@ const ImageUpload = ({ uploadedFile, setUploadedFile, text }) => {
             src={URL.createObjectURL(uploadedFile)}
             alt={uploadedFile.name}
             style={{
-              maxWidth: "328px",
-              maxHeight: "116px",
+              marginTop: '0px',
+              maxWidth: "332px",
+              maxHeight: "204px",
               objectFit: "cover",
               width: "100%",
               height: "100%",
@@ -41,12 +42,9 @@ const ImageUpload = ({ uploadedFile, setUploadedFile, text }) => {
 const dropzoneStyles = {
   border: "1px dashed royalblue",
   borderRadius: "8px",
-  paddingBottom: "24px",
-  paddingRight: "8px",
-  paddingLeft: "8px",
   margin: "20px 0px",
   width: "332px",
-  height: "100px",
+  height: "204px",
   textAlign: "center",
   cursor: "pointer",
   color: "royalblue",

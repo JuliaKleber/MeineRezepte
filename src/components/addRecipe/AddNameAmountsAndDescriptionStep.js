@@ -41,7 +41,7 @@ const AddNameAmountsAndDescriptionStep = ({
       <ImageUpload
         uploadedFile={uploadedFile}
         setUploadedFile={setUploadedFile}
-        text="Klicke, um eine Bilddatei auszuwählen oder ziehe die Datei hierhin."
+        text="Klicke, um eine Bilddatei auszuwählen."
       />
     </div>
   );
