@@ -6,6 +6,7 @@ const useUserStore = create((set) => ({
   registerMessagePartOne: "",
   registerMessagePartTwo: "",
   currentUserId: null,
+  resetUser: () => set({ isLoggedIn: false, currentUserId: null }),
 }));
 
 export default useUserStore;

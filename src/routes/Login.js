@@ -1,5 +1,5 @@
 import React from "react";
-import useRecipeStore from "../stores/recipeStore";
+import useUserStore from "../stores/userStore";
 import login from "../APICalls/login";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -7,7 +7,7 @@ const Login = () => {
   const navigate = useNavigate();
   let username = "";
   let password = "";
-  const loginMessage = useRecipeStore((state) => state.loginMessage);
+  const loginMessage = useUserStore((state) => state.loginMessage);
 
   const setUsername = (event) => {
     username = event.target.value;
