@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const databaseMiddleware = require("../middlewares/recipesCollection");
+// const databaseMiddleware = require("../middlewares/recipesCollection");
 const recipesService = require("../services/recipesService");
 
-router.use(databaseMiddleware.connectToDatabase);
+// router.use(databaseMiddleware.connectToDatabase);
 
 router.get("/loadRecipes", async (req, res) => {
   const userId = req.query.userId;

@@ -1,18 +1,17 @@
 const express = require('express');
 const multer = require('multer');
 const recipeImagesService = require('../services/recipeImagesService');
-const databaseMiddleware = require('../middlewares/recipesCollection');
+// const databaseMiddleware = require('../middlewares/recipesCollection');
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-router.use(databaseMiddleware.connectToDatabase);
+// router.use(databaseMiddleware.connectToDatabase);
 
 router.get('/load/:recipeId', async (req, res) => {
   const recipeId = req.params.recipeId;
   try {
     const file = await recipeImagesService.loadImageFromMongoDB(recipeId);
-    console.log(file);
     res.status(200).send(file);
   } catch (error) {
     console.error('Fehler beim Laden der Datei: ', error);

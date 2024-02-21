@@ -1,20 +1,8 @@
-const { ObjectId, MongoClient } = require("mongodb");
-const url = "mongodb://root:example@localhost:27017/";
-const client = new MongoClient(url);
-
-async function connectToDatabase() {
-  try {
-    await client.connect();
-    console.log("Verbunden mit der Datenbank");
-  } catch (error) {
-    console.log("Fehler beim Verbinden mit der Datenbank: ", error);
-    throw error;
-  }
-}
+const { ObjectId } = require("mongodb");
+const { recipesCollection } = require("../middlewares/recipesDatabase");
 
 async function loadRecipes(userId) {
   try {
-    const recipesCollection = client.db("MeineRezepte").collection("recipes");
     const recipes = await recipesCollection.find({ userId: userId }).toArray();
     return recipes;
   } catch (error) {
@@ -25,7 +13,6 @@ async function loadRecipes(userId) {
 
 async function loadRecipeById(recipeId) {
   try {
-    const recipesCollection = client.db("MeineRezepte").collection("recipes");
     const recipe = await recipesCollection.findOne({
       _id: mongoDB.ObjectId(recipeId),
     });
@@ -38,7 +25,6 @@ async function loadRecipeById(recipeId) {
 
 async function saveRecipe(recipe) {
   try {
-    const recipesCollection = client.db("MeineRezepte").collection("recipes");
     const savedRecipe = await recipesCollection.insertOne(recipe);
     return savedRecipe.insertedId.toString();
   } catch (error) {
@@ -49,7 +35,6 @@ async function saveRecipe(recipe) {
 
 async function updateRecipe(recipeId, updatedRecipe) {
   try {
-    const recipesCollection = client.db("MeineRezepte").collection("recipes");
     await recipesCollection.replaceOne(
       { _id: new ObjectId(recipeId) },
       updatedRecipe
@@ -62,7 +47,6 @@ async function updateRecipe(recipeId, updatedRecipe) {
 
 async function deleteRecipe(id) {
   try {
-    const recipesCollection = client.db("MeineRezepte").collection("recipes");
     await recipesCollection.deleteOne({ _id: new ObjectId(id) });
   } catch (error) {
     console.log("Fehler beim Löschen des Rezepts: ", error);
@@ -70,22 +54,10 @@ async function deleteRecipe(id) {
   }
 }
 
-async function closeDatabaseConnection() {
-  try {
-    await client.close();
-    console.log("Datenbankverbindung geschlossen");
-  } catch (error) {
-    console.log("Fehler beim Schließen der Datenbankverbindung: ", error);
-    throw error;
-  }
-}
-
 module.exports = {
-  connectToDatabase,
   loadRecipes,
   loadRecipeById,
   saveRecipe,
   updateRecipe,
   deleteRecipe,
-  closeDatabaseConnection,
 };

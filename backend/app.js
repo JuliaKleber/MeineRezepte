@@ -4,7 +4,7 @@ const cors = require("cors");
 const authRoutes = require('./routes/auth');
 const recipesRoutes = require('./routes/recipes');
 const recipeImagesRoutes = require('./routes/recipeImages');
-const recipesService = require('./services/recipesService');
+const recipesDatabase = require('./middlewares/recipesDatabase');
 
 const app = express(); // Create new express 'app'
 const PORT = 3001;
@@ -22,10 +22,10 @@ app.use('/auth', authRoutes);
 app.use('/recipes', recipesRoutes);
 app.use('/recipeImages', recipeImagesRoutes);
 
-recipesService.connectToDatabase();
+recipesDatabase.connectToDatabase();
 
 process.on('SIGINT', () => {
-  recipesService.closeDatabaseConnection();
+  recipesDatabase.closeDatabaseConnection();
   process.exit();
 });
 
