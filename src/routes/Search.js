@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import useRecipeStore from "../stores/recipeStore";
 import Fuse from "fuse.js";
 import RecipeCard from "../components/RecipeCard";
@@ -10,12 +10,15 @@ const Search = () => {
   const setSearchTerm = useRecipeStore((state) => state.setSearchTerm);
   const [contentSearchField, setContentSearchField] = useState(searchTerm);
   const [recipesFound, setRecipesFound] = useState([]);
-  const fuseOptions = {
-    threshold: 0.2,
-    useExtendedSearch: true,
-    keys: ["keywords", "name", "description"],
-  };
-  const searcher = new Fuse(recipes, fuseOptions);
+  
+  const searcher = useMemo(() => {
+    const fuseOptions = {
+      threshold: 0.2,
+      useExtendedSearch: true,
+      keys: ["keywords", "name", "description"],
+    };
+    return new Fuse(recipes, fuseOptions);
+  }, [recipes]);
 
   // When the component is mounted, the search is performed with the searchTerm.
   // If the searchTerm is empty, all recipes are shown.
@@ -25,7 +28,7 @@ const Search = () => {
       : setRecipesFound(
           searcher.search(searchTerm).map((result) => result.item)
         );
-  }, [recipes]);
+  }, [recipes, searchTerm, searcher]);
 
   // When the search button is clicked, the search is performed and the searchTerm
   // is saved in the store so that when the component is mounted again, the last search

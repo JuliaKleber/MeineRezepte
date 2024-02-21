@@ -15,7 +15,6 @@ const steps = {
 };
 
 const EditRecipe = () => {
-  const recipes = useRecipeStore((state) => state.recipes);
   const currentRecipe = useRecipeStore((state) => state.currentRecipe);
   const [updatedRecipe, setUpdatedRecipe] = useState(currentRecipe);
   const [currentStep, setCurrentStep] = useState(steps.editRecipeStep);
