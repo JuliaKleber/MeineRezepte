@@ -1,4 +1,5 @@
 import useRecipeStore from "../stores/recipeStore";
+import useUserStore from "../stores/userStore";
 import saveImage from "./saveImage";
 
 const addRecipe = async (recipe, file) => {
@@ -16,6 +17,7 @@ const addRecipe = async (recipe, file) => {
         description: recipe.description,
         keywords: recipe.keywords,
         imageUploaded: recipe.imageUploaded,
+        userId: useUserStore.getState().currentUserId,
       }),
     });
     const recipeId = await response.json();

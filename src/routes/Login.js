@@ -1,9 +1,10 @@
 import React from "react";
 import useRecipeStore from "../stores/recipeStore";
 import login from "../APICalls/login";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   let username = "";
   let password = "";
   const loginMessage = useRecipeStore((state) => state.loginMessage);
@@ -16,8 +17,9 @@ const Login = () => {
     password = event.target.value;
   };
 
-  const evaluateCredentials = (username, password) => {
-    login(username, password);
+  const evaluateCredentials = async (username, password) => {
+    const success = await login(username, password);
+    if (success) navigate("/");
   };
 
   return (
@@ -38,7 +40,7 @@ const Login = () => {
         Login
       </button>
       <Link to="/register">
-        <button className='reverse-colored-button' style={{fontSize: '18px'}}>
+        <button className="reverse-colored-button" style={{ fontSize: "18px" }}>
           Account erstellen
         </button>
       </Link>

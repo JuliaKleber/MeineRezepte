@@ -13,8 +13,10 @@ const login = async (username, password) => {
     if (response.status === 200 && data.userId) {
       useUserStore.setState({ isLoggedIn: true });
       useUserStore.setState({ currentUserId: data.userId });
+      return true;
     } else {
       useUserStore.setState({ loginMessage: `Fehler beim Prüfen der Nutzerdaten: ${data.message}` });
+      return false;
     }
   } catch (error) {
     useUserStore.setState({ loginMessage: `Fehler beim Prüfen der Nutzerdaten: ${error}` });

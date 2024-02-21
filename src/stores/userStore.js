@@ -3,7 +3,8 @@ import { create } from "zustand";
 const useUserStore = create((set) => ({
   isLoggedIn: false,
   loginMessage: "",
-  registerMessage: "",
+  registerMessagePartOne: "",
+  registerMessagePartTwo: "",
   currentUserId: null,
 }));
 

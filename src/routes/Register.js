@@ -8,7 +8,12 @@ const CreateAccount = () => {
   let password = "";
   let email = "";
   const navigate = useNavigate();
-  const loginMessage = useUserStore((state) => state.loginMessage);
+  const registerMessagePartOne = useUserStore(
+    (state) => state.registerMessagePartOne
+  );
+  const registerMessagePartTwo = useUserStore(
+    (state) => state.registerMessagePartTwo
+  );
 
   const setUsername = (event) => {
     username = event.target.value;
@@ -30,10 +35,11 @@ const CreateAccount = () => {
   return (
     <div className="container">
       <h1>Meine Rezepte</h1>
-      {loginMessage && <p>{loginMessage}</p>}
+      {registerMessagePartOne && <span>{registerMessagePartOne}</span>}
+      {registerMessagePartTwo && <span className='warning'>{registerMessagePartTwo}</span>}
       <input
         type="text"
-        placeholder="Benutzername"
+        placeholder="Nutzername"
         onChange={(event) => setUsername(event)}
       />
       <input

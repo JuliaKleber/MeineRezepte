@@ -1,32 +1,32 @@
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const secretKey = process.env.SECRET_KEY;
 const { usersCollection } = require("../middlewares/recipesDatabase");
+
+const createSaltedPassword = (password) => {
+  const saltRounds = 10;
+  const salt = bcrypt.genSaltSync(saltRounds);
+  const saltedPassword = bcrypt.hashSync(password, salt);
+  return saltedPassword;
+};
 
 const createUser = async (username, password, email) => {
   try {
-    const hashedPassword = bcrypt.hashSync(password, 10);
+    const hashedPassword = createSaltedPassword(password);
     const user = await usersCollection.insertOne({
       username: username,
       password: hashedPassword,
       email: email,
     });
-    return user;
+    if (user) {
+      console.log("Nutzer wurde erstellt: ", user);
+      console.log(user);
+      return user;
+    } else {
+      throw new Error ("Nutzer konnte nicht erstellt werden.");
+    }
   } catch (error) {
-    console.error("Fehler beim Verbinden mit der Datenbank: ", error);
+    console.error("Fehler beim Verbinden mit der Datenbank oder bei der Validierung: ", error);
   }
-};
-
-const generateToken = (user) => {
-  const payload = {
-    userId: user.id,
-    username: user.username,
-  };
-  const options = {
-    expiresIn: "1h",
-  };
-  return jwt.sign(payload, secretKey, options);
 };
 
 const comparePassword = (plainPassword, hashedPassword) => {
@@ -53,7 +53,6 @@ const getUserByEmail = async (email) => {
 
 module.exports = {
   createUser,
-  generateToken,
   comparePassword,
   getUserByUsername,
   getUserByEmail,

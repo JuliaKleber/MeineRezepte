@@ -4,13 +4,17 @@ const router = express.Router();
 
 router.post("/register", async (req, res) => {
   const { username, password, email } = req.body;
-  console.log('Email: ', email);
   try {
+    if (!username || !password || !email) {
+      return res
+        .status(400)
+        .json({ message: "Nutzername, Passwort und E-Mail sind erforderlich" });
+    }
     let user = await usersService.getUserByUsername(username);
     if (user) {
       return res
         .status(400)
-        .json({ message: "Benutzername existiert bereits" });
+        .json({ message: "Nutzername existiert bereits" });
     }
     user = await usersService.getUserByEmail(email);
     if (user) {
@@ -31,8 +35,6 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
-  console.log("Benutzername: ", username);
-  console.log("Password: ", password);
   try {
     const user = await usersService.getUserByUsername(username);
     if (!user || !usersService.comparePassword(password, user.password)) {
@@ -40,9 +42,7 @@ router.post("/login", async (req, res) => {
         .status(401)
         .json({ message: "Ungültige Anmeldeinformationen" });
     }
-
-    const token = usersService.generateToken(user);
-    res.json({ token });
+    res.json({ userId: user._id.toString() });
   } catch (error) {
     console.error(
       "Fehler beim Abrufen des Benutzers aus der Datenbank: ",

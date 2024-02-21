@@ -11,7 +11,8 @@ const register = async (username, password, email) => {
     if (response.status !== 200) {
       useUserStore.setState({
         isLoggedIn: false,
-        message: `Fehler beim Erstellen des Nutzers: ${data.message}`,
+        registerMessagePartOne: `Fehler beim Erstellen des Nutzers:`,
+        registerMessagePartTwo: `${data.message}`,
       });
       return;
     }
