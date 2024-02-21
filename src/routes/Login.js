@@ -44,11 +44,11 @@ const Login = () => {
           Account erstellen
         </button>
       </Link>
-      <p className="note">
+      {/* <p className="note">
         Um ein Rezeptbuch anzusehen, das bereits mit einigen Beispielrezepten
         gefüllt ist, kann 'mock' als Benutzername und Passwort eingegeben
         werden.
-      </p>
+      </p> */}
     </div>
   );
 };

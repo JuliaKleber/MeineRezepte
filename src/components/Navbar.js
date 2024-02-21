@@ -7,7 +7,7 @@ import {
   faHouse,
   faMagnifyingGlass,
   faPlus,
-  faArrowRightFromBracket
+  faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
@@ -23,10 +23,12 @@ const Navbar = () => {
   const logout = () => {
     resetMessage();
     resetUser();
-  }
+  };
 
   return (
     <nav className="navbar">
+      <FontAwesomeIcon icon={faArrowRightFromBracket} className='hidden' />
+      
       <ul>
         <li>
           <NavLink
@@ -55,16 +57,15 @@ const Navbar = () => {
             <FontAwesomeIcon icon={faPlus} />
           </NavLink>
         </li>
-        <li>
-          <NavLink
-            to="/login"
-            className={({ isActive }) => (isActive ? "active" : "not-active")}
-            onClick={() => logout()}
-          >
-            <FontAwesomeIcon icon={faArrowRightFromBracket} />
-          </NavLink>
-        </li>
       </ul>
+
+      <NavLink
+        to="/login"
+        className={({ isActive }) => (isActive ? "active" : "not-active")}
+        onClick={() => logout()}
+      >
+        <FontAwesomeIcon icon={faArrowRightFromBracket} />
+      </NavLink>
     </nav>
   );
 };
