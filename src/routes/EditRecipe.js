@@ -7,7 +7,7 @@ import { AiFillDelete } from "react-icons/ai";
 import RecipeImage from "../components/RecipeImage";
 import ImageUpload from "../components/shared/ImageUpload";
 import AddKeywordsStep from "../components/shared/AddKeywordsStep";
-import updateRecipe from "../APICalls/updateRecipe";
+import { updateRecipe } from "../APICalls/recipesAPICalls";
 
 const steps = {
   editRecipeStep: "editRecipeStep",

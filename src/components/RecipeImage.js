@@ -6,7 +6,7 @@ import pestoImage from "../images/pesto.jpg";
 import curryImage from "../images/curry.jpg";
 import riceImage from "../images/rice.jpg";
 import homeImage from "../images/home.jpg";
-import loadImage from '../APICalls/loadImage';
+import { loadImage } from '../APICalls/imagesAPICalls';
 
 const RecipeImage = ({ recipe }) => {
   const [loaded, setLoaded] = useState(false);

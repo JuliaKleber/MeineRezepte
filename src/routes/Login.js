@@ -1,6 +1,6 @@
 import React from "react";
 import useUserStore from "../stores/userStore";
-import login from "../APICalls/login";
+import { login } from "../APICalls/usersAPICalls";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {

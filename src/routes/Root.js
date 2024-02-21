@@ -3,7 +3,7 @@ import useRecipeStore from "../stores/recipeStore";
 import useUserStore from "../stores/userStore";
 import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import getRecipes from "../APICalls/getRecipes";
+import { getRecipes } from "../APICalls/recipesAPICalls";
 
 const Root = () => {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useUserStore from "../stores/userStore";
-import register from "../APICalls/register";
+import { register } from "../APICalls/usersAPICalls";
 
 const CreateAccount = () => {
   let username = "";

@@ -6,7 +6,7 @@ import AddNameAmountsAndDescriptionStep from "../components/addRecipe/AddNameAmo
 import AddKeywordsStep from "../components/shared/AddKeywordsStep";
 import AfterRecipeSave from "../components/addRecipe/AfterRecipeSave";
 import Navigation from "../components/addRecipe/Navigation";
-import addRecipe from "../APICalls/addRecipe";
+import { addRecipe } from "../APICalls/recipesAPICalls";
 
 const steps = {
   homeStep: "homeStep",

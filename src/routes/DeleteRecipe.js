@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import useRecipeStore from "../stores/recipeStore";
-import deleteRecipe from "../APICalls/deleteRecipe";
+import { deleteRecipe } from "../APICalls/recipesAPICalls";
 
 const DeleteRecipe = () => {
   const currentRecipe = useRecipeStore((state) => state.currentRecipe);
