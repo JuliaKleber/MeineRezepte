@@ -2,15 +2,17 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const secretKey = process.env.SECRET_KEY;
-const { usersCollection } = require("../middlewares/usersDatabase");
+const { usersCollection } = require("../middlewares/recipesDatabase");
 
-const mongoDB = require("mongodb");
-const url = "mongodb://root:example@localhost:27017/";
-const client = new mongoDB.MongoClient(url);
-
-const createUser = async (username, password) => {
+const createUser = async (username, password, email) => {
   try {
-    await client.connect();
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    const user = await usersCollection.insertOne({
+      username: username,
+      password: hashedPassword,
+      email: email,
+    });
+    return user;
   } catch (error) {
     console.error("Fehler beim Verbinden mit der Datenbank: ", error);
   }
@@ -33,19 +35,26 @@ const comparePassword = (plainPassword, hashedPassword) => {
 
 const getUserByUsername = async (username) => {
   try {
-    await client.connect();
     const user = await usersCollection.findOne({ username: username });
     return user;
   } catch (error) {
     console.error("Nutzerdaten konnten nicht abgerufen werden: ", error);
-  } finally {
-    await client.close();
   }
 };
+
+const getUserByEmail = async (email) => {
+  try {
+    const user = await usersCollection.findOne({ email: email });
+    return user;
+  } catch (error) {
+    console.error("Nutzerdaten konnten nicht abgerufen werden: ", error);
+  }
+}
 
 module.exports = {
   createUser,
   generateToken,
   comparePassword,
   getUserByUsername,
+  getUserByEmail,
 };

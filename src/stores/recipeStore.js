@@ -6,9 +6,9 @@ const useRecipeStore = create((set) => ({
   message: "",
   searchTerm: "",
   lastLocation: "/",
-  isLoggedIn: false,
-  loginMessage: "",
-  currentUserId: null,
+  setRecipes: (recipes) => {
+    set((state) => ({ recipes: recipes }));
+  },
   setCurrentRecipe: (recipe) => {
     set((state) => ({ currentRecipe: recipe }));
   },

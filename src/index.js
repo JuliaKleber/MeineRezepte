@@ -10,7 +10,7 @@ import ViewRecipe from "./routes/ViewRecipe";
 import EditRecipe from "./routes/EditRecipe";
 import DeleteRecipe from "./routes/DeleteRecipe";
 import Login from "./routes/Login";
-import CreateAccount from "./routes/CreateAccount";
+import Register from "./routes/Register";
 import "./index.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -26,36 +26,34 @@ const router = createBrowserRouter([
         element: <RecipesOfMonth />,
       },
       {
-        path: "/search",
+        path: "search",
         element: <Search />,
       },
       {
-        path: "/add",
+        path: "add",
         element: <AddRecipe />,
       },
       {
-        path: "/recipes/:recipeName",
+        path: "recipes/:recipeName",
         element: <ViewRecipe />,
       },
       {
-        path: "/recipes/:recipeName/edit",
+        path: "recipes/:recipeName/edit",
         element: <EditRecipe />,
       },
       {
-        path: "/recipes/:recipeName/delete",
+        path: "recipes/:recipeName/delete",
         element: <DeleteRecipe />,
       },
     ],
   },
   {
-    path: "/login",
+    path: "login",
     element: <Login />,
-    errorElement: <ErrorPage />,
   },
   {
-    path: "/createAccount",
-    element: <CreateAccount />,
-    errorElement: <ErrorPage />,
+    path: "register",
+    element: <Register />,
   },
 ]);
 

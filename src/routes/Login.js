@@ -22,7 +22,7 @@ const Login = () => {
 
   return (
     <div className="container">
-      <h1 className="verticalSpace">Meine Rezepte</h1>
+      <h1>Meine Rezepte</h1>
       <input
         type="text"
         placeholder="Benutzername"
@@ -37,7 +37,7 @@ const Login = () => {
       <button onClick={() => evaluateCredentials(username, password)}>
         Login
       </button>
-      <Link to="/createAccount">
+      <Link to="/register">
         <button className='reverse-colored-button' style={{fontSize: '18px'}}>
           Account erstellen
         </button>
