@@ -1,9 +1,9 @@
 import useRecipeStore from "../stores/recipeStore";
 
 // The recipes are loaded from the json file in the store
-const getRecipes = async () => {
+const getRecipes = async (userId) => {
   try {
-    const response = await fetch("http://localhost:3001/recipes/loadRecipes");
+    const response = await fetch(`http://localhost:3001/recipes/loadRecipes/${userId}`);
     if (response.status === 200) {
       const data = await response.json();
       useRecipeStore.setState({ recipes: data });

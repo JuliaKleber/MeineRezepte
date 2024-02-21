@@ -1,11 +1,8 @@
-const { MongoClient, Binary } = require('mongodb');
-const url = 'mongodb://root:example@localhost:27017/';
-const client = new MongoClient(url);
+const { Binary } = require('mongodb');
+const { recipeImagesCollection } = require('../middlewares/recipesDatabase');
 
 const saveImageToMongoDB = async (buffer, recipeId) => {
-  const database = client.db('MeineRezepte');
-  const collection = database.collection('recipeImages');
-  const result = await collection.insertOne({
+  const result = await recipeImagesCollection.insertOne({
     recipeId: recipeId,
     image: new Binary(buffer),
   });
@@ -13,10 +10,8 @@ const saveImageToMongoDB = async (buffer, recipeId) => {
 }
 
 const loadImageFromMongoDB = async (recipeId) => {
-  const database = client.db('MeineRezepte');
-  const collection = database.collection('recipeImages');
   try {
-    const result = await collection.findOne({
+    const result = await recipeImagesCollection.findOne({
       recipeId: recipeId
     });
     return result;
@@ -26,9 +21,7 @@ const loadImageFromMongoDB = async (recipeId) => {
 }
 
 const deleteImageFromMongoDB = async (recipeId) => {
-  const database = client.db('MeineRezepte');
-  const collection = database.collection('recipeImages');
-  await collection.deleteOne({ recipeId: recipeId });
+  await recipeImagesCollection.deleteOne({ recipeId: recipeId });
   return true;
 }
 

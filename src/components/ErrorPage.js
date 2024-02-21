@@ -1,9 +1,9 @@
 import { useRouteError } from "react-router-dom";
-import useRecipeStore from "../stores/recipeStore";
-import Login from "./Login";
+import useuserStore from "../stores/userStore";
+import Login from "../routes/Login";
 
 const ErrorPage = () => {
-  const isLoggedIn = useRecipeStore((state) => state.isLoggedIn);
+  const isLoggedIn = useuserStore((state) => state.isLoggedIn);
   const error = useRouteError();
   console.error(error);
 

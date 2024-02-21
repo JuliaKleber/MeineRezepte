@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -11,22 +11,29 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    lowercase: true,
+    // validate: {
+    //   validator: (value) => {
+    //     const regex = /\w+@\w+.\w+/;
+    //     return regex.test(value);
+    //   },
+    //   message: "Die E-Mail-Adresse ist ungültig.",
+    // },
   },
   password: {
     type: String,
     required: true,
-    validate: {
-      validator: function (value) {
-        const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        return regex.test(value);
-      },
-      message: 'Das Passwort muss mindestens 8 Zeichen lang sein und mindestens eine Zahl enthalten.',
-    },
+    // validate: {
+    //   validator: (value) => {
+    //     const regex =
+    //       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; // ^...$ start and end of the string, (?=.*[A-Za-z]) at least one letter, (?=.*\d) at least one number, (?=.*[@$!%*?&]) at least one special character, [A-Za-z\d@$!%*?&]{8,} 8 or more characters from the mentioned characters
+    //     return regex.test(value);
+    //   },
+    //   message:
+    //     "Das Passwort muss mindestens 8 Zeichen lang sein und mindestens einen Buchstaben, eine Zahl und ein Sonderzeichen enthalten.",
+    // },
   },
   salt: {
     type: String,
-    required: true,
   },
   createdAt: {
     type: Date,
@@ -34,13 +41,21 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.pre('save', function (next) {
-  const saltRounds = 10;
-  this.salt = bcrypt.genSaltSync(saltRounds);
-  this.password = bcrypt.hashSync(this.password, this.salt);
-  next();
+userSchema.pre("save", async function (next) {
+  if (this.isModified("password")) {
+    try {
+      const saltRounds = 10;
+      const salt = await bcrypt.genSalt(saltRounds);
+      this.password = await bcrypt.hash(this.password, salt);
+      next();
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    next();
+  }
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;

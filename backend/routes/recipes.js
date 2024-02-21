@@ -1,12 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const databaseMiddleware = require("../middlewares/recipesCollection");
 const recipesService = require("../services/recipesService");
 
-router.use(databaseMiddleware.connectToDatabase);
-
-router.get("/loadRecipes", async (req, res) => {
-  const userId = req.query.userId;
+router.get("/loadRecipes/:userId", async (req, res) => {
+  const userId = req.params.userId;
   try {
     const recipes = await recipesService.loadRecipes(userId);
     res.status(200).json(recipes);

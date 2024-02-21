@@ -1,4 +1,5 @@
 import useRecipeStore from "../stores/recipeStore";
+import useUserStore from "../stores/userStore";
 import saveImage from "../APICalls/saveImage";
 import deleteImage from "../APICalls/deleteImage";
 
@@ -20,6 +21,7 @@ const updateRecipe = async (recipe, file) => {
           description: recipe.description,
           keywords: recipe.keywords,
           imageUploaded: recipe.imageUploaded,
+          userId: useUserStore.getState().currentUserId,
         }),
       }
     );

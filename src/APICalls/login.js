@@ -1,8 +1,8 @@
-import useRecipeStore from "../stores/recipeStore";
+import useUserStore from "../stores/userStore";
 
 const login = async (username, password) => {
   try {
-    const response = await fetch("http://localhost:3001/login", {
+    const response = await fetch("http://localhost:3001/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -11,13 +11,15 @@ const login = async (username, password) => {
     });
     const data = await response.json();
     if (response.status === 200 && data.userId) {
-      useRecipeStore.setState({ isLoggedIn: true });
-      useRecipeStore.setState({ currentUserId: data.userId });
+      useUserStore.setState({ isLoggedIn: true });
+      useUserStore.setState({ currentUserId: data.userId });
+      return true;
     } else {
-      useRecipeStore.setState({ loginMessage: `Fehler beim Prüfen der Nutzerdaten: ${data.message}` });
+      useUserStore.setState({ loginMessage: `Fehler beim Prüfen der Nutzerdaten: ${data.message}` });
+      return false;
     }
   } catch (error) {
-    useRecipeStore.setState({ loginMessage: `Fehler beim Prüfen der Nutzerdaten: ${error}` });
+    useUserStore.setState({ loginMessage: `Fehler beim Prüfen der Nutzerdaten: ${error}` });
   }
 };
 

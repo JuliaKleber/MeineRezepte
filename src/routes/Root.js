@@ -1,26 +1,32 @@
 import React, { useEffect } from "react";
 import useRecipeStore from "../stores/recipeStore";
-import { Outlet } from "react-router-dom";
+import useUserStore from "../stores/userStore";
+import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Login from "../components/Login";
 import getRecipes from "../APICalls/getRecipes";
 
 const Root = () => {
-  const isLoggedIn = useRecipeStore((state) => state.isLoggedIn);
-  
+  const navigate = useNavigate();
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+  const setRecipes = useRecipeStore((state) => state.setRecipes);
+  const userId = useUserStore((state) => state.currentUserId);
+
   // The recipes are loaded when the app is startet.
   useEffect(() => {
-    if (isLoggedIn) getRecipes();
-  }, [isLoggedIn]);
+    if (isLoggedIn) {
+      getRecipes(userId);
+    } else {
+      setRecipes([]);
+      navigate("/login");
+    }
+  }, [isLoggedIn, navigate, setRecipes, userId]);
 
-  return isLoggedIn ? (
+  return (
     <>
       <Navbar />
       <Outlet />
     </>
-  ) : (
-    <Login />
-  );
+  )
 };
 
 export default Root;
