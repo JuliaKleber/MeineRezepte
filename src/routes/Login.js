@@ -1,6 +1,7 @@
 import React from "react";
 import useRecipeStore from "../stores/recipeStore";
 import login from "../APICalls/login";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   let username = "";
@@ -36,6 +37,11 @@ const Login = () => {
       <button onClick={() => evaluateCredentials(username, password)}>
         Login
       </button>
+      <Link to="/createAccount">
+        <button className='reverse-colored-button' style={{fontSize: '18px'}}>
+          Account erstellen
+        </button>
+      </Link>
       <p className="note">
         Um ein Rezeptbuch anzusehen, das bereits mit einigen Beispielrezepten
         gefüllt ist, kann 'mock' als Benutzername und Passwort eingegeben
