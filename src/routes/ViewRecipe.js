@@ -32,8 +32,12 @@ const ViewRecipe = () => {
           <div className="align-center">{message}</div>
         </div>
         <h2 className="align-center">{currentRecipe.name}</h2>
-        <ShowIngredients recipe={currentRecipe} />
-        <ShowRecipeDescription recipeDescription={currentRecipe.description} />
+        <div className="responsive-container">
+          <ShowIngredients recipe={currentRecipe} />
+          <ShowRecipeDescription
+            recipeDescription={currentRecipe.description}
+          />
+        </div>
         {editAndDeleteButtons}
       </div>
       <Link to={lastLocation}>

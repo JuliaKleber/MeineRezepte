@@ -1,3 +1,13 @@
 .show-recipe .show-recipe-button {
   margin: 12px;
 }
+
+.show-recipe .responsive-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @media screen and (min-width: 810px) {
+    flex-direction: row;
+  }
+}
