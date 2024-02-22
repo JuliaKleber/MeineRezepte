@@ -16,7 +16,6 @@ export const loadImage = async (recipeId) => {
 
 // Image is saved
 export const saveImage = async (file, recipeId) => {
-  console.log(useUserStore.getState().currentUserId);
   try {
     const formData = new FormData();
     formData.append("image", file);

@@ -82,7 +82,6 @@ export const updateRecipe = async (recipe, file) => {
       }
     );
     const message = await response.text();
-    console.log("Antwort vom Server:", message);
     useRecipeStore.setState({
       currentRecipe: recipe,
       message: "Das Rezept wurde erfolgreich geändert.",
@@ -113,8 +112,6 @@ export const deleteRecipe = async (recipe) => {
         body: JSON.stringify({ id: recipe._id }),
       }
     );
-    const message = await response.text();
-    console.log("Antwort vom Server:", message);
     useRecipeStore.setState({
       currentRecipe: null,
       message: "Das Rezept wurde erfolgreich gelöscht.",
