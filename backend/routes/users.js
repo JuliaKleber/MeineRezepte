@@ -9,8 +9,7 @@ router.post("/register", async (req, res) => {
   try {
     if (!username || !password || !email) {
       return res
-        .status(400)
-        .json({ message: "Nutzername, Passwort und E-Mail sind erforderlich" });
+        .status(400);
     }
     let user = await usersService.getUserByUsername(username);
     if (user) {

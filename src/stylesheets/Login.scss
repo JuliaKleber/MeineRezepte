@@ -6,7 +6,7 @@
   color: #7f868d;
   font-weight: bold;
   text-align: center;
-  width: 328px;
+  width: 308px;
 }
 
 .login .new-account-button {
@@ -16,4 +16,8 @@
     color: $secondary-color;
     box-shadow: 0 0 4px rgba($secondary-color, 0.5);
   }
+}
+
+.login .login-button {
+  width: 100px;
 }

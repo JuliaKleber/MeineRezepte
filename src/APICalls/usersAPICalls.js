@@ -15,11 +15,11 @@ export const login = async (username, password) => {
       useUserStore.setState({ currentUserId: data.userId });
       return true;
     } else {
-      useUserStore.setState({ loginMessage: `Fehler beim Prüfen der Nutzerdaten: ${data.message}` });
+      useUserStore.setState({ loginMessage: data.message });
       return false;
     }
   } catch (error) {
-    useUserStore.setState({ loginMessage: `Fehler beim Prüfen der Nutzerdaten: ${error}` });
+    useUserStore.setState({ loginMessage: error });
   }
 };
 
@@ -34,8 +34,7 @@ export const register = async (username, password, email) => {
     if (response.status !== 200) {
       useUserStore.setState({
         isLoggedIn: false,
-        registerMessagePartOne: `Fehler beim Erstellen des Nutzers:`,
-        registerMessagePartTwo: `${data.message}`,
+        registerMessage: `${data.message}`,
       });
       return;
     }
