@@ -54,10 +54,20 @@ async function deleteRecipe(id) {
   }
 }
 
+async function deleteAllRecipes(userId) {
+  try {
+    await recipesCollection.deleteMany({ userId: userId });
+  } catch (error) {
+    console.log("Fehler beim Löschen der Rezepte: ", error);
+    throw error;
+  }
+}
+
 module.exports = {
   loadRecipes,
   loadRecipeById,
   saveRecipe,
   updateRecipe,
   deleteRecipe,
+  deleteAllRecipes,
 };

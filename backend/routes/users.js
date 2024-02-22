@@ -12,9 +12,7 @@ router.post("/register", async (req, res) => {
     }
     let user = await usersService.getUserByUsername(username);
     if (user) {
-      return res
-        .status(400)
-        .json({ message: "Nutzername existiert bereits" });
+      return res.status(400).json({ message: "Nutzername existiert bereits" });
     }
     user = await usersService.getUserByEmail(email);
     if (user) {
@@ -48,6 +46,21 @@ router.post("/login", async (req, res) => {
       "Fehler beim Abrufen des Benutzers aus der Datenbank: ",
       error
     );
+    res.status(500).json({ message: "Interner Serverfehler" });
+  }
+});
+
+router.delete("/deleteByUsername/:username", async (req, res) => {
+  const username = req.params.username;
+  try {
+    let user = await usersService.getUserByUsername(username);
+    if (!user) {
+      return res.status(404).json({ message: "Nutzer nicht gefunden" });
+    }
+    user = await usersService.deleteUser(user._id);
+    res.json({ message: "Nutzer erfolgreich gelöscht" });
+  } catch (error) {
+    console.error("Fehler beim Löschen des Benutzers: ", error);
     res.status(500).json({ message: "Interner Serverfehler" });
   }
 });

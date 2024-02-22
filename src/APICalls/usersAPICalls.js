@@ -39,12 +39,7 @@ export const register = async (username, password, email) => {
       });
       return;
     }
-    useUserStore.setState({
-      isLoggedIn: true,
-      userId: data.userId,
-      registerMessage: data.message,
-    });
-    return true;
+    return data;
   } catch (error) {
     useUserStore.setState({
       isLoggedIn: false,
@@ -52,6 +47,24 @@ export const register = async (username, password, email) => {
         "Fehler beim Erstellen des Nutzers. Bitte versuche es später noch mal.",
     });
     console.error("Fehler beim Erstellen des Nutzers: ", error);
-    return false;
+    return null;
   }
 };
+
+export const deleteAccountByUsername = async (username) => {
+  try {
+    const response = await fetch(`http://localhost:3001/users/deleteByUsername/${username}`, {
+      method: "DELETE",
+    });
+    const data = await response.json();
+    if (response.status === 200) {
+      useUserStore.setState({ isLoggedIn: false });
+      return true;
+    } else {
+      useUserStore.setState({ deleteAccountMessage: `Fehler beim Löschen des Nutzers: ${data.message}` });
+      return false;
+    }
+  } catch (error) {
+    useUserStore.setState({ deleteAccountMessage: `Fehler beim Löschen des Nutzers: ${error}` });
+  }
+}

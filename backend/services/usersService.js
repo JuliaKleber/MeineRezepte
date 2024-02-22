@@ -18,8 +18,6 @@ const createUser = async (username, password, email) => {
       email: email,
     });
     if (user) {
-      console.log("Nutzer wurde erstellt: ", user);
-      console.log(user);
       return user;
     } else {
       throw new Error ("Nutzer konnte nicht erstellt werden.");
@@ -51,9 +49,23 @@ const getUserByEmail = async (email) => {
   }
 }
 
+const deleteUser = async (userId) => {
+  try {
+    const user = await usersCollection.deleteOne({ _id: userId });
+    if (user) {
+      return user;
+    } else {
+      throw new Error ("Nutzer wurde nicht in der Datenbank gefunden.");
+    }
+  } catch (error) {
+    console.error("Nutzer konnte nicht gelöscht werden: ", error);
+  }
+};
+
 module.exports = {
   createUser,
   comparePassword,
   getUserByUsername,
   getUserByEmail,
+  deleteUser,
 };

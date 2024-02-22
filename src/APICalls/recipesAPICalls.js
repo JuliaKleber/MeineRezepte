@@ -5,7 +5,9 @@ import { saveImage, deleteImage } from "./imagesAPICalls";
 // The recipes are loaded from the database
 export const getRecipes = async (userId) => {
   try {
-    const response = await fetch(`http://localhost:3001/recipes/loadRecipes/${userId}`);
+    const response = await fetch(
+      `http://localhost:3001/recipes/loadRecipes/${userId}`
+    );
     if (response.status === 200) {
       const data = await response.json();
       useRecipeStore.setState({ recipes: data });
@@ -42,8 +44,11 @@ export const addRecipe = async (recipe, file) => {
       message: "Das Rezept wurde der Datenbank hinzugefügt.",
     });
     useRecipeStore.setState({
-      currentRecipe: {...recipe, _id: recipeId},
-      recipes: [...useRecipeStore.getState().recipes, {...recipe, _id: recipeId}],
+      currentRecipe: { ...recipe, _id: recipeId },
+      recipes: [
+        ...useRecipeStore.getState().recipes,
+        { ...recipe, _id: recipeId },
+      ],
     });
     if (file) {
       saveImage(file, recipeId);
@@ -86,7 +91,7 @@ export const updateRecipe = async (recipe, file) => {
         .recipes.map((r) => (r._id === recipe._id ? recipe : r)),
     });
     if (file && recipe.imageUploaded) await deleteImage(recipe._id);
-    if (file) saveImage(file, recipe._id);;
+    if (file) saveImage(file, recipe._id);
   } catch (error) {
     console.error("Fehler beim Aktualisieren des Rezepts:", error);
     useRecipeStore.setState({
@@ -122,6 +127,36 @@ export const deleteRecipe = async (recipe) => {
     console.error("Fehler beim Speichern der Rezepte:", error);
     useRecipeStore.setState({
       message: "Das Rezept konnte nicht gelöscht werden.",
+    });
+  }
+};
+
+// A recipe is deleted from the database
+export const deleteAllRecipes = async () => {
+  const userId = useUserStore.getState().currentUserId;
+  try {
+    await fetch(
+      `http://localhost:3001/recipes/deleteAll/${userId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: userId }),
+      }
+    );
+    useRecipeStore.getState().recipes.forEach((recipe) => {
+      if (recipe.imageUploaded) deleteImage(recipe._id);
+    });
+    useRecipeStore.setState({
+      currentRecipe: null,
+      message: "",
+      recipes: [],
+    });
+  } catch (error) {
+    console.error("Fehler beim Speichern der Rezepte:", error);
+    useRecipeStore.setState({
+      message: "Die Rezepte konnten nicht gelöscht werden.",
     });
   }
 };

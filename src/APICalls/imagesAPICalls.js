@@ -29,14 +29,14 @@ export const saveImage = async (file, recipeId) => {
 
 // Image is deleted
 export const deleteImage = async (recipeId) => {
-  fetch(`http://localhost:3001/recipeImages/delete/${recipeId}`, {
-    method: "DELETE",
-  })
-    .then((response) => response.text())
-    .then((message) => {
-      console.log(message);
-    })
-    .catch((error) => {
-      console.error("Fehler beim Löschen des Bildes:", error);
-    });
+  try {
+    await fetch(
+      `http://localhost:3001/recipeImages/delete/${recipeId}`,
+      {
+        method: "DELETE",
+      }
+    );
+  } catch (error) {
+    console.error("Fehler beim Löschen des Bildes: ", error);
+  }
 };

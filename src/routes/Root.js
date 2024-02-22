@@ -4,6 +4,7 @@ import useUserStore from "../stores/userStore";
 import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { getRecipes } from "../APICalls/recipesAPICalls";
+import { addMockUser } from "../users/addMockUser";
 
 const Root = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Root = () => {
       getRecipes(userId);
     } else {
       setRecipes([]);
+      addMockUser();
       navigate("/login");
     }
   }, [isLoggedIn, navigate, setRecipes, userId]);

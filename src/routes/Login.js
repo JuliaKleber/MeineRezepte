@@ -2,6 +2,7 @@ import React from "react";
 import useUserStore from "../stores/userStore";
 import { login } from "../APICalls/usersAPICalls";
 import { Link, useNavigate } from "react-router-dom";
+import { loadHardCodedRecipes } from "../recipes/loadHardCodedRecipes";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,6 +20,9 @@ const Login = () => {
 
   const evaluateCredentials = async (username, password) => {
     const success = await login(username, password);
+    if (success && (username === "mock" || username === "Julia")) {
+      await loadHardCodedRecipes();
+    };
     if (success) navigate("/");
   };
 
@@ -44,11 +48,11 @@ const Login = () => {
           Account erstellen
         </button>
       </Link>
-      {/* <p className="note">
+      <p className="note">
         Um ein Rezeptbuch anzusehen, das bereits mit einigen Beispielrezepten
         gefüllt ist, kann 'mock' als Benutzername und Passwort eingegeben
         werden.
-      </p> */}
+      </p>
     </div>
   );
 };

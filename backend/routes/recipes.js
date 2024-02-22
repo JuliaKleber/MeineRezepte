@@ -53,4 +53,14 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
+router.delete("/deleteAll/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    await recipesService.deleteAllRecipes(userId);
+    res.status(200).send("Rezepte erfolgreich gelöscht");
+  } catch (error) {
+    res.status(500).send("Fehler beim Löschen der Rezepte: ", error);
+  }
+});
+
 module.exports = router;

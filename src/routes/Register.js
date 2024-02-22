@@ -28,15 +28,24 @@ const CreateAccount = () => {
   };
 
   const createAccount = async (username, password, email) => {
-    const success = await register(username, password, email);
-    if (success) navigate("/");
+    const data = await register(username, password, email);
+    if (data) {
+      useUserStore.setState({
+        isLoggedIn: true,
+        userId: data.userId,
+        registerMessage: data.message,
+      });
+      navigate("/");
+    }
   };
 
   return (
     <div className="container">
       <h1>Meine Rezepte</h1>
       {registerMessagePartOne && <span>{registerMessagePartOne}</span>}
-      {registerMessagePartTwo && <span className='warning'>{registerMessagePartTwo}</span>}
+      {registerMessagePartTwo && (
+        <span className="warning">{registerMessagePartTwo}</span>
+      )}
       <input
         type="text"
         placeholder="Nutzername"
