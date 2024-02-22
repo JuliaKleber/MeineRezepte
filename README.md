@@ -34,18 +34,19 @@ This is a React application for managing and searching recipes.
   cd MeineRezepte
   ```
 
-3. Build the Docker image:
 
-  ```bash
-  docker build -t meine-rezepte .
-  ```
-
-4. Run the Docker container:
+3. Run the Docker container:
 
   ```bash
 docker-compose up
   ```
 
+4. Install the dependencies:
+   
+  ```bash
+npm install
+  ```
+   
 ## Usage
 
 To start the application, run:
@@ -63,7 +64,7 @@ The server will be available at http://localhost:3001.
 
 ## Screenshot
 
-![image](https://github.com/JuliaKleber/MeineRezepte/assets/142741980/7c368824-64d8-4fd5-89e9-af8f6bf602dd)
+![image](https://github.com/JuliaKleber/MeineRezepte/assets/142741980/0158f416-91fe-416b-a160-ebdda63c36e7)
 
 ## Author
 
