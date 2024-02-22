@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
+
 const recipesService = require("../services/recipesService");
+const recipeImagesService = require("../services/recipeImagesService");
 
 router.get("/loadRecipes/:userId", async (req, res) => {
   const userId = req.params.userId;
@@ -9,16 +11,6 @@ router.get("/loadRecipes/:userId", async (req, res) => {
     res.status(200).json(recipes);
   } catch (error) {
     res.status(500).send("Fehler beim Laden der Rezepte: ", error);
-  }
-});
-
-router.get("/loadRecipeById", async (req, res) => {
-  const recipeId = req.query.id;
-  try {
-    const recipe = await recipesService.loadRecipeById(recipeId);
-    res.status(200).json(recipe);
-  } catch (error) {
-    res.status(500).send("Fehler beim Laden des Rezepts: ", error);
   }
 });
 
@@ -57,6 +49,7 @@ router.delete("/deleteAll/:userId", async (req, res) => {
   const userId = req.params.userId;
   try {
     await recipesService.deleteAllRecipes(userId);
+    await recipeImagesService.deleteAllImages(userId);
     res.status(200).send("Rezepte erfolgreich gelöscht");
   } catch (error) {
     res.status(500).send("Fehler beim Löschen der Rezepte: ", error);

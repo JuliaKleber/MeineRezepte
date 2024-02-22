@@ -12,6 +12,7 @@ import {
 
 const Navbar = () => {
   const resetMessage = useRecipeStore((state) => state.resetMessage);
+  const resetRecipes = useRecipeStore((state) => state.resetRecipes);
   const setLastLocation = useRecipeStore((state) => state.setLastLocation);
   const resetUser = useUserStore((state) => state.resetUser);
 
@@ -21,14 +22,14 @@ const Navbar = () => {
   };
 
   const logout = () => {
-    resetMessage();
+    resetRecipes();
     resetUser();
   };
 
   return (
     <nav className="navbar">
       <FontAwesomeIcon icon={faArrowRightFromBracket} className='hidden' />
-      
+
       <ul>
         <li>
           <NavLink

@@ -12,6 +12,15 @@ const useRecipeStore = create(
       setRecipes: (recipes) => {
         set((state) => ({ recipes: recipes }));
       },
+      resetRecipes: () => {
+        set((state) => ({
+          recipes: [],
+          currentRecipe: null,
+          message: "",
+          searchTerm: "",
+          lastLocation: "/",
+        }));
+      },
       setCurrentRecipe: (recipe) => {
         set((state) => ({ currentRecipe: recipe }));
       },

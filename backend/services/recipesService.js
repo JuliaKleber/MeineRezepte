@@ -1,7 +1,7 @@
 const { ObjectId } = require("mongodb");
 const { recipesCollection } = require("../middlewares/recipesDatabase");
 
-async function loadRecipes(userId) {
+const loadRecipes = async (userId) => {
   try {
     const recipes = await recipesCollection.find({ userId: userId }).toArray();
     return recipes;
@@ -11,29 +11,16 @@ async function loadRecipes(userId) {
   }
 }
 
-async function loadRecipeById(recipeId) {
-  try {
-    const recipe = await recipesCollection.findOne({
-      _id: mongoDB.ObjectId(recipeId),
-    });
-    return recipe;
-  } catch (error) {
-    console.log("Fehler beim Laden des Rezepts: ", error);
-    throw error;
-  }
-}
-
-async function saveRecipe(recipe) {
+const saveRecipe = async (recipe) => {
   try {
     const savedRecipe = await recipesCollection.insertOne(recipe);
     return savedRecipe.insertedId.toString();
   } catch (error) {
     console.log("Fehler beim Speichern des Rezepts: ", error);
-    throw error;
   }
 }
 
-async function updateRecipe(recipeId, updatedRecipe) {
+const updateRecipe = async (recipeId, updatedRecipe) => {
   try {
     await recipesCollection.replaceOne(
       { _id: new ObjectId(recipeId) },
@@ -45,7 +32,7 @@ async function updateRecipe(recipeId, updatedRecipe) {
   }
 }
 
-async function deleteRecipe(id) {
+const deleteRecipe = async (id) => {
   try {
     await recipesCollection.deleteOne({ _id: new ObjectId(id) });
   } catch (error) {
@@ -54,7 +41,7 @@ async function deleteRecipe(id) {
   }
 }
 
-async function deleteAllRecipes(userId) {
+const deleteAllRecipes = async (userId) => {
   try {
     await recipesCollection.deleteMany({ userId: userId });
   } catch (error) {
@@ -65,7 +52,6 @@ async function deleteAllRecipes(userId) {
 
 module.exports = {
   loadRecipes,
-  loadRecipeById,
   saveRecipe,
   updateRecipe,
   deleteRecipe,

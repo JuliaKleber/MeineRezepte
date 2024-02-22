@@ -20,10 +20,14 @@ const createUser = async (username, password, email) => {
     if (user) {
       return user;
     } else {
-      throw new Error ("Nutzer konnte nicht erstellt werden.");
+      throw new Error("Nutzer konnte nicht erstellt werden.");
     }
   } catch (error) {
-    console.error("Fehler beim Verbinden mit der Datenbank oder bei der Validierung: ", error);
+    console.error(
+      "Fehler beim Verbinden mit der Datenbank oder bei der Validierung: ",
+      error
+    );
+    throw error;
   }
 };
 
@@ -47,16 +51,12 @@ const getUserByEmail = async (email) => {
   } catch (error) {
     console.error("Nutzerdaten konnten nicht abgerufen werden: ", error);
   }
-}
+};
 
 const deleteUser = async (userId) => {
   try {
     const user = await usersCollection.deleteOne({ _id: userId });
-    if (user) {
-      return user;
-    } else {
-      throw new Error ("Nutzer wurde nicht in der Datenbank gefunden.");
-    }
+    return user;
   } catch (error) {
     console.error("Nutzer konnte nicht gelöscht werden: ", error);
   }

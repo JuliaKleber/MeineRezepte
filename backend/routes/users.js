@@ -1,7 +1,8 @@
 const express = require("express");
+const router = express.Router();
+
 const usersService = require("../services/usersService");
 const recipesService = require("../services/recipesService");
-const router = express.Router();
 
 router.post("/register", async (req, res) => {
   const { username, password, email } = req.body;
@@ -22,10 +23,14 @@ router.post("/register", async (req, res) => {
         .json({ message: "E-Mail Adresse existiert bereits" });
     }
     user = await usersService.createUser(username, password, email);
-    res.json({
-      message: "Benutzer erfolgreich registriert",
-      userId: user.insertedId.toString(),
-    });
+    if (user.acknowledged) {
+      res.json({
+        message: "Benutzer erfolgreich registriert",
+        userId: user.insertedId.toString(),
+      });
+    } else {
+      throw new Error("Fehler beim Registrieren des Nutzers");
+    }
   } catch (error) {
     console.error("Fehler beim Registrieren des Nutzers: ", error);
     res.status(500).json({ message: "Interner Serverfehler" });
@@ -59,8 +64,9 @@ router.delete("/deleteByUsername/:username", async (req, res) => {
       return res.status(404).json({ message: "Nutzer nicht gefunden" });
     }
     const message = await usersService.deleteUser(user._id);
-    if (message.acknowledged) recipesService.deleteAllRecipes(user._id.toString());
-    res.json({ message: "Nutzer erfolgreich gelöscht" });
+    if (message.acknowledged)
+      recipesService.deleteAllRecipes(user._id.toString());
+    res.json({ message: "Nutzer und zughörige Rezepte erfolgreich gelöscht" });
   } catch (error) {
     console.error("Fehler beim Löschen des Benutzers: ", error);
     res.status(500).json({ message: "Interner Serverfehler" });

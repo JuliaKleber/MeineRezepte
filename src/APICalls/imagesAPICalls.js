@@ -1,3 +1,5 @@
+const useUserStorage = '../stores/userStore.js'
+
 // Image is loaded
 export const loadImage = async (recipeId) => {
   try {
@@ -18,6 +20,7 @@ export const saveImage = async (file, recipeId) => {
     const formData = new FormData();
     formData.append("image", file);
     formData.append("recipeId", recipeId);
+    formData.append("userId", useUserStorage.getState().currentUserId);
     await fetch(`http://localhost:3001/recipeImages/save`, {
       method: "POST",
       body: formData,
