@@ -11,6 +11,7 @@ const useUserStore = create(
       deleteAccountMessage: "",
       currentUserId: null,
       resetUser: () => set({ isLoggedIn: false, currentUserId: null }),
+      resetRegisterMessage: () => set({ registerMessagePartOne: '', registerMessagePartTwo: '' }),
     }),
     { name: "user-store" }
   )

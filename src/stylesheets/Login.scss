@@ -1,10 +1,19 @@
-.verticalSpace {
+.login .verticalSpace {
   margin-bottom: 80px;
 }
 
-.note {
+.login .note {
   color: #7f868d;
   font-weight: bold;
   text-align: center;
   width: 328px;
+}
+
+.login .new-account-button {
+  box-shadow: 0 0 4px rgba($primary-color, 0.4);
+  font-size: 22px;
+  &:hover {
+    color: $secondary-color;
+    box-shadow: 0 0 4px rgba($secondary-color, 0.5);
+  }
 }

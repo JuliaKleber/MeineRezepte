@@ -17,13 +17,22 @@
 
 body {
   font-family: $primary-font, 'Arial';
-  font-size: 20px;
+  font-size: 24px;
   text-shadow: 0 0 16px rgba($primary-color, 0.1);
 }
 
 h1, h2 {
+  font-family: $header-font;
   text-shadow: 4px 4px 4px rgba(black, 0.4);
   color: $secondary-color;
+}
+
+h1 {
+  font-size: 60px;
+}
+
+h2 {
+  font-size: 44px;
 }
 
 button {
@@ -33,9 +42,9 @@ button {
   border-radius: 12px;
   margin: 12px 4px;
   padding: 4px 12px;
-  font-size: 17px;
+  font-size: 20px;
   box-shadow: 0 0 8px rgba($primary-color, 0.2);
-  font-family: $button-font, 'Arial';
+  font-family: $button-font, 'Geneva';
   &:hover {
     box-shadow: 0 0 4px rgba($primary-color, 0.2);
     background-color: $secondary-color;
@@ -75,7 +84,7 @@ input {
   margin: 8px 4px;
   padding: 4px 8px;
   border: 0px solid $secondary-color;
-  font-size: 17px;
+  font-size: 20px;
   font-family: $input-font;
   text-align: center;
   background-color: white;

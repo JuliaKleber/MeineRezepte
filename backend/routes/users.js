@@ -1,5 +1,6 @@
 const express = require("express");
 const usersService = require("../services/usersService");
+const recipesService = require("../services/recipesService");
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
@@ -53,11 +54,12 @@ router.post("/login", async (req, res) => {
 router.delete("/deleteByUsername/:username", async (req, res) => {
   const username = req.params.username;
   try {
-    let user = await usersService.getUserByUsername(username);
+    const user = await usersService.getUserByUsername(username);
     if (!user) {
       return res.status(404).json({ message: "Nutzer nicht gefunden" });
     }
-    user = await usersService.deleteUser(user._id);
+    const message = await usersService.deleteUser(user._id);
+    if (message.acknowledged) recipesService.deleteAllRecipes(user._id.toString());
     res.json({ message: "Nutzer erfolgreich gelöscht" });
   } catch (error) {
     console.error("Fehler beim Löschen des Benutzers: ", error);

@@ -1,25 +1,22 @@
 @import 'Colors.scss';
 
 .ingredient-group .ingredient-category-button {
-  width: 270px;
-  padding: 5px;
+  width: 250px;
+  padding: 4px;
   margin: 10px;
-  font-size: 20px;
-  // box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  font-size: 22px;
 }
 
 .ingredient-group .is-not-chosen {
-  width: 220px;
-  padding: 5px;
+  width: 200px;
+  padding: 4px;
   margin: 5px;
-  font-size: 20px;
-  // box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  font-size: 22px;
 }
 
 .ingredient-group .is-chosen {
-  width: 230px;
+  width: 210px;
   padding: 5px;
   margin: 5px;
   font-size: 20px;
-  // box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }

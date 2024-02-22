@@ -9,6 +9,7 @@ const Login = () => {
   let username = "";
   let password = "";
   const loginMessage = useUserStore((state) => state.loginMessage);
+  const resetRegisterMessage = useUserStore((state) => state.resetRegisterMessage);
 
   const setUsername = (event) => {
     username = event.target.value;
@@ -22,12 +23,12 @@ const Login = () => {
     const success = await login(username, password);
     if (success && (username === "mock" || username === "Julia")) {
       await loadHardCodedRecipes();
-    };
+    }
     if (success) navigate("/");
   };
 
   return (
-    <div className="container">
+    <div className="container login">
       <h1>Meine Rezepte</h1>
       <input
         type="text"
@@ -44,7 +45,10 @@ const Login = () => {
         Login
       </button>
       <Link to="/register">
-        <button className="reverse-colored-button" style={{ fontSize: "18px" }}>
+        <button
+          className="reverse-colored-button new-account-button"
+          onClick={() => resetRegisterMessage("")}
+        >
           Account erstellen
         </button>
       </Link>
