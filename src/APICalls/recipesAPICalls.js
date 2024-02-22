@@ -135,16 +135,13 @@ export const deleteRecipe = async (recipe) => {
 export const deleteAllRecipes = async () => {
   const userId = useUserStore.getState().currentUserId;
   try {
-    await fetch(
-      `http://localhost:3001/recipes/deleteAll/${userId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId: userId }),
-      }
-    );
+    await fetch(`http://localhost:3001/recipes/deleteAll/${userId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: userId }),
+    });
     useRecipeStore.getState().recipes.forEach((recipe) => {
       if (recipe.imageUploaded) deleteImage(recipe._id);
     });

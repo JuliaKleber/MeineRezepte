@@ -22,7 +22,7 @@ const CreateAccount = () => {
     if (data) {
       useUserStore.setState({
         isLoggedIn: true,
-        userId: data.userId,
+        currentUserId: data.userId,
         registerMessage: data.message,
       });
       navigate("/");

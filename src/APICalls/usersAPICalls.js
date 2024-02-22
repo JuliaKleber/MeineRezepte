@@ -35,6 +35,7 @@ export const register = async (username, password, email) => {
       useUserStore.setState({
         isLoggedIn: false,
         registerMessage: `${data.message}`,
+        currentUserId: null,
       });
       return;
     }
@@ -42,6 +43,7 @@ export const register = async (username, password, email) => {
   } catch (error) {
     useUserStore.setState({
       isLoggedIn: false,
+      currentUserId: null,
       registerMessage:
         "Fehler beim Erstellen des Nutzers. Bitte versuche es später noch mal.",
     });
